@@ -1,0 +1,98 @@
+/* Sidebar.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body, html {
+    height: 100%;
+    width: 100%;
+    font-family: 'Century Gothic', sans-serif;
+  }
+
+  hr {
+    border: none;
+    height: 1px;
+    background-color: white;
+    margin: 10px 0; /* Margen superior e inferior de la línea */
+    width: 80%;
+    margin-left: 10%;
+  }
+
+
+
+.sidebar {
+    width: 30%;
+    height: 100vh;
+    overflow: visible; /* Asegúrate de que el sidebar permita que los elementos se muestren fuera de él */
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: #873287;
+    font-size: 135%;
+    color: white;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+     /* Ajusta este valor según la altura real de tu header */
+    margin-top: 50px;
+   
+  }
+  
+  .sidebar-header {
+    display: flex;
+    flex-direction: row;
+    margin-top: 30px;
+    align-items: center;
+    padding: 30px 25px;
+    height: 15%;
+    background: #873287;
+    /* ... otros estilos */
+  }
+  
+  .sidebar-links li {
+    padding: 11px 35px;
+    cursor: pointer;
+    list-style: none; /* Elimina la decoración de los elementos de lista */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #873287;
+
+    /* ... otros estilos */
+  }
+
+  .sidebar-links li:hover{
+   background-color: #511D50;
+   transform: scale(1.03); /* Escala el elemento al 110% de su tamaño original */
+   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4); /* Desplazamiento a la derecha, desplazamiento hacia abajo, desenfoque, color */
+    /* ... otros estilos */
+  }
+
+  #elemento-conf{
+    padding: 15px 35px;
+    margin-top: 5%;
+  }
+
+  #enlace-ver-perfil{
+    font-size: small;
+    color: white;
+    padding-left: 2%;
+  }
+  
+  #foto{
+    width: 60px;
+    height: 60px;
+    margin-right: 19px; /* Espacio entre la foto y el nombre */
+
+  }
+
+  #foto img{
+    width: 60px;
+    height: 60px;
+    background-color: #fff; /* Fondo blanco para la 'foto', cambia a lo que necesites */
+    border-radius: 50%; /* Hace que la 'foto' sea un círculo */
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3); /* Desplazamiento a la derecha, desplazamiento hacia abajo, desenfoque, color */
+
+    }
+
+  
+  /* ... más estilos para el sidebar */
+  

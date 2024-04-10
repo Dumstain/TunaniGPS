@@ -1,0 +1,10 @@
+.main-content {
+  position: absolute;
+  top: 50px; /* Ajusta al mismo valor que la altura de tu encabezado */
+  bottom: 0;
+  left: 400px; /* Ajusta al ancho de tu sidebar */
+  overflow-y: auto; /* Habilita scroll solo vertical */
+  width: calc(100% - 400px); /* Ajusta al ancho restante de la ventana */
+  padding: 20px; /* Espacio dentro del contenido principal */
+  box-sizing: border-box; /* Asegura que padding no afecte las dimensiones totales */
+}
