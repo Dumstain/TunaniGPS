@@ -9,7 +9,7 @@ export const ComponenteSidebar = ({ onSectionChange }) => {
     const [numNotiReporte, setNumNotiReporte] = useState(0);
     const [numNotiPedido, setNumNotiPedido] = useState(0);
     const [nombreRepresentante, setNombreRepresentante] = useState("Nombre Apellido");
-
+    
   return (
     <div className="sidebar">
       <div className="sidebar-header">
