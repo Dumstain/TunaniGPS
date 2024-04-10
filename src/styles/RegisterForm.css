@@ -1,0 +1,200 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&family=Montserrat:wght@400;700&display=swap');
+
+.register-container {
+    display: flex;
+    min-height: 100vh;
+    font-family: 'Roboto Slab', serif; /* or 'Montserrat', sans-serif */
+    align-items: center;
+    justify-content: center; /* Centrado en lugar de a la izquierda */
+    background-color: #ffffff; /* Mantenemos el fondo blanco */
+    padding-right: 65vh;
+
+}
+
+.form-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra ligera para definir el formulario */
+    margin: auto; /* Asegura que el formulario esté centrado */
+    position: relative; /* Para la posición de la flecha de navegación */
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form-title {
+    font-size: 2rem;
+    color: #4D4078;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.form-field {
+    margin-bottom: 1.5rem;
+}
+
+.input-label {
+    display: block;
+    font-size: 1rem;
+    color: #280D38;
+    margin-bottom: 0.5rem;
+}
+
+.input-field {
+    font-family: 'Montserrat', sans-serif;
+    padding: 0.75rem;
+    border: 1px solid #4D4078;
+    border-radius: 4px;
+    font-size: 1rem;
+    width: 100%;
+}
+
+/* Estilos para los botones de navegación entre pasos */
+.navigation-buttons {
+    display: flex;
+    justify-content: space-between; /* Alinear botones a los extremos */
+}
+
+.navigation-button {
+    padding: 0.75rem;
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    color: #ffffff;
+    background-color: #BF06C6;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 1rem;
+}
+
+.navigation-button:hover {
+    background-color: #873286;
+}
+
+.checkbox-field {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.checkbox {
+    -webkit-appearance: none; /* for Chrome & Safari */
+    -moz-appearance: none; /* for Firefox */
+    -ms-appearance: none; /* for Internet Explorer */
+    appearance: none;
+    /* Add your custom dimensions */
+    width: 15px; /* Width of the custom checkbox */
+    height: 15px; /* Height of the custom checkbox */
+    border: 1px solid #280D38; /* Border with the dark purple color */
+    border-radius: 3px; /* Optional: for rounded corners */
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+  }
+  
+  /* Style for when the checkbox is checked */
+  .checkbox:checked::before {
+    content: '';
+    position: absolute;
+    width: 14px; /* Slightly smaller than the parent to fit nicely inside */
+    height: 14px;
+    background-color: #873286; /* Purple color when checked */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); /* Center the pseudo-element */
+    border-radius: 3px; /* Optional: for rounded corners */
+  }
+  
+  /* Optional: Add a hover effect */
+  .checkbox:hover {
+    background-color: #f2e9f3; /* Light purple background for hover state */
+  }
+
+.checkbox-label {
+    font-size: 1rem;
+    color: #280D38; /* Dark purple color */
+}
+
+.submit-button {
+    padding: 0.75rem;
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    color: #ffffff;
+    background-color: #BF06C6; /* Pink color */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+}
+
+
+.continue-button {
+    padding: 0.75rem;
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    color: #ffffff;
+    background-color: #BF06C6; /* Pink color */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: left;
+}
+
+.submit-button:hover {
+    background-color: #873286; /* Darker purple color */
+}
+
+.signup-link {
+    font-size: 0.875rem;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.signup-link-anchor {
+    color: #BF06C6; /* Pink color */
+    text-decoration: none;
+}
+
+.signup-link-anchor:hover {
+    text-decoration: underline;
+}
+
+.login-message {
+    color: #4D4078; /* Dark purple color */
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.image-container {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 50%; /* Adjust the width as necessary */
+    height: 100vh;
+    background-image: url('../assets/fondologinm.webp'); /* Path to the image you want to use */
+    background-size: cover;
+    background-position: center;
+    clip-path: polygon(50% 0, 100% 0, 100% 100%, 0 100%);
+    z-index: 1; /* Under the form */
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .login-container {
+        flex-direction: column;
+    }
+
+    .form-container,
+    .image-container {
+        width: 100%;
+    }
+}
