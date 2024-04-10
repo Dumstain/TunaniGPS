@@ -1,0 +1,108 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: auto;
+    width: 100%;
+    font-family: 'Century Gothic', sans-serif;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100vw; /* 100% del ancho de la ventana */
+    z-index: 1000; /* Asegura que el header se muestre sobre otros elementos */
+  }
+  
+.titulo2 a{
+    color: black;
+    text-decoration: none;
+}
+.inicio-sesion a{
+    text-decoration: none;
+    color: #873287;
+}
+
+.cat1:hover {
+    background-color: #280D38;
+    width: 100%;
+    height: 100%;
+    padding-top: 3px;
+}
+
+.grid-layout-header{
+    display: grid;
+    grid-template-columns: auto; /* 2 columnas */
+    /* 1fr para la fila que debe expandirse y llenar el espacio restante */
+    grid-template-rows: 50px;
+    width: 100vw; /* 100% del ancho de la ventana */
+    justify-content: stretch;
+    margin: 0 auto;
+    text-align: center;
+    overflow: hidden; /*Impide el scroll en el grid-layout */
+    background-color: aqua;
+}
+
+.grid-layout-cabecera{
+    display: grid;
+    grid-column: 1/ span 2; /* cuantas columnas quiero que ocupe ese contenedor */  
+    background-color: #E6D5FF;
+    grid-template-columns: 5% 40% 30% auto auto auto auto auto;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    color: white;
+    
+}
+
+.titulo2{
+    font-family: 'Roboto Slab';
+    color:black;
+    font-size: 45px;
+}
+
+.logo{
+    width: 50px;
+    height: 50px;
+
+}
+
+.logo-idioma, .logo-soporte, .logo-bolsa {
+    justify-self: start; /* Alinea el div al inicio de la celda horizontalmente */
+    width: 30px;
+    height: 30px;
+    align-self: center; /* Alinea el div al inicio de la celda verticalmente */
+
+}
+
+#cajaBuscador{
+    width: 60%; /* Por defecto */
+    height: 30px;
+    padding: 10px;
+    border: none;
+    background-color: #E6D5FF;
+    outline: none;
+    font-family: 'Century Gothic', sans-serif;
+    font-size: 16px;
+    /* Sombra interna estilo 3D */
+    box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.2);
+}
+
+.inicio-sesion{
+    font-family: 'Century Gothic', sans-serif;
+    font-size: 16px;
+    color: #873287;
+    padding-right: 20px;
+}
+
+
+
+.caja3 {
+    margin-right: 100px;
+}
+
+/* Ajustes generales para todas las imágenes para asegurar la responsividad */
+img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}

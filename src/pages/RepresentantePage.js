@@ -4,6 +4,7 @@ import '../../src/styles/representante.css';
 import { ComponenteSidebar } from '../components/sidebar/ComponenteSidebar';
 import ComponenteHeader from '../components/ComponenteHeader';
 import { ComponenteFooterPag } from '../components/ComponenteFooterPag';
+import { ComponenteHeaderSidebar } from '../components/sidebar/ComponenteHeaderSidebar';
 
 function RepresentantePage() {
 
@@ -48,6 +49,7 @@ function RepresentantePage() {
   return (
     <div className="app">
       <header>
+        <ComponenteHeaderSidebar/>
       </header>
       <body>
         <ComponenteSidebar onSectionChange={handleSectionChange} />
