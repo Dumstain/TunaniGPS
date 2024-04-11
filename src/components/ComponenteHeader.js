@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 import logo from '../assets/logo873287.svg'; // Ajusta la ruta según sea necesario
 import logoSoporte from '../assets/soporte873287.svg'; // Ajusta la ruta según sea necesario
 import logoIdioma from '../assets/idioma873287.svg'; // Ajusta la ruta según sea necesario
@@ -7,6 +8,15 @@ import logoFavoritos from '../assets/favoritos873287.svg'; // Ajusta la ruta seg
 import '../styles/header-footer-styles.css';
 
 const ComponenteHeader = () => {
+    let navigate = useNavigate(); // Hook para la navegación
+    
+    const handleLoginClick = () => {
+        navigate('/login'); // Redirige a la ruta /login
+    };
+
+    const userName = localStorage.getItem('userName');
+
+
   return (
     <div class="grid-layout-header">
         <div class="grid-layout-cabecera">
@@ -21,8 +31,14 @@ const ComponenteHeader = () => {
                 </a>
             </div>
             <div class="logo-bolsa"><a href=""><img src={logoFavoritos} alt="Logo"/></a></div>                
-            <div class="inicio-sesion"><a href="login.js"><b>INICIAR SESIÓN</b></a></div>
-        </div>
+            <div >
+            {userName ? (
+                        // Mostrar el nombre del usuario si está logueado
+                        <span><b>{userName}</b></span>
+                    ) :(
+                <button className="inicio-sesion" onClick={handleLoginClick}><b>INICIAR SESIÓN</b></button>)}
+            </div>
+                    </div>
         <div class="grid-layout-categorias">
             <div>
                 <select class="combo-box-categorias" name="Categorias">

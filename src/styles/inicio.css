@@ -1,0 +1,186 @@
+
+.contenedor-superior {
+    position: relative;
+    width: 1440px;
+    height: 100px;
+    background-color: #F6F4FF;
+  }
+  
+  .iconos-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  .icono {
+    position: absolute;
+    background-color: #000; 
+  }
+  
+  .titulo-container, .subtitulo-container, .buscador-container {
+    position: absolute;
+  }
+  
+  .titulo {
+    text-align: center;
+    text-decoration: underline;
+    font-family: 'Century Gothic', sans-serif;
+    font-size: 30px;
+  }
+  
+  .subtitulo {
+    text-align: center;
+    font-family: 'Roboto Slab', serif;
+    font-size: 64px;
+  }
+  
+  .buscador-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .buscador-input {
+    width: 100%;
+    font-family: 'Century Gothic', sans-serif;
+    font-size: 20px;
+  }
+  
+  .boton-ingresar {
+    position: absolute;
+    background-color: #873286;
+    color: #FFFFFF;
+    font-family: 'Roboto Slab', serif;
+    font-size: 24px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+  }
+  .menu-horizontal {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    background-color: #873286;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    align-items: center;
+    overflow: hidden;
+  }
+  .grid-layout-categorias{
+    display: grid;
+    grid-column: 1/ span 2; /* cuantas columnas quiero que ocupe ese contenedor */  
+    background-color: #873287;
+    grid-template-columns: auto auto auto auto auto auto auto auto ;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    color: white;
+    
+}
+.combo-box-categorias {
+  width: 100%;
+  height: 100%;
+  outline: none;
+  background-color: #873287;
+  border: none;
+  font-family: 'Century Gothic', sans-serif;
+  font-size: 16px;
+  text-align: center;
+  color: white;
+  border-radius: 10px;
+}
+
+.combo-box-categorias option{
+  background-color: white;
+  color: #873287;
+  width: 100px;
+  height: 100px;
+}
+.grid-layout-cabecera{
+  display: grid;
+  grid-column: 1/ span 2; /* cuantas columnas quiero que ocupe ese contenedor */  
+  background-color: #E6D5FF;
+  grid-template-columns: 7% 24% 40% auto auto auto auto auto;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  color: white;
+}
+  .opcion-barra-desplegable, .opcion-enlace {
+    position: absolute;
+  }
+  
+  .opcion-barra-desplegable {
+    background-color: #873286; /* Puedes ajustar el color según tu preferencia */
+  }
+
+  .opcion {
+    margin-right: 33px; /* Espaciado entre las opciones */
+    display: flex;
+    justify-content: space-around;
+    
+    align-items: center;
+  }
+  
+  .opcion-texto {
+    text-align: center;
+    font-family: 'Century Gothic', sans-serif;
+    font-size: 30px;
+    color: #000000;
+    margin: 0;
+  }
+  
+  .opcion-enlace {
+    text-decoration: none;
+    color: #ffffff;
+  }
+
+ 
+
+  .imagenes-container {
+    position: relative;
+  display: flex;
+  max-width: 100%; /* Ancho máximo igual al ancho del contenedor principal */
+ 
+  justify-content: space-around;
+  align-items: center;
+  
+  }
+  
+  .imagen-enlace {
+    position: relative;
+    width: 400px; /* Ajusta el ancho según tu preferencia */
+    height: 280px;
+    max-width: 100%; /* Evita que el contenedor supere el ancho del contenedor principal */
+    margin-right: 20px; /* Ajusta el espacio entre las imágenes según tu preferencia */
+    flex-shrink: 0; /* Evita que las imágenes se reduzcan más allá de su ancho original */
+  }
+  
+  .imagen-opaca {
+    width: 100%;
+    height: auto; /* Ajusta la altura automáticamente para mantener la proporción original */
+    max-width: 100%; /* Evita que las imágenes se expandan más allá de su tamaño original */
+    opacity: 0.6; /* Ajusta la opacidad según tu preferencia */
+
+  }
+  
+  .texto-imagen {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-family: 'Roboto Slab', serif;
+    font-size: 32px;
+    font-weight: medium;
+    color: #000000; /* Color del texto */
+  }
+  footer {
+    position: fixed;
+    bottom: 0;
+    width: 100vw; /* 100% del ancho de la ventana */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    z-index: 1000; /* Asegura que el footer se muestre sobre otros elementos */
+  }

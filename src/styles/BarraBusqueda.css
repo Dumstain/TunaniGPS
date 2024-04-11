@@ -1,0 +1,46 @@
+/* BarraBusqueda.css */
+
+.barra-busqueda-container {
+    position: relative;
+    width: 956px;
+    margin: 30px auto; /* Centra la barra de búsqueda */
+    height: 77px;
+    background-color: rgba(246, 244, 255, 1);
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Agrega un ligero sombreado */
+    border-radius: 10px;
+    padding: 15px;
+  }
+  
+  .barra-busqueda {
+    width: 100%;
+    height: 100%;
+    border: none;
+    font-family: 'Century Gothic', sans-serif;
+    font-size: 30px;
+    border-radius: 10px;
+  }
+  
+  .boton-buscar {
+    position: relative;
+    height: 80px;
+    background-color: #873286;
+    color: #FFFFFF;
+    font-family: 'Roboto Slab', serif;
+    font-size: 24px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+    margin-left: 15px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .boton-buscar:hover {
+    background-color: #6a2574; /* Cambia el color de fondo al pasar el cursor sobre el botón */
+  }
+  
