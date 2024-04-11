@@ -5,6 +5,7 @@ import { ComponenteSidebar } from '../components/sidebar/ComponenteSidebar';
 import ComponenteHeader from '../components/ComponenteHeader';
 import { ComponenteFooterPag } from '../components/ComponenteFooterPag';
 import { ComponenteHeaderSidebar } from '../components/sidebar/ComponenteHeaderSidebar';
+import ComponenteGestionProductos from '../components/ComponenteGestionProductos';
 
 function RepresentantePage() {
 
@@ -23,7 +24,7 @@ function RepresentantePage() {
         return <div>Contenido del Perfil de la Cooperativa</div>;
       
       case 'artesaniasSeccion':
-        return <div>Contenido altas y bajas de artesanias</div>;
+        return <div><ComponenteGestionProductos/></div>;
       
       case 'artesanosSeccion':
           return <div>Contenido altas y bajas de artesanos</div>;

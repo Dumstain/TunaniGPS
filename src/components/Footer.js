@@ -1,11 +1,15 @@
-import React from 'react';
 
-function Footer() {
+
+import React from 'react';
+import '../styles/styles.css';
+const Footer = () => {
   return (
-    <div className="footer">
-      <p>No tienes una cuenta? <a href="/signup">Regístrate</a></p>
-    </div>
+    <footer>
+      <div className="grid-layout-footer">
+        <a href="">Acerca de tunani</a>
+      </div>
+    </footer>
   );
-}
+};
 
 export default Footer;

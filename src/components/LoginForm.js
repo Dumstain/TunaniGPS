@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import "../styles/LoginForm.css"
 
 const LoginForm = ({ toggleForm }) => {
@@ -6,6 +7,8 @@ const LoginForm = ({ toggleForm }) => {
     const [contrasenia, setContrasenia] = useState('');
     const [error, setError] = useState('');
     const [loginMessage, setLoginMessage] = useState(''); // Agregado para mostrar el mensaje de login
+    const navigate = useNavigate(); // Hook para navegar
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -21,8 +24,20 @@ const LoginForm = ({ toggleForm }) => {
 
             const data = await response.json();
             if (response.ok) {
-                // onLoginSuccess(data); Removido y reemplazado por setLoginMessage
-                setLoginMessage(`Has sido logeado como ${data.rol}`); // Asume que 'rol' es parte de tu respuesta JSON
+                localStorage.setItem('accessToken', data.token);
+                localStorage.setItem('userRole', data.rol);
+                localStorage.setItem('userName', data.usuario);
+                switch (data.rol) {
+                    case 'Admin':
+                        navigate('/admin');
+                        break;
+                    case 'Representante':
+                        navigate('/representante');
+                        break;
+                    case 'Comprador':
+                        navigate('/');
+                        break; // Redirige a la página de inicio para cualquier otro rol
+                }
             } else {
                 setError(data.message || 'Error desconocido');
             }

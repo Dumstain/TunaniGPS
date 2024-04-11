@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import "../../styles/ComponenteSidebarStyle.css";
 
 
 export const ComponenteSidebar = ({ onSectionChange }) => {
+  let navigate = useNavigate();
 
     {/* variables para notificaciones y nombre de representante*/}
     const [numNotiBuzon, setNumNotiBuzon] = useState(0);
@@ -35,8 +37,8 @@ export const ComponenteSidebar = ({ onSectionChange }) => {
         <li onClick={() => onSectionChange("cooperativeProfile")}>
           Perfil de la cooperativa
         </li>
-        <li onClick={() => onSectionChange("artesaniasSeccion")}>Artesanías</li>
-        <li onClick={() => onSectionChange("artesanosSeccion")}>Artesanos</li>
+        <li onClick={() => navigate("artesanias")}>Artesanías</li>
+        <li onClick={() => navigate('artesanos')}>Artesanos</li>
         <li onClick={() => onSectionChange("ventasSeccion")}>Ventas</li>
         <li onClick={() => onSectionChange("pedidosSeccion")}>Pedidos ({numNotiPedido})</li>
         <li onClick={() => onSectionChange("reportesSeccion")}>Reportes ({numNotiReporte})</li>
