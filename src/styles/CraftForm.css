@@ -1,0 +1,236 @@
+/* CraftForm.css */
+.craft-form {
+    position: center;
+    width: 900px;
+    height: 1200px;
+    border-radius: 10px;
+    left: 127px;
+    gap: 0px;
+    border-radius: 15px 15px 15px 15px;
+    opacity: 1;
+    transition: opacity 0.9s ease-in-out; /* Agregar una transición para suavizar la aparición/desaparición */
+    background: rgba(246, 246, 246, 1); /* Color de fondo */
+    box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25); /* Sombra */
+    z-index: 999; /* Asegurar que aparezca sobre otros elementos */
+    padding: 20px;
+  }
+
+  .craft-form.hidden {
+    opacity: 0;
+    /* intento de esconder el formulario al presionar cancelar */
+  }
+  
+  /* Estilo para mostrar el formulario cuando esté activo */
+  .craft-form.active {
+    opacity: 1;
+  }
+
+  .craft-form-header {
+    padding: 20px; /* Añadir espacio alrededor del título */
+    text-align: center; /* Centrar el título */
+  }
+  
+  .craft-form-header h2 {
+    font-family: Century Gothic; /* Fuente */
+    font-size: 40px; /* Tamaño de fuente */
+    font-weight: 700; /* Peso de la fuente */
+    line-height: 49.04px; /* Altura de línea */
+    text-align: left; /* Alineación del texto */
+  }
+
+  /* Estilos para los pasos del formulario */
+.step-text {
+    font-family: Century Gothic;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24.52px;
+    text-align: left;
+  }
+  
+  /* Estilos para la caja de texto */
+  .text-input {
+    width: 100%; /* Ancho total */
+    height: 40px;
+    margin-top: 10px; /* Ajusta el margen superior según tus necesidades */
+    border-radius: 15px 15px 15px 15px;
+    opacity: 1; /* Inicialmente oculto */
+    box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    font-family: Century Gothic;
+  }
+  
+  /* Estilos para el texto de referencia */
+  .reference-text {
+    font-family: Century Gothic;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 18.39px;
+    text-align: left;
+    color: rgba(0, 0, 0, 0.47);
+  }
+
+  .combo-box {
+    /* Estilos para el combo box */
+    font-family: Century Gothic;
+    width: 100%; /* Ancho total */
+    height: 40px;
+    margin-top: 10px; /* Ajusta el margen superior según tus necesidades */
+    border-radius: 10px; /* Bordes redondeados */
+    opacity: 1; /* Inicialmente oculto */
+    box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  }
+
+  .agregar-creador {
+    justify-content: flex-end;
+    font-family: Century Gothic;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24.52px;
+    
+    color: rgba(191, 6, 198, 1);
+    
+  }
+
+  .price-input {
+    font-family: Century Gothic;
+    width: 100%; /* Ancho total */
+    height: 40px;
+    margin-top: 10px; /* Ajusta el margen superior según tus necesidades */
+    border-radius: 10px; /* Bordes redondeados */
+    opacity: 1; /* Inicialmente oculto */
+    box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  }
+  
+  .description-input {
+    font-family: Century Gothic;
+    width: 100%; /* Ancho total */
+    height: 100px; /* Altura deseada */
+    margin-top: 10px; /* Ajusta el margen superior según tus necesidades */
+    border-radius: 15px 15px 15px 15px; /* Bordes redondeados */
+    opacity: 1; /* Inicialmente oculto */
+    box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25); /* Sombra */
+  }
+
+  .quantity-controls {
+    display: flex;
+    align-items: center;
+  }
+  
+  .quantity-button- {
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+    border-radius: 5px;
+    background-color: rgba(40, 13, 56, 1);
+
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  .quantity-button-mas {
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+    border-radius: 5px;
+    background-color: rgba(135, 50, 134, 1);
+
+
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .quantity-input {
+    width: 50px;
+    height: 30px;
+    margin: 0 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    text-align: center;
+  }
+
+
+  .image-uploads {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .image-upload {
+    width: 18%;
+    height: 150px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .image-upload input[type='file'] {
+    display: true;
+    
+  }
+  
+  .image-upload img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .upload-icon {
+    /* Estilos para el símbolo de "+" */
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+  }
+
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+
+  }
+
+  .checkbox-container label {
+    font-family: 'Century Gothic';
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    color: #333; /* Color del texto */
+    /* Otros estilos que desees aplicar */
+  }
+  
+  .checkbox-container input[type='checkbox'] {
+    margin-right: 8px; /* Espacio entre el checkbox y el texto */
+  }
+
+  .form-buttonsc {
+    display: flex;
+    justify-content: flex-end; /* Alinear los botones a la derecha */
+    margin-top: 20px; /* Espacio superior entre los botones y el resto del formulario */
+  }
+  .form-buttonsg {
+    display: flex;
+    justify-content: flex-end; /* Alinear los botones a la derecha */
+    margin-top: 20px; /* Espacio superior entre los botones y el resto del formulario */
+  }
+  
+  .form-buttonsc button {
+    margin-left: 10px; /* Espacio entre los botones */
+    padding: 8px 16px; /* Espaciado interno */
+    background-color: rgba(40, 13, 56, 1); /* Color de fondo */
+    color: #ffffff; /* Color del texto */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .form-buttonsg button {
+    margin-left: 10px; /* Espacio entre los botones */
+    padding: 8px 16px; /* Espaciado interno */
+    background-color: rgba(135, 50, 134, 1); /* Color de fondo */
+    color: #ffffff; /* Color del texto */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .form-buttons button:hover {
+    background: rgba(191, 6, 198, 1);
+ /* Color de fondo al pasar el mouse */
+  }

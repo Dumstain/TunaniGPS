@@ -35,7 +35,54 @@ const Artesanos = () => {
     setArtesanos(response.data);
   };
 
-  const agregarArtesano = async () => {
+  const [estaEditando, setEstaEditando] = useState(false);
+  const [idArtesanoEditando, setIdArtesanoEditando] = useState(null);
+  
+
+  const resetearFormulario = () => {
+    // Resetear todos los estados del formulario
+    setNombre('');
+    setApellidoPaterno('');
+    setApellidoMaterno('');
+    setTel('');
+    setEmail('');
+    setRfc('');
+    setIne('');
+    setNumeroTarjeta('');
+    setEnfoque('');
+    setDescripcion('');
+    setCooperativaSeleccionada('');
+  };
+
+  const iniciarEdicion = (artesano) => {
+    resetearFormulario();
+    setNombre(artesano.nombre);
+    setApellidoPaterno(artesano.apellido_paterno);
+    setApellidoMaterno(artesano.apellido_materno);
+    setTel(artesano.tel);
+    setEmail(artesano.email);
+    setRfc(artesano.rfc);
+    setIne(artesano.ine);
+    setNumeroTarjeta(artesano.numero_tarjeta);
+    setEnfoque(artesano.enfoque);
+    setDescripcion(artesano.descripcion);
+    setCooperativaSeleccionada(artesano.cooperativa_id); // Asegúrate de que el backend envía este campo
+    setIdArtesanoEditando(artesano.id);
+    setEstaEditando(true);
+  };
+
+  const cancelarEdicion = () => {
+    setEstaEditando(false);
+    setIdArtesanoEditando(null);
+    // Aquí reseteamos el formulario a su estado inicial
+    resetearFormulario();
+  };
+
+
+ 
+
+
+  const agregarOEditarArtesano = async () => {
     const nuevoArtesano = {
       nombre,
       apellido_paterno,
@@ -48,16 +95,25 @@ const Artesanos = () => {
       enfoque,
       descripcion,
       cooperativa: cooperativaSeleccionada, // Cambiado a cooperativa_id
-      // Añade aquí cooperativa o su ID según cómo esté manejado en tu backend
     };
-    await axios.post('http://127.0.0.1:8000/api/artesanos/agregar/', nuevoArtesano);
-    fetchArtesanos(); // Recargar la lista después de agregar
+    if (estaEditando) {
+      await axios.put(`http://127.0.0.1:8000/api/artesanos/actualizar/${idArtesanoEditando}/`, nuevoArtesano);
+    } else {
+      await axios.post('http://127.0.0.1:8000/api/artesanos/agregar/', nuevoArtesano);
+    }
+    resetearFormulario();
+    setEstaEditando(false);
+    setIdArtesanoEditando(null);
+    fetchArtesanos(); // Recargar la lista después de agregar o edita
+
   };
 
   const eliminarArtesano = async (id) => {
     await axios.delete(`http://127.0.0.1:8000/api/artesanos/eliminar/${id}/`);
     fetchArtesanos(); // Recargar la lista después de eliminar
   };
+
+
 
   return (
     <div>
@@ -94,13 +150,14 @@ const Artesanos = () => {
               <td>{artesano.descripcion}</td>
               <td>{artesano.cooperativa}</td>
               <td>
-                <button onClick={() => eliminarArtesano(artesano.id)}>Eliminar</button>
+              <button onClick={() => iniciarEdicion(artesano)}>Editar</button>
+              <button onClick={() => eliminarArtesano(artesano.id)}>Eliminar</button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <h2>Agregar Artesano</h2>
+      <h2>{estaEditando ? 'Editando Artesano' : 'Agregar Artesano'}</h2>
       <table>
         <tbody>
           <tr>
@@ -179,7 +236,8 @@ const Artesanos = () => {
           {/* Aquí puedes añadir más campos según sea necesario */}
           <tr>
             <td colSpan="2">
-              <button onClick={agregarArtesano}>Agregar Artesano</button>
+            <button onClick={agregarOEditarArtesano}>{estaEditando ? 'Confirmar Cambios' : 'Agregar Artesano'}</button>
+              {estaEditando && <button onClick={cancelarEdicion}>Cancelar</button>}
             </td>
           </tr>
         </tbody>

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect  } from "react";
 import { useNavigate } from 'react-router-dom';
 import "../../styles/ComponenteSidebarStyle.css";
-
+import useRepresentanteData from '../../hooks/useRepresentanteData'; // Asegúrate de ajustar la ruta de importación
 
 export const ComponenteSidebar = ({ onSectionChange }) => {
   let navigate = useNavigate();
@@ -10,8 +10,28 @@ export const ComponenteSidebar = ({ onSectionChange }) => {
     const [numNotiBuzon, setNumNotiBuzon] = useState(0);
     const [numNotiReporte, setNumNotiReporte] = useState(0);
     const [numNotiPedido, setNumNotiPedido] = useState(0);
-    const [nombreRepresentante, setNombreRepresentante] = useState("Nombre Apellido");
-    
+    const [nombreRepresentante, setNombreRepresentante] = useState(localStorage.getItem('userName') || "Nombre Apellido"); 
+
+    useEffect(() => {
+      const userName = localStorage.getItem('userName');
+
+      if (userName) {
+        setNombreRepresentante(userName);
+      }
+    }, []);
+
+
+    const cerrarSesion = () => {
+      // Eliminar los datos de sesión del localStorage
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('userRole');
+      localStorage.removeItem('userName');
+      
+      // Redirigir al usuario a la página de inicio o de inicio de sesión
+      navigate('/');
+    };
+
+
   return (
     <div className="sidebar">
       <div className="sidebar-header">
@@ -19,23 +39,23 @@ export const ComponenteSidebar = ({ onSectionChange }) => {
         <div id="content-perfil-vendedor">
           <h3>{nombreRepresentante}</h3>
           <a
-            id="enlace-ver-perfil"
-            href="#"
-            onClick={(e) => {
-              e.preventDefault(); // Esto previene la navegación estándar del enlace
-              onSectionChange("representanteProfile");
-            }}
-          >
-            Ver perfil
-          </a>
+  id="enlace-ver-perfil"
+  href="#"
+  onClick={(e) => {
+    e.preventDefault();
+    navigate('perfil'); // Asegúrate de que la ruta coincida con tu configuración en App.js
+  }}
+>
+  Ver perfil
+</a>
         </div>
     </div>
     
     <div id="contenedor-linea"><hr/></div>
 
       <ul className="sidebar-links">
-        <li onClick={() => onSectionChange("cooperativeProfile")}>
-          Perfil de la cooperativa
+        <li onClick={() => navigate('perfilCooperativa')}>
+        Perfil de la cooperativa
         </li>
         <li onClick={() => navigate("artesanias")}>Artesanías</li>
         <li onClick={() => navigate('artesanos')}>Artesanos</li>
@@ -46,14 +66,14 @@ export const ComponenteSidebar = ({ onSectionChange }) => {
         
         {/* Cerrar sesión, es un evento diferente */}
         <b>
-          <li
-            id="elemento-conf"
-             /* onClick={() => onSectionChange("cerrarSesión")} */
-            
-          >
-            Cerrar Sesión
-          </li>
-        </b>
+        <li
+          id="elemento-conf"
+          onClick={cerrarSesion} // Llama a cerrarSesion cuando se haga clic
+          style={{cursor: 'pointer'}} // Agrega estilo de cursor para mejorar la UX
+        >
+          Cerrar Sesión
+        </li>
+      </b>
 
       </ul>
     </div>

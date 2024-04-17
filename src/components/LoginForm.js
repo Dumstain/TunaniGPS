@@ -24,6 +24,7 @@ const LoginForm = ({ toggleForm }) => {
 
             const data = await response.json();
             if (response.ok) {
+                localStorage.setItem('userId', data.id)
                 localStorage.setItem('accessToken', data.token);
                 localStorage.setItem('userRole', data.rol);
                 localStorage.setItem('userName', data.usuario);
