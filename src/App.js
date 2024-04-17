@@ -7,6 +7,10 @@ import RepresentantePage from './pages/RepresentantePage'; // Componente para us
 import Artesanos from './components/Artesanos';
 import RepresentanteLayout from "./layouts/RepresentanteLayout"; // Asume la ruta correcta aquí
 import ComponenteGestionProductos from './components/ComponenteGestionProductos';
+import ComponenteCooperativa from './components/ComponenteCooperativa';
+import PerfilRepresentante from './components/PerfilRepresentante';
+
+
 
 // Importaciones adicionales...
 
@@ -19,6 +23,8 @@ function App() {
         <Route path="/representante" element={<RepresentanteLayout />}>
              <Route path="artesanos" element={<Artesanos />} />
              <Route path="artesanias" element={<ComponenteGestionProductos/>} />
+             <Route path="perfilCooperativa" element={<ComponenteCooperativa />} />
+             <Route path="perfil" element={<PerfilRepresentante />} /> // Ruta para el perfil del representante
                {/* Aquí puedes añadir más subrutas específicas del representante */}
               </Route>
         {/* Definir más rutas según sea necesario */}

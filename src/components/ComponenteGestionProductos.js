@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import ProductoForm from './ProductoForm'; // Asegúrate de ajustar la ruta de importación
+import CraftButton from './CraftButton'; // Ajusta la ruta de importación
 const ComponenteGestionProductos = () => {
     const [productos, setProductos] = useState([]);
     const [productoActual, setProductoActual] = useState({ id: '', nombre: '', precio: '', descripcion: '', material: '', stock: '', estado: 'no_publicado', artesano: '' });
     const [artesanos, setArtesanos] = useState([]);
+    const [mostrarForm, setMostrarForm] = useState(false);
     const [modoEdicion, setModoEdicion] = useState(false);
 
 
