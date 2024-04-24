@@ -3,14 +3,11 @@ import React from 'react';
 import '../styles/inicio.css';
 import BarraBusqueda from '../components/BarraBusqueda';
 import Header from '../components/ComponenteHeader';
-import Footer from '../components/Footer';
+import Footer from '../components/footer';
 import Sociedades from '../assets/imagenes/sociedades.jpg';
 import nodes from '../assets/imagenes/nodes.jpg';
 import artesanos from '../assets/imagenes/artesanos.jpg';
-//import { BrowserRouter } from 'react-router-dom';
-//import { BrowserRouter, Link, Route } from 'react-router-dom';
-//import App from './app';
-//import { useRef, useState, useEffect } from 'react';
+
 
 
 const Inicio = () => {
