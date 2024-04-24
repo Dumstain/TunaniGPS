@@ -1,0 +1,22 @@
+
+/* Animacion del Giro de carga */
+@keyframes giro {
+    0% { transform: rotate(0deg); } /* estado incial de la animacion */
+    100% { transform: rotate(360deg); } /* estado final rotacion de 360° */
+  }
+
+  #cargando {
+    margin: 50px auto;
+    border: 5px solid #f3f3f3; 
+    border-top: 5px solid #873286; 
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: giro 5s ease infinite; /* ritmo constante desde el inicio hasta el final, sin aceleraciones o desaceleraciones */
+  }
+  
+  /* Estilo para mostrar error */
+  .error {
+    color: red;
+    font-weight: bold;
+  }

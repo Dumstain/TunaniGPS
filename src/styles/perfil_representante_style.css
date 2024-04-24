@@ -1,0 +1,56 @@
+/* PerfilRepresentante.css */
+
+
+.titulo-perfil-representante {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+  }
+  
+  .perfil-representante-container {
+    padding: 3%;
+  }
+  
+  .perfil-representante-datos-container {
+    background-color: #fff; /* o el color que prefieras para el fondo */
+    padding: 20px; /* espacio alrededor de los contenidos internos */
+    border-radius: 8px; /* esquinas redondeadas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* sombra suave para dar profundidad */
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* espacio entre cada fila */
+  }
+  
+  .perfil-representante-datos {
+    display: flex;
+    align-items: center;
+    padding: 7px; /* espacio dentro de cada 'input' */
+    border-radius: 4px; /* esquinas redondeadas para los 'inputs' */
+  }
+  
+  .perfil-representante-datos::before {
+    content: attr(data-label); /* etiqueta antes del contenido */
+    font-weight: bold; /* texto en negrita */
+    margin-right: 10px; /* espacio entre la etiqueta y el contenido */
+  }
+  
+  /* Estilo para el estado de carga */
+  #cargando {
+    margin: 50px auto;
+    border: 5px solid #f3f3f3; 
+    border-top: 5px solid #873286; 
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: giro 5s ease infinite; /* ritmo constante desde el inicio hasta el final, sin aceleraciones o desaceleraciones */
+  }
+  
+  /* Estilo para mostrar error */
+  .error {
+    color: red;
+    font-weight: bold;
+  }
+  
+  /* Puedes seguir agregando más estilos según necesites */
+  
