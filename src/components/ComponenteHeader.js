@@ -32,10 +32,13 @@ const ComponenteHeader = () => {
             </div>
             <div class="logo-bolsa"><a href=""><img src={logoFavoritos} alt="Logo"/></a></div>                
             <div >
-            {userName ? (
+           
+                 {userName ? (
                         // Mostrar el nombre del usuario si está logueado
                         <span><b>{userName}</b></span>
                     ) :(
+
+
                 <button className="inicio-sesion" onClick={handleLoginClick}><b>INICIAR SESIÓN</b></button>)}
             </div>
                     </div>

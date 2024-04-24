@@ -1,0 +1,152 @@
+/* Importar la fuente Roboto Slab desde Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap");
+
+/* Para navegadores basados en WebKit como Chrome, Safari, y Edge */
+/* Para navegadores basados en WebKit como Chrome, Safari, y Edge */
+::-webkit-scrollbar {
+    width: 12px; /* Tamaño de la barra de desplazamiento */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: rgba(135, 50, 134, 0.5); /* Color semi-transparente del control deslizante de la barra de desplazamiento */
+  }
+  
+  
+  /* Para Firefox */
+  body {
+    scrollbar-width: auto; /* 'auto', 'thin', o 'none' */
+    scrollbar-color: rgba(135, 50, 134, 0.5) #ffffff; /* [thumb semi-transparente] [track] */
+  }
+  
+  
+
+.perfil-cooperativa-container {
+  padding: 3%;
+}
+
+#titulo-perfil-cooperativa {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 1.8rem;
+}
+
+#titulo-nombre-cooperativa {
+  text-align: center;
+  font-size: 1.5rem;
+  font-style: italic;
+  color: #873286;
+  margin-bottom: 1.5rem;
+  font-family: "Roboto Slab", serif;
+}
+
+#foto-cooperativa {
+  text-align: center;
+  margin-bottom: 1%;
+}
+
+#foto-cooperativa img {
+  width: 120px;
+  height: 120px;
+  background-color: #fff; /* Fondo blanco para la 'foto', cambia a lo que necesites */
+  border-radius: 50%; /* Hace que la 'foto' sea un círculo */
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3); /* Desplazamiento a la derecha, desplazamiento hacia abajo, desenfoque, color */
+  object-fit: cover; /* Asegura que la imagen cubra todo el espacio asignado sin deformarse */
+
+}
+
+#enlace-cambiar-foto {
+  text-align: center;
+  width: 100%;
+  margin-bottom: 2%;
+  font-size: small;
+}
+
+#enlace-cambiar-foto a {
+  color: #000000; /* Color del texto */
+  text-decoration: underline; /* Subrayado */
+  cursor: pointer; /* Estilo del cursor */
+  transition: color 0.3s ease; /* Transición suave para el cambio de color */
+}
+
+#enlace-cambiar-foto a:hover {
+  color: #bf06c6; /* Cambiar color al pasar el mouse */
+  text-decoration: underline;
+}
+
+#miembros-agregar-container {
+  display: flex;
+  justify-content: space-between; /* Separar los elementos */
+  align-items: center; /* Centrar verticalmente */
+}
+
+#miembros-agregar-container a {
+  font-size: small;
+  color: #000000; /* Color del texto */
+  text-decoration: underline; /* Subrayado */
+  cursor: pointer; /* Estilo del cursor */
+  transition: color 0.3s ease; /* Transición suave para el cambio de color */
+}
+
+#miembros-agregar-container a:hover {
+  color: #bf06c6; /* Cambiar color al pasar el mouse */
+  text-decoration: underline;
+}
+
+.miembros-container{
+    display: flex;
+    overflow-x: auto; /* Permite el desplazamiento horizontal */
+    gap: 20px; /* Espacio entre los integrantes */
+    padding: 10px; /* Espacio alrededor de los elementos */
+    
+}
+
+.integrante {
+    display: flex;
+    flex-direction: column; /* Organiza la foto encima del nombre */
+    align-items: center; /* Centra los elementos horizontalmente */
+    min-width: 120px; /* Ancho fijo para cada integrante */
+
+}
+  
+  .integrante img {
+    border-radius: 50%; /* Hace la imagen circular */
+    width: 100px; /* Define un tamaño para las imágenes */
+    height: 100px; /* Mantiene la imagen cuadrada */
+    border: 1px solid #873286; /* Borde para las imágenes */
+    object-fit: cover; /* Asegura que la imagen cubra todo el espacio asignado sin deformarse */
+    transition: transform 0.3s ease; /* Suaviza la transición del zoom */
+}
+
+.integrante img:hover{
+    transform: scale(1.1); /* Aumenta ligeramente el tamaño de la imagen */
+}
+  
+  .nombre-integrante {
+    margin-top: 10px; /* Espacio entre la foto y el nombre */
+    font-size: small; /* Tamaño del texto para el nombre */
+    color: #333; /* Color del texto */
+  }
+
+.perfil-cooperativa-datos-container {
+  background-color: #fff; /* o el color que prefieras para el fondo */
+  padding: 20px; /* espacio alrededor de los contenidos internos */
+  border-radius: 8px; /* esquinas redondeadas */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* sombra suave para dar profundidad */
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* espacio entre cada fila */
+}
+
+.perfil-cooperativa-datos {
+  display: flex;
+  align-items: center;
+  padding: 7px; /* espacio dentro de cada 'input' */
+  border-radius: 4px; /* esquinas redondeadas para los 'inputs' */
+}
+
+.perfil-cooperativa-datos::before {
+  content: attr(data-label); /* etiqueta antes del contenido */
+  font-weight: bold; /* texto en negrita */
+  margin-right: 10px; /* espacio entre la etiqueta y el contenido */
+}

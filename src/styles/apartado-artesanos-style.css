@@ -1,0 +1,238 @@
+.apartado-artesanos-container{
+    padding: 3%;
+}
+
+
+#titulo-perfil-artesanos {
+    text-align:left;
+    font-size: 1.8rem;
+    color: #333;
+    /*margin-bottom: 1.8rem;*/
+    margin-right: auto; /* Esto asegurará que el título se alinee a la izquierda y el botón a la derecha */  }
+
+  .titulo-boton-agregar-container {
+   display: flex; /* Asegúrate de usar 'flex' y no 'flexbox' */
+    justify-content: space-between; /* Esto separará el título y el botón */
+    align-items: center; /* Alinea verticalmente el texto y el botón */
+    margin-bottom: 1.8rem;
+  }
+
+  .titulo-boton-agregar-container button{
+   padding: 10px 15px; /* Ajusta el relleno para que el botón sea más grande */
+    font-size: 0.9rem; /* Ajusta el tamaño del texto dentro del botón */
+    cursor: pointer;
+    font-family: 'Century Gothic', Arial, sans-serif;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+    background-color: #873286; /* Asegúrate de que este color coincida con tu diseño */
+    text-transform: uppercase; /* Si el botón en la imagen está en mayúsculas */
+}
+
+.titulo-boton-agregar-container button:hover{
+   transform: scale(1.05); /* Aumenta ligeramente el tamaño de la imagen */
+}
+
+
+ #boton-editar, #boton-eliminar{
+    margin: 2px;
+    width: 70px;
+    height: 25px;
+    font-size: small;
+    cursor: pointer;
+    font-family: 'Century Gothic', Arial, sans-serif; /* Arial y sans-serif son alternativas */
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3); /* Desplazamiento a la derecha, desplazamiento hacia abajo, desenfoque, color */
+    /* transition: transform 0.3s ease; /* Suaviza la transición del zoom */
+ }
+
+ #boton-editar{
+    background-color: #BF06C6;
+ }
+
+ #boton-eliminar{
+    background-color: #280D38;
+ }
+
+
+ #boton-editar:hover, #boton-eliminar:hover{
+    transform: scale(1.05); /* Aumenta ligeramente el tamaño de la imagen */
+ }
+
+ 
+table {
+   width: 100%;
+   border-collapse: collapse;/*elimina el espacio entre los bordes de las celda*/
+   margin-bottom: 20px;
+   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+   font-size: small;
+}
+
+/*<th> para encabezados y <td> para datos*/
+th, td { 
+   text-align: center;
+   padding: 12px 15px; /*añade espaciado interno alrededor del contenido de las celdas.*/
+   border-bottom: 1px solid #e0e0e0;
+}
+
+/*celdas del encabezado (<th> dentro de <thead>):*/
+thead th {
+   background-color: #873286;
+   color: #ffffff;
+}
+
+/*se alterna el color de fondo para las filas pares e impares de la tabla*/
+tbody tr:nth-child(even) {
+   background-color: #f2f2f7;
+}
+
+tbody tr:nth-child(odd) {
+   background-color: #E5D4FE;
+}
+
+tbody tr:last-child td {
+   border-bottom: none;
+}
+
+/*quita los bordes de la ultima fila y columna*/
+th:last-child, td:last-child {
+   border-right: none;
+}
+
+.formulario-agregar-editar-artesano{
+  padding: 20px;
+  margin: 20px auto;
+}
+
+.formulario-agregar-editar-artesano h2 {
+   margin-bottom: 5%;
+   text-align: center;
+}
+
+.formulario-agregar-editar-artesano .input-group {
+   margin-bottom: 15px;
+ }
+ 
+ .formulario-agregar-editar-artesano label {
+   display: block;
+   font-weight: bold;
+   margin-bottom: 10px;
+ }
+ 
+ .formulario-agregar-editar-artesano input[type="text"],
+ .formulario-agregar-editar-artesano input[type="email"],
+ .formulario-agregar-editar-artesano select,
+ .formulario-agregar-editar-artesano textarea {
+   width: 100%;
+   padding: 10px;
+   border-radius: 4px;
+   border: none;
+   background-color: #F6F6F6;
+   font-family: 'Century Gothic', Arial, sans-serif; /* Arial y sans-serif son alternativas */
+   box-sizing: border-box; /* para incluir el padding en el ancho total */
+   box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); /* sombra interior */
+}
+ 
+ .formulario-agregar-editar-artesano textarea {
+   height: 10%; /* o la altura que prefieras */
+ }
+ 
+ .formulario-agregar-editar-artesano .acciones-formulario {
+   text-align: right; /* Alinea los botones a la derecha */
+ }
+ 
+ .formulario-agregar-editar-artesano button {
+   padding: 10px 20px;
+   margin-top: 3%;
+   border: none;
+   border-radius: 4px;
+   background-color: #BF06C6;
+   color: white;
+   font-weight: bold;
+   cursor: pointer;
+   margin-left: 10px; /* Espaciado entre botones */
+   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3); /* Desplazamiento a la derecha, desplazamiento hacia abajo, desenfoque, color */
+
+ }
+ 
+ .formulario-agregar-editar-artesano button:hover {
+   background-color: #873286;
+   transform: scale(1.05); /* Aumenta ligeramente el tamaño de la imagen */
+ }
+
+ .modal-backdrop { 
+   position: fixed;
+   z-index: 10;
+   left: 0;
+   top: 0;
+   width: 100%;
+   height: 100%;
+   overflow: auto; /* Habilita el scroll si el contenido es más grande que la pantalla */
+   background-color: rgba(67, 44, 70, 0.5); /* Color de fondo semi-transparente */
+ }
+ 
+ .modal-content { 
+   border-radius: 15px;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+   position: relative;
+   background-color: #fefefe;
+   margin: 7% auto; /* 10% desde la parte superior y centrado horizontalmente */
+   padding: 40px;
+   width: 80%; /* Puedes ajustar esto para ser más ancho o más estrecho */
+   animation-name: animatetop;
+   animation-duration: 0.4s;
+ }
+
+ .modal-content h2{
+   text-align: center;
+ }
+ 
+ /* Animación para que la modal aparezca deslizándose desde arriba */
+ @keyframes animatetop {
+   from {
+     top: -300px;
+     opacity: 0;
+   }
+   to {
+     top: 10%;
+     opacity: 1;
+   }
+ }
+ 
+  /* alertas mensaje */
+
+ .alert {
+   position: fixed;
+   top: 20px;
+   left: 50%;
+   transform: translateX(-50%);
+   background-color: #F8D7DA; /* Color de fondo rojo */
+   color: #58151C;
+   padding: 10px 20px;
+   border-radius: 5px;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+   z-index: 1000;
+   border: 1px solid #58151C;
+   animation-name: animatetop;
+   animation-duration: 0.4s;
+ }
+ 
+ .alert.success {
+   background-color: #D1E7DD; /* Color de fondo verde */
+   color: #0A3622;
+   border: 1px solid #0A3622;
+
+}
+ 
+ .alert p {
+   margin: 0;
+ }
+ 
+
+
+   
