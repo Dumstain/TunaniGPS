@@ -1,7 +1,9 @@
 import React from "react";
-import { Outlet } from "react-router-dom"; // Importa Outlet de react-router-dom
+import { Outlet } from "react-router-dom";
 import { ComponenteSidebar } from "../components/sidebar/ComponenteSidebar";
 import { ComponenteHeaderSidebar } from "../components/sidebar/ComponenteHeaderSidebar";
+import '../styles/representante-layout-styles.css';
+
 
 const RepresentanteLayout = () => {
   return (
@@ -9,14 +11,14 @@ const RepresentanteLayout = () => {
       <header>
         <ComponenteHeaderSidebar />
       </header>
-      <body>
+      <div className="main-content-wrapper"> {/* Replaced <body> tag with <div> */}
         <ComponenteSidebar />
         <div className="main-content">
-          <Outlet /> {/* Este componente renderiza el componente actual de la ruta */}
+          <Outlet /> {/* This component renders the current route's component */}
         </div>
-      </body>
+      </div>
       <footer>
-        {/* Tu footer aquí */}
+        {/* Placeholder for your footer content */}
       </footer>
     </div>
   );

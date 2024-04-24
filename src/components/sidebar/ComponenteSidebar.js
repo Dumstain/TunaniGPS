@@ -1,7 +1,6 @@
 import React, { useState, useEffect  } from "react";
 import { useNavigate } from 'react-router-dom';
 import "../../styles/ComponenteSidebarStyle.css";
-import useRepresentanteData from '../../hooks/useRepresentanteData'; // Asegúrate de ajustar la ruta de importación
 
 export const ComponenteSidebar = ({ onSectionChange }) => {
   let navigate = useNavigate();
@@ -59,10 +58,10 @@ export const ComponenteSidebar = ({ onSectionChange }) => {
         </li>
         <li onClick={() => navigate("artesanias")}>Artesanías</li>
         <li onClick={() => navigate('artesanos')}>Artesanos</li>
-        <li onClick={() => onSectionChange("ventasSeccion")}>Ventas</li>
-        <li onClick={() => onSectionChange("pedidosSeccion")}>Pedidos ({numNotiPedido})</li>
-        <li onClick={() => onSectionChange("reportesSeccion")}>Reportes ({numNotiReporte})</li>
-        <li onClick={() => onSectionChange("buzonSesión")}>Buzón ({numNotiBuzon})</li>
+        <li onClick={() => navigate("ventas")}>Ventas</li>
+        <li onClick={() => navigate("pedidos")}>Pedidos ({numNotiPedido})</li>
+        <li onClick={() => navigate("reporte")}>Reportes ({numNotiReporte})</li>
+        <li onClick={() => navigate("paqueteria")}>Paqueteria ({numNotiBuzon})</li>
         
         {/* Cerrar sesión, es un evento diferente */}
         <b>

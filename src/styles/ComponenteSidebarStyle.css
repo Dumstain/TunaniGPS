@@ -93,6 +93,26 @@
 
     }
 
-  
+    @media only screen and (max-width: 768px) {
+      .sidebar {
+        width: 50%; /* Aumenta el ancho para pantallas pequeñas si es necesario */
+        font-size: 110%; /* Reduce el tamaño de la fuente para ahorrar espacio */
+      }
+      
+      .sidebar-header {
+        flex-direction: column; /* Cambia la dirección de la fila a columna para apilar elementos verticalmente */
+        height: auto; /* Ajusta la altura automáticamente */
+      }
+      
+      .sidebar-links li {
+        padding: 8px 20px; /* Reduce el relleno para elementos más pequeños */
+      }
+      
+      #foto, #foto img {
+        width: 50px; /* Reduce el tamaño de la foto */
+        height: 50px; /* Reduce el tamaño de la foto */
+      }
+    }
+    
   /* ... más estilos para el sidebar */
   

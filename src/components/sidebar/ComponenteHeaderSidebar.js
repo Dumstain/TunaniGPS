@@ -16,18 +16,18 @@ export const ComponenteHeaderSidebar = () => {
 
   return (
     <div>
-        <div class="grid-layout-cabecera">
-            <div class="logo"><a href="home.js"><img src={logo} alt="Logo"/></a></div>
+        <div className="grid-layout-cabecera">
+            <div className="logo"><a href="home.js"><img src={logo} alt="Logo"/></a></div>
             <div><input type="text" id="cajaBuscador" name="buscador" placeholder="Buscar artitulo"/></div>
-            <div class="titulo2"><a href="home.js">Tunani</a></div>
-            <div class="logo-soporte"><a href="soporte.js"><img src={logoSoporte} alt="Logo"/></a></div>
-            <div class="logo-idioma"><a href=""><img src={logoIdioma} alt="Logo"/></a></div>
-            <div class="logo-bolsa">
+            <div className="titulo2"><a href="home.js">Tunani</a></div>
+            <div className="logo-soporte"><a href="soporte.js"><img src={logoSoporte} alt="Logo"/></a></div>
+            <div className="logo-idioma"><a href=""><img src={logoIdioma} alt="Logo"/></a></div>
+            <div className="logo-bolsa">
                 <a href="">
                     <img src={logoBolsa} alt="Logo"/>
                 </a>
             </div>
-            <div class="logo-bolsa"><a href=""><img src={logoFavoritos} alt="Logo"/></a></div>                
+            <div className="logo-bolsa"><a href=""><img src={logoFavoritos} alt="Logo"/></a></div>                
             <div className="inicio-sesion"><a onClick={handleUserViewClick} style={{cursor: 'pointer'}}><b>VISTA USUARIO</b></a></div>        </div>
     </div>
     
