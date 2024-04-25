@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios';
+import axios from "axios";
 import '../../src/styles/perfil_representante_style.css';
 import '../../src/styles/animaciones-style.css';
 
@@ -17,6 +17,7 @@ const PerfilRepresentante = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [alertMessage, setAlertMessage] = useState(null); // Estado para mensajes de alerta
 
   useEffect(() => {
     const representanteId = localStorage.getItem("userId");
@@ -62,54 +63,88 @@ const PerfilRepresentante = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const representanteId = localStorage.getItem("userId");
+    setLoading(true); // Activar loading
     axios.patch(`http://localhost:8000/api/usuario/representante/${representanteId}/`, formData)
       .then(() => {
-        alert('Datos actualizados correctamente.');
+        mostrarMensaje("success", "Información de representante actualizada con éxito.");
         setIsEditing(false);
       })
       .catch(err => {
-        setError("Error al actualizar los datos del perfil del representante");
-        console.error(err);
+        mostrarMensaje("error", "Error al actualizar los datos del perfil del representante.");
+      })
+      .finally(() => {
+        setLoading(false); // Desactivar loading
       });
   };
 
-  if (loading) return <div id="cargando">Cargando...</div>;
+  const mostrarMensaje = (type, message) => {
+    setAlertMessage({ type, message });
+    setTimeout(() => {
+      setAlertMessage(null);
+    }, 3000); // El mensaje desaparecerá después de 3 segundos
+  };
+
+  if (loading) return <div id="cargando"></div>;
   if (error) return <p>Error al cargar: {error}</p>;
 
   return (
     <div className="perfil-representante-container">
       <h1 className="titulo-perfil-representante">Perfil del Representante</h1>
+      
       {!isEditing ? (
         <div>
-          <button onClick={handleEdit}>Editar</button>
           <div className="perfil-representante-datos-container">
-            {/* Mostrar datos aquí */}
             {Object.entries(formData).map(([key, value]) => (
               <p key={key}><strong>{key.charAt(0).toUpperCase() + key.slice(1)}:</strong> {value.toString()}</p>
             ))}
+            <div className="acciones-formulario">
+            <button onClick={handleEdit} >Editar</button>
+            </div>
+
           </div>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="perfil-representante-form">
-          <div className="perfil-representante-datos-container">
-            {/* Campos para editar */}
-            {Object.keys(formData).map(key => (
-              <div key={key}>
-                <label>{key.charAt(0).toUpperCase() + key.slice(1)}:</label>
-                <input
-                  type={key === 'email' ? 'email' : key === 'notificaciones' ? 'checkbox' : 'text'}
-                  name={key}
-                  value={key !== 'notificaciones' ? formData[key] : undefined}
-                  checked={key === 'notificaciones' ? formData[key] : undefined}
-                  onChange={handleChange}
-                />
-              </div>
-            ))}
-            <button type="submit">Guardar Cambios</button>
-            <button type="button" onClick={() => setIsEditing(false)}>Cancelar</button>
+  <div className="formulario-editar-perfil-representante">
+    {Object.keys(formData).map(key => (
+      <div key={key} className="editar-datos-perfil-representante">
+        <label>{key.charAt(0).toUpperCase() + key.slice(1)}:</label>
+        {key === 'notificaciones' ? (
+          <div>
+            <input
+              type="checkbox"
+              id={`checkbox-${key}`}
+              name={key}
+              checked={formData[key]}
+              onChange={handleChange}
+              style={{ display: 'none' }} // Oculta el checkbox real
+            />
+            <label htmlFor={`checkbox-${key}`} className="checkbox-custom"></label> {/* Visual representation */}
           </div>
-        </form>
+        ) : (
+          <input
+            type={key === 'email' ? 'email' : 'text'}
+            name={key}
+            value={formData[key]}
+            onChange={handleChange}
+          />
+        )}
+      </div>
+    ))}
+    <div className="acciones-formulario">
+      <button type="submit">Guardar Cambios</button>
+      <button type="button" onClick={() => setIsEditing(false)}>Cancelar</button>
+    </div>
+  </div>
+</form>
       )}
+
+            {alertMessage && (
+                <div className={`alert ${alertMessage.type}`}>
+                    <p>{alertMessage.message}</p>
+                </div>
+            )}
+
     </div>
   );
 };

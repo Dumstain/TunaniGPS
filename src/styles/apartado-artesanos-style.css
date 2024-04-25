@@ -192,46 +192,6 @@ th:last-child, td:last-child {
    text-align: center;
  }
  
- /* Animación para que la modal aparezca deslizándose desde arriba */
- @keyframes animatetop {
-   from {
-     top: -300px;
-     opacity: 0;
-   }
-   to {
-     top: 10%;
-     opacity: 1;
-   }
- }
- 
-  /* alertas mensaje */
-
- .alert {
-   position: fixed;
-   top: 20px;
-   left: 50%;
-   transform: translateX(-50%);
-   background-color: #F8D7DA; /* Color de fondo rojo */
-   color: #58151C;
-   padding: 10px 20px;
-   border-radius: 5px;
-   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-   z-index: 1000;
-   border: 1px solid #58151C;
-   animation-name: animatetop;
-   animation-duration: 0.4s;
- }
- 
- .alert.success {
-   background-color: #D1E7DD; /* Color de fondo verde */
-   color: #0A3622;
-   border: 1px solid #0A3622;
-
-}
- 
- .alert p {
-   margin: 0;
- }
  
 
 

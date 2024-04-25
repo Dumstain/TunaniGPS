@@ -16,7 +16,7 @@
     background-color: #fff; /* o el color que prefieras para el fondo */
     padding: 20px; /* espacio alrededor de los contenidos internos */
     border-radius: 8px; /* esquinas redondeadas */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* sombra suave para dar profundidad */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* sombra suave para dar profundidad */
     display: flex;
     flex-direction: column;
     gap: 10px; /* espacio entre cada fila */
@@ -34,23 +34,95 @@
     font-weight: bold; /* texto en negrita */
     margin-right: 10px; /* espacio entre la etiqueta y el contenido */
   }
+
+  .formulario-editar-perfil-representante{
+    margin: 20px auto;
+    background-color: #fff; /* o el color que prefieras para el fondo */
+    padding: 25px; /* espacio alrededor de los contenidos internos */
+    border-radius: 8px; /* esquinas redondeadas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* sombra suave para dar profundidad */
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* espacio entre cada fila */
+}
   
-  /* Estilo para el estado de carga */
-  #cargando {
-    margin: 50px auto;
-    border: 5px solid #f3f3f3; 
-    border-top: 5px solid #873286; 
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: giro 5s ease infinite; /* ritmo constante desde el inicio hasta el final, sin aceleraciones o desaceleraciones */
+.editar-datos-perfil-representante{
+  margin: 5px;
+}
+
+.editar-datos-perfil-representante label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.editar-datos-perfil-representante input[type="text"],
+.editar-datos-perfil-representante input[type="email"],
+.editar-datos-perfil-representante select,
+.editar-datos-perfil-representante textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  border: none;
+  background-color: #F6F6F6;
+  font-family: 'Century Gothic', Arial, sans-serif; /* Arial y sans-serif son alternativas */
+  box-sizing: border-box; /* para incluir el padding en el ancho total */
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); /* sombra interior */
+}
+
+/* Oculta el input de checkbox original */
+.editar-datos-perfil-representante input[type="checkbox"] {
+  visibility: hidden;
+  position: absolute;
+}
+
+/* Crea una caja visual para el checkbox */
+.editar-datos-perfil-representante .checkbox-custom {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #d1d1d1;
+  border-radius: 4px;
+  position: relative;
+  cursor: pointer;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* sombra suave para dar profundidad */
+
+}
+
+/* Cuando el checkbox esté marcado, muestra un tick */
+.editar-datos-perfil-representante input[type="checkbox"]:checked + .checkbox-custom::before {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  width: 5px;
+  height: 10px;
+  border-style: solid;
+  border-color: #873286;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+  
+  .acciones-formulario {
+    text-align: right; /* Alinea los botones a la derecha */
   }
   
-  /* Estilo para mostrar error */
-  .error {
-    color: red;
+  .acciones-formulario button {
+    padding: 10px 20px;
+    margin-top: 3%;
+    border: none;
+    border-radius: 4px;
+    background-color: #BF06C6;
+    color: white;
     font-weight: bold;
+    cursor: pointer;
+    margin-left: 10px; /* Espaciado entre botones */
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3); /* Desplazamiento a la derecha, desplazamiento hacia abajo, desenfoque, color */
+ 
   }
   
-  /* Puedes seguir agregando más estilos según necesites */
-  
+  .acciones-formulario button:hover {
+    background-color: #873286;
+    transform: scale(1.05); /* Aumenta ligeramente el tamaño de la imagen */
+  }
