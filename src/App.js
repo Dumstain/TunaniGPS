@@ -9,7 +9,7 @@ import ComponenteGestionProductos from './components/ComponenteGestionProductos'
 import ComponenteCooperativa from './components/ComponenteCooperativa';
 import ComponentePedido from './components/ComponentePedido';
 import PerfilRepresentante from './components/PerfilRepresentante';
-import { ComponenteVenta } from './components/ComponenteVenta';
+import ComponenteVenta from './components/ComponenteVenta';
 import ComponentePaqueteria from './components/ComponentePaqueteria';
 import { ComponenteReporte } from './components/ComponenteReporte';
 
