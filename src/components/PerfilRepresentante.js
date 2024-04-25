@@ -1,47 +1,114 @@
-// src/pages/PerfilRepresentante.js
-import React, { useEffect, useState } from "react";
-import useRepresentanteData from "../hooks/useRepresentanteData"; // Ajusta la ruta según sea necesario
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 import '../../src/styles/perfil_representante_style.css';
 import '../../src/styles/animaciones-style.css';
 
 const PerfilRepresentante = () => {
-  const representanteId = localStorage.getItem("userId"); // Asume que tienes un ID almacenado
-  const {
-    data: representanteData,
-    loading,
-    error,
-  } = useRepresentanteData(representanteId);
+  const [formData, setFormData] = useState({
+    nombre: '',
+    materno: '',
+    paterno: '',
+    email: '',
+    tel: '',
+    ine: '',
+    metodo_pago: '',
+    notificaciones: false,
+  });
+  const [isEditing, setIsEditing] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Si necesitas hacer transformaciones de los datos, puedes hacerlo aquí
   useEffect(() => {
-    if (representanteData) {
-      // Aquí puedes establecer estados adicionales basados en los datos obtenidos
-      // Por ejemplo, si quieres separar el nombre, apellido paterno, etc., en diferentes estados.
+    const representanteId = localStorage.getItem("userId");
+    if (!representanteId) {
+      setError("No se encontró el ID del usuario en localStorage");
+      setLoading(false);
+      return;
     }
-  }, [representanteData]);
 
-  if (loading) return <div id="cargando"></div>;
+    axios.get(`http://localhost:8000/api/usuario/representante/${representanteId}/`)
+      .then(response => {
+        const data = response.data;
+        setFormData({
+          nombre: data.datos.nombre,
+          materno: data.datos.materno,
+          paterno: data.datos.paterno,
+          email: data.email,
+          tel: data.datos.tel,
+          ine: data.datos.ine,
+          metodo_pago: data.datos.metodo_pago,
+          notificaciones: data.datos.notificaciones,
+        });
+        setLoading(false);
+      })
+      .catch(err => {
+        setError("Error al cargar los datos del perfil del representante");
+        setLoading(false);
+      });
+  }, []);
+
+  const handleEdit = () => {
+    setIsEditing(true);
+  };
+
+  const handleChange = (e) => {
+    const { name, value, checked, type } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === 'checkbox' ? checked : value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const representanteId = localStorage.getItem("userId");
+    axios.patch(`http://localhost:8000/api/usuario/representante/${representanteId}/`, formData)
+      .then(() => {
+        alert('Datos actualizados correctamente.');
+        setIsEditing(false);
+      })
+      .catch(err => {
+        setError("Error al actualizar los datos del perfil del representante");
+        console.error(err);
+      });
+  };
+
+  if (loading) return <div id="cargando">Cargando...</div>;
   if (error) return <p>Error al cargar: {error}</p>;
 
   return (
     <div className="perfil-representante-container">
-      <h1 className="titulo-perfil-representante">Datos del Perfil</h1>
-      {representanteData && (
-        <div className="perfil-representante-datos-container">
-          <p className="perfil-representante-datos" data-label="Nombre:">
-            {`${representanteData.datos.nombre} ${representanteData.datos.paterno} ${representanteData.datos.materno}`}
-          </p >
-          <p className="perfil-representante-datos" data-label="Correo Electronico:">{representanteData.email}</p>
-          <p className="perfil-representante-datos" data-label="Teléfono:">{representanteData.datos.tel}</p>
-          <p className="perfil-representante-datos" data-label="INE:">{representanteData.datos.ine}</p>
-          <p className="perfil-representante-datos" data-label="Método de Pago:"> {representanteData.datos.metodo_pago}</p>
-          <p className="perfil-representante-datos" data-label="Notificaciones:">
-            {" "}
-            {representanteData.datos.notificaciones
-              ? "Activadas"
-              : "Desactivadas"}
-          </p>
+      <h1 className="titulo-perfil-representante">Perfil del Representante</h1>
+      {!isEditing ? (
+        <div>
+          <button onClick={handleEdit}>Editar</button>
+          <div className="perfil-representante-datos-container">
+            {/* Mostrar datos aquí */}
+            {Object.entries(formData).map(([key, value]) => (
+              <p key={key}><strong>{key.charAt(0).toUpperCase() + key.slice(1)}:</strong> {value.toString()}</p>
+            ))}
+          </div>
         </div>
+      ) : (
+        <form onSubmit={handleSubmit} className="perfil-representante-form">
+          <div className="perfil-representante-datos-container">
+            {/* Campos para editar */}
+            {Object.keys(formData).map(key => (
+              <div key={key}>
+                <label>{key.charAt(0).toUpperCase() + key.slice(1)}:</label>
+                <input
+                  type={key === 'email' ? 'email' : key === 'notificaciones' ? 'checkbox' : 'text'}
+                  name={key}
+                  value={key !== 'notificaciones' ? formData[key] : undefined}
+                  checked={key === 'notificaciones' ? formData[key] : undefined}
+                  onChange={handleChange}
+                />
+              </div>
+            ))}
+            <button type="submit">Guardar Cambios</button>
+            <button type="button" onClick={() => setIsEditing(false)}>Cancelar</button>
+          </div>
+        </form>
       )}
     </div>
   );
