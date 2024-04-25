@@ -15,7 +15,6 @@
   
   .main-content {
     flex-grow: 1; /* Esto hará que el contenido principal ocupe el espacio restante */
-    background-color: #f0f0f0; /* Color de fondo para diferenciar el área del contenido principal */
     overflow: auto; /* Asegúrate de que el contenido se pueda desplazar si es más largo que la pantalla */
     padding: 20px; /* Espacio alrededor del contenido para que no toque los bordes de la pantalla */
     margin-left: 30%; /* Ajusta según la altura de tu header */

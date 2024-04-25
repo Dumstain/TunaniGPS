@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import '../../src/styles/animaciones-style.css';
+import '../../src/styles/apartado-paqueteria-style.css';
+
 
 const ComponentePaqueteria = () => {
     const [paqueteria, setPaqueteria] = useState({
@@ -14,13 +17,16 @@ const ComponentePaqueteria = () => {
         servicio_ofrecido: '',
     });
     const [isEditing, setIsEditing] = useState(false);
-    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(true);  // Estado para la animación de carga
+    const [error, setError] = useState('');       // Estado para manejar los errores
+    const [alertMessage, setAlertMessage] = useState(null);  // Estado para mensajes de alerta
 
     useEffect(() => {
         const fetchCooperativaAndPaqueteria = async () => {
             const usuarioId = localStorage.getItem("userId");
             if (!usuarioId) {
-                setError("No se encontró el ID del usuario en localStorage");
+                mostrarMensaje("error", "No se encontró el ID del usuario en localStorage");
+                setLoading(false);
                 return;
             }
 
@@ -29,9 +35,11 @@ const ComponentePaqueteria = () => {
                 const cooperativaId = responseCooperativa.data.id;
                 const responsePaqueteria = await axios.get(`http://127.0.0.1:8000/api/cooperativas/${cooperativaId}/paqueteria/`);
                 setPaqueteria(responsePaqueteria.data);
+                setLoading(false);
             } catch (error) {
                 console.error("Error al cargar la información de la cooperativa o la paquetería:", error);
-                setError("Hubo un error al cargar la información de la paquetería");
+                mostrarMensaje("error", "Hubo un error al cargar la información de la paquetería");
+                setLoading(false);
             }
         };
 
@@ -49,36 +57,43 @@ const ComponentePaqueteria = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
         try {
             const usuarioId = localStorage.getItem("userId");
             const responseCooperativa = await axios.get(`http://127.0.0.1:8000/api/cooperativa/${usuarioId}/`);
             const cooperativaId = responseCooperativa.data.id;
             await axios.patch(`http://127.0.0.1:8000/api/cooperativas/${cooperativaId}/paqueteria/`, paqueteria);
             setIsEditing(false);
-            alert('Información de paquetería actualizada con éxito.');
+            mostrarMensaje("success", "Información de paquetería actualizada con éxito.");
         } catch (error) {
             console.error("Error al actualizar la información de la paquetería:", error);
-            setError("Hubo un error al actualizar la información de la paquetería");
+            mostrarMensaje("error", "Hubo un error al actualizar la información de la paquetería");
+        } finally {
+            setLoading(false);
         }
     };
 
-    if (error) {
-        return <div>Error: {error}</div>;
-    }
+    const mostrarMensaje = (type, message) => {
+        setAlertMessage({ type, message });
+        setTimeout(() => {
+            setAlertMessage(null);
+        }, 3000); // El mensaje desaparecerá después de 3 segundos
+    };
 
-    if (!paqueteria && !isEditing) {
-        return <div>Cargando información de la paquetería...</div>;
-    }
+    if (loading) return <div id="cargando"></div>;
+    if (error) return <div>Error: {error}</div>;
+
     return (
-        <div>
-            <h2>Información de la Paquetería</h2>
+        <div className='apartado-paqueteria-container'>
+            <h2 id='titulo-paqueteria'>Información de la Paquetería</h2>
             {isEditing ? (
-                <form onSubmit={handleSubmit}>
+                <div className='formulario-paqueteria-container'>
+                <form onSubmit={handleSubmit} >
                     {/* Campos del formulario para editar */}
                     {Object.entries(paqueteria).map(([key, value]) => {
-                        if (key !== 'id') {  // Excluye el campo ID
+                        if (key !== 'id') {
                             return (
-                                <div key={key}>
+                                <div key={key} className='editar-datos-paqueteria'>
                                     <label>{key.charAt(0).toUpperCase() + key.slice(1)}:</label>
                                     <input
                                         type={key === 'email' ? 'email' : 'text'}
@@ -91,18 +106,28 @@ const ComponentePaqueteria = () => {
                         }
                         return null;
                     })}
-                    <button type="submit">Guardar Cambios</button>
-                    <button type="button" onClick={() => setIsEditing(false)}>Cancelar</button>
+                    <div className='acciones-formulario'>
+                        <button type="submit">Guardar Cambios</button>
+                        <button type="button" onClick={() => setIsEditing(false)}>Cancelar</button>
+                    </div>
                 </form>
+                </div>
             ) : (
-                <div>
+                <div className='formulario-paqueteria-container'>
                     {Object.entries(paqueteria).map(([key, value]) => {
-                        if (key !== 'id') {  // No mostrar el ID
+                        if (key !== 'id') {
                             return <p key={key}><strong>{key.charAt(0).toUpperCase() + key.slice(1)}:</strong> {value}</p>;
                         }
                         return null;
                     })}
-                    <button onClick={handleEdit}>Editar</button>
+                    <div className='acciones-formulario'>
+                        <button onClick={handleEdit}>Editar</button>
+                    </div>
+                </div>
+            )}
+            {alertMessage && (
+                <div className={`alert ${alertMessage.type}`}>
+                    <p>{alertMessage.message}</p>
                 </div>
             )}
         </div>
