@@ -1,28 +1,44 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "../../src/styles/perfil-cooperativa-style.css";
-import "../../src/styles/animaciones-style.css";
 
 const PerfilCooperativa = () => {
   const [cooperativa, setCooperativa] = useState(null);
+  const [artesanos, setArtesanos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const usuarioId = localStorage.getItem("userId"); // Asegúrate de haber guardado el usuarioId al loguearte
-    console.log("Usuario ID obtenido:", usuarioId); // Imprime el ID del usuario para verificar
-    if (usuarioId) {
-      fetch(`http://127.0.0.1:8000/api/cooperativa/${usuarioId}/`) // Asume que tienes una API que permite esto
-        .then((response) => response.json())
-        .then((data) => setCooperativa(data))
-        .catch((error) =>
-          console.error(
-            "Hubo un error al cargar la información de la cooperativa:",
-            error
-          )
-        );
+    const usuarioId = localStorage.getItem("userId");
+    if (!usuarioId) {
+      setError("No se encontró el ID del usuario en localStorage");
+      setLoading(false);
+      return;
     }
+
+    const fetchData = async () => {
+      try {
+        const responseCooperativa = await axios.get(`http://localhost:8000/api/cooperativa/${usuarioId}/`);
+        setCooperativa(responseCooperativa.data);
+
+        const responseArtesanos = await axios.get(`http://localhost:8000/api/artesanos/`);
+        setArtesanos(responseArtesanos.data);
+
+        setLoading(false);
+      } catch (err) {
+        setError("Error al cargar la información: " + err.message);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
 
+  if (loading) return <div id="cargando"></div>;
+  if (error) return <p>Error al cargar: {error}</p>;
+
   if (!cooperativa) {
-    return <div id="cargando"></div>;
+    return <div>No se ha encontrado la información de la cooperativa.</div>;
   }
 
   return (
@@ -34,81 +50,31 @@ const PerfilCooperativa = () => {
           alt="Foto Representante"
         />
       </div>
-      <div id="enlace-cambiar-foto"><a>Cambiar foto</a></div>
+      <div id="enlace-cambiar-foto"><a href="#">Cambiar foto</a></div>
       <h1 id="titulo-nombre-cooperativa">Cooperativa "{cooperativa.nombre}"</h1>
       <div className="perfil-cooperativa-datos-container">
-        <p className="perfil-cooperativa-datos" data-label="Origen:">
-          {}
-        </p>
-       
         <p className="perfil-cooperativa-datos" data-label="Cuenta Bancaria:">
-          {}
+          {cooperativa.cuenta_bancaria}
         </p>
         <p className="perfil-cooperativa-datos" data-label="RFC:">
-          {}
+          {cooperativa.rfc}
         </p>
-        <p className="perfil-cooperativa-datos" data-label="Descripcion:">
+        <p className="perfil-cooperativa-datos" data-label="Descripción:">
           {cooperativa.descripcion}
         </p>
-        <p className="perfil-cooperativa-datos" data-label="Paqueteria Asociada:">
-          {}
+        <p className="perfil-cooperativa-datos" data-label="Dirección:">
+          {cooperativa.direccion} {cooperativa.ciudad} {cooperativa.estado} {cooperativa.pais} {cooperativa.codigo_postal} 
         </p>
-        
-        <div id="miembros-agregar-container">
-          <p className="perfil-cooperativa-datos" data-label="# Miembros: "> {'5'}</p>
-          <a>Agregar Miembros</a>
-        </div>
+        <h2>Miembros de la Cooperativa</h2>
         <div className="miembros-container">
-          <div className="integrante">
-            <img src="https://th.bing.com/th/id/OIP.CGN_R3YtmCaxNFdrPQCKBQHaHT?rs=1&pid=ImgDetMain" alt="foto integrante" />
-            <p className="nombre-integrante">{"nombre"}</p>
-          </div> 
-          <div className="integrante">
-            <img src="https://th.bing.com/th/id/OIP.CGN_R3YtmCaxNFdrPQCKBQHaHT?rs=1&pid=ImgDetMain" alt="foto integrante" />
-            <p className="nombre-integrante">{"nombre"}</p>
-          </div> 
-          <div className="integrante">
-            <img src="https://th.bing.com/th/id/OIP.CGN_R3YtmCaxNFdrPQCKBQHaHT?rs=1&pid=ImgDetMain" alt="foto integrante" />
-            <p className="nombre-integrante">{"nombre"}</p>
-          </div> 
-          <div className="integrante">
-            <img src="https://th.bing.com/th/id/OIP.CGN_R3YtmCaxNFdrPQCKBQHaHT?rs=1&pid=ImgDetMain" alt="foto integrante" />
-            <p className="nombre-integrante">{"nombre"}</p>
-          </div> 
-          <div className="integrante">
-            <img src="https://th.bing.com/th/id/OIP.CGN_R3YtmCaxNFdrPQCKBQHaHT?rs=1&pid=ImgDetMain" alt="foto integrante" />
-            <p className="nombre-integrante">{"nombre"}</p>
-          </div> 
-          <div className="integrante">
-            <img src="https://th.bing.com/th/id/OIP.CGN_R3YtmCaxNFdrPQCKBQHaHT?rs=1&pid=ImgDetMain" alt="foto integrante" />
-            <p className="nombre-integrante">{"nombre"}</p>
-          </div> 
-          <div className="integrante">
-            <img src="https://th.bing.com/th/id/OIP.CGN_R3YtmCaxNFdrPQCKBQHaHT?rs=1&pid=ImgDetMain" alt="foto integrante" />
-            <p className="nombre-integrante">{"nombre"}</p>
-          </div> 
-          <div className="integrante">
-            <img src="https://th.bing.com/th/id/OIP.CGN_R3YtmCaxNFdrPQCKBQHaHT?rs=1&pid=ImgDetMain" alt="foto integrante" />
-            <p className="nombre-integrante">{"nombre"}</p>
-          </div> 
-          <div className="integrante">
-            <img src="https://th.bing.com/th/id/OIP.CGN_R3YtmCaxNFdrPQCKBQHaHT?rs=1&pid=ImgDetMain" alt="foto integrante" />
-            <p className="nombre-integrante">{"nombre"}</p>
-          </div> 
-          <div className="integrante">
-            <img src="https://th.bing.com/th/id/OIP.CGN_R3YtmCaxNFdrPQCKBQHaHT?rs=1&pid=ImgDetMain" alt="foto integrante" />
-            <p className="nombre-integrante">{"nombre"}</p>
-          </div> 
-          <div className="integrante">
-            <img src="https://th.bing.com/th/id/OIP.CGN_R3YtmCaxNFdrPQCKBQHaHT?rs=1&pid=ImgDetMain" alt="foto integrante" />
-            <p className="nombre-integrante">{"nombre"}</p>
-          </div> 
-           
-
-          
+          {artesanos.map((artesano) => (
+            <div key={artesano.id} className="integrante">
+              <img src="https://th.bing.com/th/id/OIP.CGN_R3YtmCaxNFdrPQCKBQHaHT?rs=1&pid=ImgDetMain" alt="Foto del artesano" />
+              <p className="nombre-integrante">{artesano.nombre}</p>
+            </div>
+          ))}
         </div>
       </div>
-      {/* Muestra más detalles de la cooperativa como prefieras */}
     </div>
   );
 };
