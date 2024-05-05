@@ -6,6 +6,7 @@ export const ComponenteSidebar = ({ onSectionChange }) => {
   let navigate = useNavigate();
 
     {/* variables para notificaciones y nombre de representante*/}
+    const [numNotiBuzon, setNumNotiBuzon] = useState(0);
     const [numNotiReporte, setNumNotiReporte] = useState(0);
     const [numNotiPedido, setNumNotiPedido] = useState(0);
     const [nombreRepresentante, setNombreRepresentante] = useState(localStorage.getItem('userName') || "Nombre Apellido"); 
@@ -60,7 +61,7 @@ export const ComponenteSidebar = ({ onSectionChange }) => {
         <li onClick={() => navigate("ventas")}>Ventas</li>
         <li onClick={() => navigate("pedidos")}>Pedidos ({numNotiPedido})</li>
         <li onClick={() => navigate("reporte")}>Reportes ({numNotiReporte})</li>
-        <li onClick={() => navigate("paqueteria")}>Paqueteria</li>
+        <li onClick={() => navigate("paqueteria")}>Paqueteria ({numNotiBuzon})</li>
         
         {/* Cerrar sesión, es un evento diferente */}
         <b>
