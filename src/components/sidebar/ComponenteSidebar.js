@@ -61,8 +61,8 @@ export const ComponenteSidebar = ({ onSectionChange }) => {
         <li onClick={() => navigate("ventas")}>Ventas</li>
         <li onClick={() => navigate("pedidos")}>Pedidos ({numNotiPedido})</li>
         <li onClick={() => navigate("reporte")}>Reportes ({numNotiReporte})</li>
-        <li onClick={() => navigate("paqueteria")}>Paqueteria ({numNotiBuzon})</li>
-        
+        <li onClick={() => navigate("paqueteria")}>Paqueterias</li>
+
         {/* Cerrar sesión, es un evento diferente */}
         <b>
         <li
