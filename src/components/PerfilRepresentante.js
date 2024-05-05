@@ -54,17 +54,33 @@ const PerfilRepresentante = () => {
 
   const handleChange = (e) => {
     const { name, value, checked, type } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === 'checkbox' ? checked : value,
-    });
+    setFormData(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }));
   };
-
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     const representanteId = localStorage.getItem("userId");
     setLoading(true); // Activar loading
-    axios.patch(`http://localhost:8000/api/usuario/representante/${representanteId}/`, formData)
+  
+    // Asegúrate de que los datos se envían en el formato esperado por el backend
+    const updateData = {
+      nombre_user: formData.email,  // Asume que quieres actualizar el nombre de usuario al correo
+      email: formData.email,
+      datos: {
+        nombre: formData.nombre,
+        materno: formData.materno,
+        paterno: formData.paterno,
+        tel: formData.tel,
+        ine: formData.ine,
+        metodo_pago: formData.metodo_pago,
+        notificaciones: formData.notificaciones,
+      }
+    };
+  
+    axios.patch(`http://localhost:8000/api/usuario/representante/${representanteId}/`, updateData)
       .then(() => {
         mostrarMensaje("success", "Información de representante actualizada con éxito.");
         setIsEditing(false);
@@ -76,6 +92,7 @@ const PerfilRepresentante = () => {
         setLoading(false); // Desactivar loading
       });
   };
+  
 
   const mostrarMensaje = (type, message) => {
     setAlertMessage({ type, message });
