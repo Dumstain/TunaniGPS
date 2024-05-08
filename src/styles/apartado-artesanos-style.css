@@ -1,5 +1,6 @@
 .apartado-artesanos-container{
     padding: 3%;
+    padding-top: 5%;
 }
 
 span {
@@ -18,7 +19,7 @@ span {
    display: flex; /* Asegúrate de usar 'flex' y no 'flexbox' */
     justify-content: space-between; /* Esto separará el título y el botón */
     align-items: center; /* Alinea verticalmente el texto y el botón */
-    margin-bottom: 1.8rem;
+    margin-bottom: 3rem;
   }
 
   .titulo-boton-agregar-container button{
