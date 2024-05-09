@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import '../styles/ComponenteGestionProductos.css'
 
 const ComponenteGestionProductos = () => {
     const [productos, setProductos] = useState([]);
@@ -17,6 +18,13 @@ const ComponenteGestionProductos = () => {
     });
     const [artesanos, setArtesanos] = useState([]);
     const [modoEdicion, setModoEdicion] = useState(false);
+    const [nombreError, setNombreError] = useState('');
+    const [precioError, setPrecioError] = useState('');
+    const [descripcionError, setDescripcionError] = useState('');
+    const [materialError, setMaterialError] = useState('');
+    const [stockError, setStockError] = useState('');
+    const [categoriaError, setCategoriaError] = useState('');
+    const [estadoError, setEstadoError] = useState('');
 
     useEffect(() => {
         obtenerProductos();
@@ -53,23 +61,105 @@ const ComponenteGestionProductos = () => {
 
     const manejarCambio = (e) => {
         const { name, files, value } = e.target;
-        if (name === 'imagen') {
-            setProductoActual(prevState => ({
-                ...prevState,
-                [name]: files[0]
-            }));
-        } else {
-            setProductoActual(prevState => ({
-                ...prevState,
-                [name]: value
-            }));
+        switch (name) {
+            case 'nombre':
+                if (/^[a-zA-Z\s]{0,60}$/.test(value)) {
+                    setNombreError('');
+                    setProductoActual(prevState => ({ ...prevState, [name]: value }));
+                } else {
+                    setNombreError('El nombre solo debe contener caracteres del abecedario.');
+                }
+                 if (value.trim() !== ''){
+                    setNombreError('');
+                    
+                } else{
+                    setNombreError('El nombre es obligatorio.');
+                }
+                break;
+            case 'precio':
+                if (/^\d{0,6}$/.test(value)) {
+                    setPrecioError('');
+                    setProductoActual(prevState => ({ ...prevState, [name]: value }));
+                } else {
+                    setPrecioError('El precio solo puede contener hasta 6 números .');
+                }
+                if (value.trim() !== ''){
+                    setPrecioError('');
+                    
+                } else{
+                    setPrecioError('El precio es obligatorio.');
+                }
+                break;
+            case 'descripcion':
+                if (value.length <= 250) {
+                    setDescripcionError('');
+                    setProductoActual(prevState => ({ ...prevState, [name]: value }));
+                } else {
+                    setDescripcionError('La descripción debe tener como máximo 250 caracteres.');
+                }
+                break;
+            case 'material':
+                if (/^[a-zA-Z\s]{0,50}$/.test(value)) {
+                    setMaterialError('');
+                    setProductoActual(prevState => ({ ...prevState, [name]: value }));
+                } else {
+                    setMaterialError('El material solo debe contener letras y como máximo 50 caracteres.');
+                }
+                if (value.trim() !== ''){
+                    setMaterialError('');
+                    
+                } else{
+                    setMaterialError('El material es obligatorio.');
+                }
+                break;
+            case 'stock':
+                if (/^\d{0,6}$/.test(value)) {
+                    setStockError('');
+                    setProductoActual(prevState => ({ ...prevState, [name]: value }));
+                } else {
+                    setStockError('El stock solo debe contener números y tener como máximo 6 caracteres.');
+                }
+                if (value.trim() !== ''){
+                    setStockError('');
+                    
+                } else{
+                    setStockError('La cantidad de producto obligatoria.');
+                }
+                break;
+            case 'categoria':
+                if (value.trim() !== '') {
+                    setCategoriaError('');
+                    setProductoActual(prevState => ({ ...prevState, [name]: value }));
+                } else {
+                    setCategoriaError('La categoría es obligatoria.');
+                }
+                
+                break;
+            case 'estado':
+                if (value.trim() !== '') {
+                    setEstadoError('');
+                    setProductoActual(prevState => ({ ...prevState, [name]: value }));
+                } else {
+                    setEstadoError('El estado es obligatorio.');
+                }
+                break;
+            case 'imagen':
+                setProductoActual(prevState => ({
+                    ...prevState,
+                    [name]: files[0]
+                }));
+                break;
+            default:
+                setProductoActual(prevState => ({
+                    ...prevState,
+                    [name]: value
+                }));
         }
     };
 
-    
     const agregarProducto = async () => {
-        if (!productoActual.artesano) {
-            alert('Por favor, seleccione un artesano.');
+        if (!productoActual.nombre || !productoActual.precio || !productoActual.material || !productoActual.stock || !productoActual.categoria || !productoActual.estado) {
+            alert('Por favor, complete todos los campos obligatorios (*) antes de agregar el producto.');
             return;
         }
         const formData = new FormData();
@@ -108,6 +198,10 @@ const ComponenteGestionProductos = () => {
     
 
     const editarProducto = async () => {
+        if (!productoActual.nombre || !productoActual.precio || !productoActual.material || !productoActual.stock || !productoActual.categoria || !productoActual.estado) {
+            alert('Por favor, complete todos los campos obligatorios (*) antes de editar el producto.');
+            return;
+        }
         const formData = new FormData();
         Object.entries(productoActual).forEach(([key, value]) => {
             formData.append(key, value);
@@ -135,33 +229,51 @@ const ComponenteGestionProductos = () => {
 
     return (
         <div>
-            <h2>{modoEdicion ? "Editar Producto" : "Agregar Producto"}</h2>
-            <input name="nombre" value={productoActual.nombre} onChange={manejarCambio} placeholder="Nombre" />
-            <input type="number" name="precio" value={productoActual.precio} onChange={manejarCambio} placeholder="Precio" />
-            <input name="descripcion" value={productoActual.descripcion} onChange={manejarCambio} placeholder="Descripción" />
-            <input name="material" value={productoActual.material} onChange={manejarCambio} placeholder="Material" />
-            <input type="number" name="stock" value={productoActual.stock} onChange={manejarCambio} placeholder="Stock" />
-            <input name="categoria" value={productoActual.categoria} onChange={manejarCambio} placeholder="Categoría" />
+            <div className="cuadro">
+            <h2>{modoEdicion ? "Editar Producto" : "Agregar Producto"}</h2><br/>
+            <h4>{"Nombre *"}</h4>
+            <input className="cajas"name="nombre" value={productoActual.nombre} onChange={manejarCambio} placeholder="Nombre" /><br/>
+            {nombreError && <p style={{ color: 'red' }}>{nombreError}</p>}
+            <h4>{"Precio *"}</h4>
+            <input className="cajas"type="text" name="precio" value={productoActual.precio} onChange={manejarCambio} placeholder="Precio" /><br/>
+            {precioError && <p style={{ color: 'red' }}>{precioError}</p>}
+            <h4>{"Descripción"}</h4>
+            <input className="cajas"name="descripcion" value={productoActual.descripcion} onChange={manejarCambio} placeholder="Descripción" /><br/>
+            {descripcionError && <p style={{ color: 'red' }}>{descripcionError}</p>}
+            <h4>{"Material *"}</h4>
+            <input className="cajas"name="material" value={productoActual.material} onChange={manejarCambio} placeholder="Material" /><br/>
+            {materialError && <p style={{ color: 'red' }}>{materialError}</p>}
+            <h4>{"Stock *"}</h4>
+            <input className="cajas"type="number" name="stock" value={productoActual.stock} onChange={manejarCambio} placeholder="Stock" /><br/>
+            {stockError && <p style={{ color: 'red' }}>{stockError}</p>}
+            <h4>{"Categoria *"}</h4>
+            <input className="cajas"name="categoria" value={productoActual.categoria} onChange={manejarCambio} placeholder="Categoría" /><br/>
+            {categoriaError && <p style={{ color: 'red' }}>{categoriaError}</p>}
             <input type="file" name="imagen" onChange={manejarCambio} />
             <div>
-                <select name="estado" value={productoActual.estado} onChange={manejarCambio}>
+            <h4>{"Estado *"}</h4>
+                <select className="seleccion"name="estado" value={productoActual.estado} onChange={manejarCambio}><br/>
                     <option value="publicado">Publicado</option>
                     <option value="no_publicado">No Publicado</option>
                 </select>
+                {estadoError && <p style={{ color: 'red' }}>{estadoError}</p>}
             </div>
             <div>
-            <select name="artesano" value={productoActual.artesano} onChange={manejarCambio}>
-    {artesanos.map(artesano => (
-        <option key={artesano.id} value={artesano.id}>
-            {artesano.nombre}
-        </option>
-    ))}
-</select>
+            <h4>{"Artesano *"}</h4>
+                <select className="seleccion"name="artesano" value={productoActual.artesano} onChange={manejarCambio}>
+                    {artesanos.map(artesano => (
+                        <option key={artesano.id} value={artesano.id}>
+                            {artesano.nombre}
+                        </option>
+                    ))}
+                </select>
             </div>
-            <button onClick={modoEdicion ? editarProducto : agregarProducto}>
-                {modoEdicion ? "Guardar Cambios" : "Agregar"}
+            <button className="botones" onClick={modoEdicion ? editarProducto : agregarProducto}>
+                {modoEdicion ? "Guardar Cambios ✎" : "Agregar ✎"}
             </button>
-            <h3>Lista de Productos</h3>
+            </div><br/>
+
+            <h3>Lista de Productos</h3><br/>
             <table border="1">
                 <thead>
                     <tr>
@@ -187,15 +299,15 @@ const ComponenteGestionProductos = () => {
                             <td>{producto.estado}</td>
                             <td>{producto.categoria}</td>
                             <td>
-                {producto.imagenes && producto.imagenes.length > 0 ? (
-                    producto.imagenes.map((url, index) => (
-                        <img key={index} src={url} alt={`Imagen de ${producto.nombre}`} style={{ width: "100px", marginRight: "5px" }} />
-                    ))
-                ) : "Sin imagen"}
-            </td>
+                                {producto.imagenes && producto.imagenes.length > 0 ? (
+                                    producto.imagenes.map((url, index) => (
+                                        <img key={index} src={url} alt={`Imagen de ${producto.nombre}`} style={{ width: "100px", marginRight: "5px" }} />
+                                    ))
+                                ) : "Sin imagen"}
+                            </td>
                             <td>
-                                <button onClick={() => seleccionarParaEditar(producto)}>Editar</button>
-                                <button onClick={() => borrarProducto(producto.id)}>Borrar</button>
+                                <button className="botones"onClick={() => seleccionarParaEditar(producto)}>Editar</button>
+                                <button className="botones"onClick={() => borrarProducto(producto.id)}>Borrar</button>
                             </td>
                         </tr>
                     ))}
@@ -206,3 +318,6 @@ const ComponenteGestionProductos = () => {
 };
 
 export default ComponenteGestionProductos;
+
+
+

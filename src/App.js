@@ -13,8 +13,6 @@ import ComponenteVenta from './components/ComponenteVenta';
 import ComponentePaqueteria from './components/ComponentePaqueteria';
 import { ComponenteReporte } from './components/ComponenteReporte';
 
-
-
 // Importaciones adicionales...
 
 function App() {
