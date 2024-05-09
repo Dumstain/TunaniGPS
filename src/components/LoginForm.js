@@ -1,91 +1,70 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import "../styles/LoginForm.css"
+import { useAuth } from '../context/AuthContext'; // Asegúrate de que la ruta de importación sea correcta
+import "../styles/LoginForm.css";
 
 const LoginForm = ({ toggleForm }) => {
     const [email, setEmail] = useState('');
     const [contrasenia, setContrasenia] = useState('');
     const [error, setError] = useState('');
-    const [loginMessage, setLoginMessage] = useState(''); // Agregado para mostrar el mensaje de login
-    const navigate = useNavigate(); // Hook para navegar
-
+    const { login } = useAuth();
+    const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        setError('');
-        setLoginMessage(''); // Limpiar mensaje previo
-
+        setError('');  // Limpiar errores anteriores
         try {
-            const response = await fetch('http://127.0.0.1:8000/api/login/', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, contrasenia })
-            });
-
-            const data = await response.json();
-            if (response.ok) {
-                localStorage.setItem('userId', data.id)
-                localStorage.setItem('accessToken', data.token);
-                localStorage.setItem('userRole', data.rol);
-                localStorage.setItem('userName', data.usuario);
-                switch (data.rol) {
-                    case 'Admin':
-                        navigate('/admin');
-                        break;
-                    case 'Representante':
-                        navigate('/representante');
-                        break;
-                    case 'Comprador':
-                        navigate('/');
-                        break; // Redirige a la página de inicio para cualquier otro rol
-                }
-            } else {
-                setError(data.message || 'Error desconocido');
+            const data = await login(email, contrasenia);
+            console.log('Login successful:', data); // Loguear éxito para diagnóstico
+            // Navegar según el rol del usuario
+            switch (data.rol) {
+                case 'Admin':
+                    navigate('/admin');
+                    break;
+                case 'Representante':
+                    console.log("Usuario en local storage:", localStorage.getItem('user'));
+                    navigate('/representante');
+                    break;
+                case 'Comprador':
+                    navigate('/');
+                    break;
+                default:
+                    navigate('/'); // Redirigir a la página de inicio por defecto
+                    break;
             }
         } catch (error) {
-            setError('Error al conectarse al servidor');
+            console.error('Login failed:', error); // Loguear error para diagnóstico
+            setError(error.message || 'Error desconocido al iniciar sesión');
         }
     };
-
-
 
     return (
         <div className="login-container">
             <div className="form-container">
                 <form onSubmit={handleSubmit} className="login-form">
-                    <h2 className="form-title">Bienvenido</h2> {/* Add class for styling the title */}
+                    <h2 className="form-title">Bienvenido</h2>
                     {error && <p className="error">{error}</p>}
                     <div className="form-field">
-                        <label className="input-label">Email</label> {/* Add class for styling the label */}
+                        <label className="input-label">Email</label>
                         <input
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="input-field" // Add class for styling the input field
+                            className="input-field"
                         />
                     </div>
                     <div className="form-field">
-                        <label className="input-label">Contraseña</label> {/* Add class for styling the label */}
+                        <label className="input-label">Contraseña</label>
                         <input
                             type="password"
                             value={contrasenia}
                             onChange={(e) => setContrasenia(e.target.value)}
-                            className="input-field" // Add class for styling the input field
+                            className="input-field"
                         />
                     </div>
-                    <div className="form-field">
-                    <input 
-                        type="checkbox"
-                        id="remember-me"
-                        className="checkbox" // Make sure to use the same class name used in your CSS
-                    />
-                      <label htmlFor="remember-me" className="checkbox-label">Recordarme</label>
-                      </div>
-
-                    <button type="submit" className="submit-button">Iniciar Sesión</button> {/* Add class for styling the button */}
+                    <button type="submit" className="submit-button">Iniciar Sesión</button>
                     <div className="signup-link">¿No tienes cuenta? <span onClick={toggleForm} className="signup-link-anchor">Registrarse</span></div>
                 </form>
-                {loginMessage && <p className="login-message">{loginMessage}</p>} {/* Add class for styling the login message */}
             </div>
             <div className="image-container">
                 {/* Image is set as a background in CSS */}
