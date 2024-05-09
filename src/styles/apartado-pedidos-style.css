@@ -1,0 +1,208 @@
+/* Estilos para el contenedor principal y títulos */
+.pedidos-contenedor {
+    padding: 3%;
+}
+
+#titulo-pedidos {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 2rem;
+}
+
+/* Estilos para los contenedores de pedidos y detalles */
+.pedidos-datos-contendor {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.venta-info-general, .venta-detalles-pedido, .barra-seguimiento-contenedor {
+    border: 1px solid #33333336;
+    border-radius: 10px;
+    padding: 20px;
+    transition: transform 0.2s ease
+}
+
+.venta-info-general:hover,
+.venta-detalles-pedido:hover,
+.barra-seguimiento-contenedor:hover {
+    transform: scale(1.01); /* Aumenta ligeramente el tamaño de la imagen */
+    border-radius: 8px;
+    border: 1px solid #873286;
+}
+
+.venta-info-general h4, .venta-info-general p {
+    margin-bottom: 5px;
+    margin-left: 10px;
+}
+
+/* Estilos para secciones específicas */
+.titulos-secciones {
+    padding-bottom: 15px;
+    color: #873286;
+    text-align: center;
+}
+
+.detalles-y-seguimiento-contenedor {
+    display: grid;
+    grid-template-columns: 60% 40%;
+    gap: 8px;
+    width: 100%;
+}
+
+.estatus-venta-pedido {
+    display: grid;
+    grid-template-columns: 60% 40%;
+    gap: 8px;
+}
+
+#estado-pedido, #estado-venta {
+    text-align: left;
+}
+
+#estado-venta {
+    text-align: right;
+    padding-right: 20px;
+}
+
+#estado-venta span, #estado-pedido span {
+    color: rgb(0, 0, 0);
+}
+
+#estado-venta p, #estado-pedido p {
+    color: #873286;
+    margin-bottom: 10px;
+}
+
+/* Estilos para listas de artículos y totales */
+.articulos-contenedor, .totales-detalles-contenedor {
+    padding: 20px;
+}
+
+.articulos-contenedor li {
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.totales-detalles-contenedor p {
+    display: flex;
+    align-items: center;
+}
+
+.totales-detalles-contenedor span {
+    min-width: 175px;
+    color: #333;
+    text-align: right;
+    margin-right: 10px;
+}
+
+#total-parrafo {
+    font-size: 1.5rem;
+}
+
+/* Estilos para la barra de seguimiento y estados */
+.barra-seguimiento-contenedor, .estados-contenedor {
+    display: flex;
+    flex-direction: column;
+}
+
+.estado {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 0;
+}
+
+.estado input[type="checkbox"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    background: white;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.estado input[type="checkbox"]:checked {
+    background-color: purple;
+    border-color: purple;
+    animation: checkmark 0.5s ease forwards;
+}
+
+.estado input[type="checkbox"]:checked::before {
+    content: '✔';
+    color: white;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    font-size: 20px;
+    animation: scaleUp 0.3s 0.3s ease forwards;
+}
+
+.estado input[type="checkbox"]:checked + p {
+    color: purple;
+}
+
+.flecha {
+    text-align: center;
+    width: 27px;
+    padding: 0px;
+    color: purple;
+}
+
+@keyframes checkmark {
+    from { border-color: #ccc; }
+    to { border-color: purple; }
+}
+
+@keyframes scaleUp {
+    from { transform: translate(-50%, -50%) scale(0); }
+    to { transform: translate(-50%, -50%) scale(1); }
+}
+
+/* Estilos para botones */
+.pedidos-datos-contendor button {
+    padding: 10px 20px;
+    margin-top: 1%;
+    border: none;
+    border-radius: 4px;
+    background-color: #e60000cb;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 10px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.pedidos-datos-contendor button:hover {
+    background-color: #bb0505;
+    transform: scale(1.05);
+}
+
+.contenedor-con-linea {
+    position: relative;
+    width: 100%;
+    margin-bottom: 10px;
+    /* Ajusta al ancho deseado del contenedor */
+}
+
+.contenedor-con-linea::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    /* Centra la línea verticalmente dentro del div */
+    height: 1px;
+    /* Altura de la línea */
+    background-color: #8732853a;
+}
