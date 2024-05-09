@@ -15,6 +15,10 @@ const Artesanos = () => {
   const [numero_tarjeta, setNumeroTarjeta] = useState("");
   const [enfoque, setEnfoque] = useState("");
   const [descripcion, setDescripcion] = useState("");
+const [sortField, setSortField] = useState("");
+const [sortDirection, setSortDirection] = useState("asc");
+const [searchTerm, setSearchTerm] = useState("");
+
 
   // Suponiendo que ya tienes un estado para la cooperativa o su ID
   const [cooperativas, setCooperativas] = useState([]);
@@ -224,61 +228,96 @@ const Artesanos = () => {
     return true;
   };
 
+  // Función para ordenar la tabla
+const handleSort = (field) => {
+  const newSortDirection =
+    sortField === field && sortDirection === "asc" ? "desc" : "asc";
+  setSortField(field);
+  setSortDirection(newSortDirection);
+};
+
+// Función para filtrar y ordenar los artesanos
+const filteredAndSortedArtesanos = artesanos
+  .filter((artesano) =>
+    Object.values(artesano)
+      .join(" ")
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase())
+  )
+  .sort((a, b) => {
+    if (a[sortField] < b[sortField]) {
+      return sortDirection === "asc" ? -1 : 1;
+    }
+    if (a[sortField] > b[sortField]) {
+      return sortDirection === "asc" ? 1 : -1;
+    }
+    return 0;
+  });
+
+
   return (
     <div className="apartado-artesanos-container">
       <div className="titulo-boton-agregar-container">
         <h2 id="titulo-perfil-artesanos">Artesanos Registrados</h2>
         <button onClick={openModal}> 🞣 Agregar Artesano</button>
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Apellido Paterno</th>
-            <th>Apellido Materno</th>
-            <th>Teléfono</th>
-            <th>Email</th>
-            <th>RFC</th>
-            <th>INE</th>
-            <th>Número de Tarjeta</th>
-            <th>Enfoque</th>
-            <th>Descripción</th>
-            <th>Cooperativa</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {artesanos.map((artesano) => (
-            <tr key={artesano.id}>
-              <td>{artesano.nombre}</td>
-              <td>{artesano.apellido_paterno}</td>
-              <td>{artesano.apellido_materno}</td>
-              <td>{artesano.tel}</td>
-              <td>{artesano.email}</td>
-              <td>{artesano.rfc}</td>
-              <td>{artesano.ine}</td>
-              <td>{artesano.numero_tarjeta}</td>
-              <td>{artesano.enfoque}</td>
-              <td>{artesano.descripcion}</td>
-              <td>{artesano.cooperativa}</td>
-              <td>
-                <button
-                  id="boton-editar"
-                  onClick={() => iniciarEdicion(artesano)}
-                >
-                  ✎ Editar
-                </button>
-                <button
-                  id="boton-eliminar"
-                  onClick={() => eliminarArtesano(artesano.id)}
-                >
-                  🗑 Eliminar
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="search-container">
+  <input
+    type="text"
+    placeholder="Buscar..."
+    value={searchTerm}
+    onChange={(e) => setSearchTerm(e.target.value)}
+  />
+</div>
+<table>
+  <thead>
+    <tr>
+      <th onClick={() => handleSort("nombre")}>Nombre</th>
+      <th onClick={() => handleSort("apellido_paterno")}>Apellido Paterno</th>
+      <th onClick={() => handleSort("apellido_materno")}>Apellido Materno</th>
+      <th onClick={() => handleSort("tel")}>Teléfono</th>
+      <th onClick={() => handleSort("email")}>Email</th>
+      <th onClick={() => handleSort("rfc")}>RFC</th>
+      <th onClick={() => handleSort("ine")}>INE</th>
+      <th onClick={() => handleSort("numero_tarjeta")}>Número de Tarjeta</th>
+      <th onClick={() => handleSort("enfoque")}>Enfoque</th>
+      <th onClick={() => handleSort("descripcion")}>Descripción</th>
+      <th onClick={() => handleSort("cooperativa")}>Cooperativa</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {filteredAndSortedArtesanos.map((artesano) => (
+      <tr key={artesano.id}>
+        <td>{artesano.nombre}</td>
+        <td>{artesano.apellido_paterno}</td>
+        <td>{artesano.apellido_materno}</td>
+        <td>{artesano.tel}</td>
+        <td>{artesano.email}</td>
+        <td>{artesano.rfc}</td>
+        <td>{artesano.ine}</td>
+        <td>{artesano.numero_tarjeta}</td>
+        <td>{artesano.enfoque}</td>
+        <td>{artesano.descripcion}</td>
+        <td>{artesano.cooperativa}</td>
+        <td>
+          <button
+            id="boton-editar"
+            onClick={() => iniciarEdicion(artesano)}
+          >
+            ✎ Editar
+          </button>
+          <button
+            id="boton-eliminar"
+            onClick={() => eliminarArtesano(artesano.id)}
+          >
+            🗑 Eliminar
+          </button>
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
 
       {/*form para agregar y editar*/}
 
@@ -382,6 +421,9 @@ const Artesanos = () => {
                   id="rfc"
                   type="text"
                   maxLength={13} // Limit to 10 characters
+                  onInput={(e) => {
+                    e.target.value = e.target.value.replace(/[^a-zA-Z0-9]/g, "");
+                  }}
                   value={rfc}
                   onChange={(e) => setRfc(e.target.value)}
                   placeholder="RFC"

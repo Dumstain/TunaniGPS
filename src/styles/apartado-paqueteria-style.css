@@ -1,70 +1,117 @@
-.apartado-paqueteria-container{
-    padding: 3%;
+/* Estilos base para el contenedor de paquetería */
+.apartado-paqueteria-container {
+  background-color: #f4f4f4; /* color de fondo suave */
+  padding: 3%; /* espacio alrededor de los contenidos internos */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
 }
 
+/* Estilos para el título */
 #titulo-paqueteria {
-    text-align:left;
-    font-size: 1.8rem;
-    color: #333;
-    /*margin-bottom: 1.8rem;*/
-    margin-right: auto; /* Esto asegurará que el título se alinee a la izquierda y el botón a la derecha */  
-  }
-
-.formulario-paqueteria-container{
-    margin: 20px auto;
-    background-color: #fff; /* o el color que prefieras para el fondo */
-    padding: 25px; /* espacio alrededor de los contenidos internos */
-    border-radius: 8px; /* esquinas redondeadas */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* sombra suave para dar profundidad */
-    display: flex;
-    flex-direction: column;
-    gap: 10px; /* espacio entre cada fila */
+  text-align: left;
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 20px;
+  margin-right: auto;
 }
 
-.editar-datos-paqueteria{
-    margin: 15px;
+/* Estilos para la lista de paqueterías */
+.paqueteria-item {
+  background-color: #ffffff;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+
+.paqueteria-item button {
+  background-color: #BF06C6;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.paqueteria-item button:hover {
+  background-color: #680f6b;
+}
+
+/* Estilos del formulario de edición */
+.formulario-paqueteria-container {
+  margin: 20px auto;
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.editar-datos-paqueteria {
+  margin: 15px;
 }
 
 .editar-datos-paqueteria label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  .editar-datos-paqueteria input[type="text"],
-  .editar-datos-paqueteria input[type="email"],
-  .editar-datos-paqueteria select,
-  .editar-datos-paqueteria textarea {
-    width: 100%;
-    padding: 10px;
-    border-radius: 4px;
-    border: none;
-    background-color: #F6F6F6;
-    font-family: 'Century Gothic', Arial, sans-serif; /* Arial y sans-serif son alternativas */
-    box-sizing: border-box; /* para incluir el padding en el ancho total */
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); /* sombra interior */
- }
- 
-  
- .acciones-formulario {
-    text-align: right; /* Alinea los botones a la derecha */
-  }
-  
-  .acciones-formulario button {
-    padding: 10px 20px;
-    margin-top: 3%;
-    border: none;
-    border-radius: 4px;
-    background-color: #BF06C6;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    margin-left: 10px; /* Espaciado entre botones */
-    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3); /* Desplazamiento a la derecha, desplazamiento hacia abajo, desenfoque, color */
- 
-  }
-  
-  .acciones-formulario button:hover {
-    background-color: #873286;
-    transform: scale(1.05); /* Aumenta ligeramente el tamaño de la imagen */
-  }
+  display: block;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.editar-datos-paqueteria input[type="text"],
+.editar-datos-paqueteria input[type="email"],
+.editar-datos-paqueteria select,
+.editar-datos-paqueteria textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  border: none;
+  background-color: #F6F6F6;
+  font-family: 'Century Gothic', Arial, sans-serif;
+  box-sizing: border-box;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para los botones del formulario */
+.acciones-formulario {
+  text-align: right;
+}
+
+.acciones-formulario button {
+  padding: 10px 20px;
+  margin-top: 3%;
+  border: none;
+  border-radius: 4px;
+  background-color: #BF06C6;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 10px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.acciones-formulario button:hover {
+  background-color: #873286;
+  transform: scale(1.05);
+}
+
+/* Estilos para mensajes de alerta */
+.alert {
+  padding: 10px;
+  color: white;
+  border-radius: 5px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.alert.success {
+  background-color: #4CAF50;
+}
+
+.alert.error {
+  background-color: #f44336;
+}
