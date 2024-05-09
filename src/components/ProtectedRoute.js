@@ -8,9 +8,10 @@ const ProtectedRoute = ({ children }) => {
   if (isLoading) {
     return <div>Cargando...</div>;  // Muestra un spinner o mensaje mientras carga
   }
+  const rol=localStorage.getItem('userRol');
 
-  if (!user) {
-    return <Navigate to="/login" />;
+  if (rol !== 'Representante') {
+    return <Navigate to="/" />;
   }
 
   return children;

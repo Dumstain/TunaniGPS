@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext'; // Asegúrate de que la ruta de importación sea correcta
+import { useAuth } from '../context/AuthContext';
 import "../styles/LoginForm.css";
 
 const LoginForm = ({ toggleForm }) => {
@@ -13,6 +13,11 @@ const LoginForm = ({ toggleForm }) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         setError('');  // Limpiar errores anteriores
+        
+        // Limpiar localStorage antes de cualquier operación de login
+        localStorage.removeItem('user');
+
+        
         try {
             const data = await login(email, contrasenia);
             console.log('Login successful:', data); // Loguear éxito para diagnóstico

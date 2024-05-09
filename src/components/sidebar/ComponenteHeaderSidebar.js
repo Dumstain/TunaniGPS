@@ -17,7 +17,8 @@ export const ComponenteHeaderSidebar = () => {
   return (
     <div>
         <div className="grid-layout-cabecera">
-            <div className="logo"><a href="home.js"><img src={logo} alt="Logo"/></a></div>
+            <div className="logo"><a href="#" onClick={(e) => { e.preventDefault(); navigate('/'); }}>
+              <img src={logo} alt="Logo"/></a></div>
             <div><input type="text" id="cajaBuscador" name="buscador" placeholder="Buscar artitulo"/></div>
             <div className="titulo2"><a href="home.js">Tunani</a></div>
             <div className="logo-soporte"><a href="soporte.js"><img src={logoSoporte} alt="Logo"/></a></div>

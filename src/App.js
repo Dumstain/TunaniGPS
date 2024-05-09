@@ -12,7 +12,7 @@ import PerfilRepresentante from './components/PerfilRepresentante';
 import ComponenteVenta from './components/ComponenteVenta';
 import ComponentePaqueteria from './components/ComponentePaqueteria';
 import ComponentePerfilUsuario from './components/ComponentePerfilUsuario';
-import { ComponenteReporte } from './components/ComponenteReporte';
+import ComponenteReporte from './components/ComponenteReporte';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
 
