@@ -59,19 +59,40 @@ const ComponentePaqueteria = () => {
         setPaqueteria({ ...paqueteria, [name]: value });
     };
 
+    const validateInputs = () => {
+        const { nombre, estado, municipio, tel, email } = paqueteria;
+        if (!nombre || !estado || !municipio || !tel || !email) {
+            mostrarMensaje("error", "Todos los campos obligatorios deben ser llenados.");
+            return false;
+        }
+        if (!/^[0-9]{10}$/.test(tel)) {
+            mostrarMensaje("error", "El teléfono debe tener 10 dígitos.");
+            return false;
+        }
+        if (!/\S+@\S+\.\S+/.test(email)) {
+            mostrarMensaje("error", "El email no es válido.");
+            return false;
+        }
+        return true;
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!validateInputs()) return;
+
         setLoading(true);
         const userData = localStorage.getItem('user');
         const userObj = JSON.parse(userData);
         const usuarioId = userObj.id;
-        const responseCooperativa = await axios.get(`http://127.0.0.1:8000/api/cooperativa/${usuarioId}/`);
-        const cooperativaId = responseCooperativa.data.id;
-
+        
         try {
+            const responseCooperativa = await axios.get(`http://127.0.0.1:8000/api/cooperativa/${usuarioId}/`);
+            const cooperativaId = responseCooperativa.data.id;
+
             const method = paqueteria.id ? 'patch' : 'post';
             const url = `http://127.0.0.1:8000/api/cooperativas/${cooperativaId}/paqueteria/${paqueteria.id ? `${paqueteria.id}/` : ''}`;
             const response = await axios[method](url, { ...paqueteria, cooperativa: cooperativaId });
+
             setIsEditing(false);
             setPaqueteria({
                 nombre: '',
@@ -85,17 +106,8 @@ const ComponentePaqueteria = () => {
                 servicio_ofrecido: '',
             });
             mostrarMensaje("success", paqueteria.id ? "Información de paquetería actualizada con éxito." : "Paquetería añadida con éxito.");
+            
             const fetchPaqueterias = async () => {
-                const userData = localStorage.getItem('user');
-                const userObj = JSON.parse(userData);
-                const usuarioId = userObj.id;
-
-                if (!usuarioId) {
-                    mostrarMensaje("error", "No se encontró el ID del usuario en localStorage");
-                    setLoading(false);
-                    return;
-                }
-
                 try {
                     const responseCooperativa = await axios.get(`http://127.0.0.1:8000/api/cooperativa/${usuarioId}/`);
                     const cooperativaId = responseCooperativa.data.id;
@@ -149,7 +161,7 @@ const ComponentePaqueteria = () => {
             <div>
                 {paqueterias.map((item) => (
                     <div key={item.id} className='paqueteria-item'>
-                        <p>{item.nombre} - {item.estado}</p>
+                        <p>{item.nombre} - {item.estado} - {item.email} - {item.tel} - {item.servicio_ofrecido}</p>
                         <button onClick={() => handleEdit(item)}>Editar</button>
                     </div>
                 ))}

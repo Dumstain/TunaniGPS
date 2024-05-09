@@ -288,6 +288,9 @@ const PerfilCooperativa = () => {
                 name="rfc"
                 value={cooperativa.rfc || ""}
                 maxLength={13} // Limit to 10 characters
+                onInput={(e) => {
+                  e.target.value = e.target.value.replace(/[^a-zA-Z0-9]/g, "");
+                }}
                 onChange={handleDataChange}
               />
               <label>

@@ -26,6 +26,12 @@ const ComponenteGestionProductos = () => {
     const [categoriaError, setCategoriaError] = useState('');
     const [estadoError, setEstadoError] = useState('');
 
+    // Estado para ordenamiento y búsqueda
+const [sortField, setSortField] = useState("");
+const [sortDirection, setSortDirection] = useState("asc");
+const [searchTerm, setSearchTerm] = useState("");
+
+
     useEffect(() => {
         obtenerProductos();
         cargarArtesanos();
@@ -35,6 +41,7 @@ const ComponenteGestionProductos = () => {
         const resultado = await axios.get('http://127.0.0.1:8000/api/artesanos/');
         setArtesanos(resultado.data);
     };
+
 
     const obtenerImagenesProducto = async (productoId) => {
         try {
@@ -122,14 +129,15 @@ const ComponenteGestionProductos = () => {
                     setStockError('La cantidad de producto obligatoria.');
                 }
                 break;
-            case 'categoria':
-                if (value.trim() !== '') {
-                    setCategoriaError('');
+                case 'categoria':
                     setProductoActual(prevState => ({ ...prevState, [name]: value }));
-                } else {
-                    setCategoriaError('La categoría es obligatoria.');
-                }
-                break;
+                    if (value.trim() === '') {
+                        setCategoriaError('La categoría es obligatoria.');
+                    } else {
+                        setCategoriaError('');
+                    }
+                    break;
+                
             case 'estado':
                 if (value.trim() !== '') {
                     setEstadoError('');
@@ -151,6 +159,33 @@ const ComponenteGestionProductos = () => {
                 }));
         }
     };
+
+// Función para ordenar la tabla
+const handleSort = (field) => {
+    const newSortDirection =
+      sortField === field && sortDirection === "asc" ? "desc" : "asc";
+    setSortField(field);
+    setSortDirection(newSortDirection);
+  };
+  
+  // Función para filtrar y ordenar los productos
+  const filteredAndSortedProductos = productos
+    .filter((producto) =>
+      Object.values(producto)
+        .join(" ")
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase())
+    )
+    .sort((a, b) => {
+      if (a[sortField] < b[sortField]) {
+        return sortDirection === "asc" ? -1 : 1;
+      }
+      if (a[sortField] > b[sortField]) {
+        return sortDirection === "asc" ? 1 : -1;
+      }
+      return 0;
+    });
+  
 
     const agregarProducto = async () => {
         if (!productoActual.nombre || !productoActual.precio || !productoActual.material || !productoActual.stock || !productoActual.categoria || !productoActual.estado) {
@@ -266,45 +301,61 @@ const ComponenteGestionProductos = () => {
             </div><br/>
 
             <h3>Lista de Productos</h3><br/>
-            <table border="1">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Precio</th>
-                        <th>Descripción</th>
-                        <th>Material</th>
-                        <th>Stock</th>
-                        <th>Estado</th>
-                        <th>Categoría</th>
-                        <th>Imagen</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {productos.map(producto => (
-                        <tr key={producto.id}>
-                            <td>{producto.nombre}</td>
-                            <td>{producto.precio}</td>
-                            <td>{producto.descripcion}</td>
-                            <td>{producto.material}</td>
-                            <td>{producto.stock}</td>
-                            <td>{producto.estado}</td>
-                            <td>{producto.categoria}</td>
-                            <td>
-                                {producto.imagenes && producto.imagenes.length > 0 ? (
-                                    producto.imagenes.map((url, index) => (
-                                        <img key={index} src={url} alt={`Imagen de ${producto.nombre}`} style={{ width: "100px", marginRight: "5px" }} />
-                                    ))
-                                ) : "Sin imagen"}
-                            </td>
-                            <td>
-                                <button className="botones" onClick={() => seleccionarParaEditar(producto)}>Editar</button>
-                                <button className="botones" onClick={() => borrarProducto(producto.id)}>Borrar</button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            <div className="search-container">
+  <input
+    type="text"
+    placeholder="Buscar..."
+    value={searchTerm}
+    onChange={(e) => setSearchTerm(e.target.value)}
+  />
+</div>
+<table border="1">
+  <thead>
+    <tr>
+      <th onClick={() => handleSort("nombre")}>Nombre</th>
+      <th onClick={() => handleSort("precio")}>Precio</th>
+      <th onClick={() => handleSort("descripcion")}>Descripción</th>
+      <th onClick={() => handleSort("material")}>Material</th>
+      <th onClick={() => handleSort("stock")}>Stock</th>
+      <th onClick={() => handleSort("estado")}>Estado</th>
+      <th onClick={() => handleSort("categoria")}>Categoría</th>
+      <th>Imagen</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {filteredAndSortedProductos.map((producto) => (
+      <tr key={producto.id}>
+        <td>{producto.nombre}</td>
+        <td>{producto.precio}</td>
+        <td>{producto.descripcion}</td>
+        <td>{producto.material}</td>
+        <td>{producto.stock}</td>
+        <td>{producto.estado}</td>
+        <td>{producto.categoria}</td>
+        <td>
+          {producto.imagenes && producto.imagenes.length > 0 ? (
+            producto.imagenes.map((url, index) => (
+              <img
+                key={index}
+                src={url}
+                alt={`Imagen de ${producto.nombre}`}
+                style={{ width: "100px", marginRight: "5px" }}
+              />
+            ))
+          ) : (
+            "Sin imagen"
+          )}
+        </td>
+        <td>
+          <button className="botones" onClick={() => seleccionarParaEditar(producto)}>Editar</button>
+          <button className="botones" onClick={() => borrarProducto(producto.id)}>Borrar</button>
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
         </div>
     );
 };
