@@ -16,7 +16,6 @@ import { ComponenteReporte } from './components/ComponenteReporte';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
 
-
 // Importaciones adicionales...
 
 function App() {
