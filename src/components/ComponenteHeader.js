@@ -6,11 +6,12 @@ import logoIdioma from '../assets/idioma873287.svg';
 import logoBolsa from '../assets/bolsa873287.svg';
 import logoFavoritos from '../assets/favoritos873287.svg';
 import '../styles/header-footer-styles.css';
+import { useAuth } from '../context/AuthContext'; // Asegúrate de que la ruta de importación sea correcta
 
 const ComponenteHeader = () => {
     let navigate = useNavigate();
     const [showDropdown, setShowDropdown] = useState(false);
-    const userName = localStorage.getItem('userName');
+    const { user, logout } = useAuth();  // Usa el contexto para acceder al usuario y a la función de logout
 
     const handleLoginClick = () => {
         navigate('/login');
@@ -25,20 +26,15 @@ const ComponenteHeader = () => {
     };
 
     const cerrarSesion = () => {
-        // Eliminar los datos de sesión del localStorage
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('userRole');
-        localStorage.removeItem('userName');
-        
-        // Redirigir al usuario a la página de inicio o de inicio de sesión
-        navigate('/');
-      };
+        logout(); // Usa la función logout del contexto para manejar la sesión
+        navigate('/'); // Redirige al inicio después de cerrar sesión
+    };
 
     return (
         <div className="grid-layout-header">
             <div className="grid-layout-cabecera">
                 <div className="logo">
-                    <a href="home.js">
+                    <a href="#" onClick={(e) => { e.preventDefault(); navigate('/'); }}>
                         <img src={logo} alt="Logo" />
                     </a>
                 </div>
@@ -74,15 +70,15 @@ const ComponenteHeader = () => {
                     </a>
                 </div>
                 <div>
-                    {userName ? (
+                    {user ? (
                         <div
                             className="user-dropdown"
                             onMouseEnter={handleUserHover}
                             onMouseLeave={handleUserLeave}
                         >
                             <span>
-                                <b>{userName}</b>
-                            </span>
+                            <h3>{user ? user.usuario : "Nombre Apellido"}</h3>
+                                                        </span>
                             {showDropdown && (
                                 <div className="dropdown-content">
                                     <a href="/perfilUsuario">View Profile</a>

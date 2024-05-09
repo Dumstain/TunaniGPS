@@ -13,8 +13,8 @@ import ComponenteVenta from './components/ComponenteVenta';
 import ComponentePaqueteria from './components/ComponentePaqueteria';
 import ComponentePerfilUsuario from './components/ComponentePerfilUsuario';
 import { ComponenteReporte } from './components/ComponenteReporte';
-
-
+import ProtectedRoute from './components/ProtectedRoute';
+import { AuthProvider } from './context/AuthContext';
 
 
 // Importaciones adicionales...
@@ -22,11 +22,17 @@ import { ComponenteReporte } from './components/ComponenteReporte';
 function App() {
   return (
     <Router>
+      <AuthProvider>
       <Routes>
+        
         <Route path="/" element={<Inicio />} />
         <Route path="perfilUsuario" element={<ComponentePerfilUsuario/>} /> // Ruta para el perfil del usuario
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/representante" element={<RepresentanteLayout />}>
+        <Route path="/representante" element={
+          <ProtectedRoute>        
+          <RepresentanteLayout />
+          </ProtectedRoute>
+        }>
              <Route path="artesanos" element={<Artesanos />} />
              <Route path="artesanias" element={<ComponenteGestionProductos/>} />
              <Route path="perfilCooperativa" element={<ComponenteCooperativa />} />
@@ -40,6 +46,7 @@ function App() {
               </Route>
         {/* Definir más rutas según sea necesario */}
       </Routes>
+      </AuthProvider>
     </Router>
   );
 }
