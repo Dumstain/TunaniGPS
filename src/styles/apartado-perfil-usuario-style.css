@@ -1,0 +1,153 @@
+/* apartado-perfil-usuario-style.css */
+
+.titulo-perfil-comprador {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+  }
+  
+  .perfil-comprador-container {
+    padding: 3%;
+  }
+  
+  .perfil-comprador-datos-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 30px;
+  }
+  
+  .perfil-comprador-datos {
+    display: flex;
+    align-items: center;
+    padding: 7px;
+    border-radius: 4px;
+  }
+  
+  .perfil-comprador-datos::before {
+    content: attr(data-label);
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  .formulario-editar-perfil-comprador {
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 30px;
+  }
+  
+  .editar-datos-perfil-comprador {
+    margin: 5px;
+  }
+  
+  .editar-datos-perfil-comprador label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .editar-datos-perfil-comprador input[type="text"],
+  .editar-datos-perfil-comprador select,
+  .editar-datos-perfil-comprador textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: none;
+    background-color: #F6F6F6;
+    font-family: 'Century Gothic', Arial, sans-serif;
+    box-sizing: border-box;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .editar-datos-perfil-comprador input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: none;
+    color: #bdbaba;
+    background-color: #F6F6F6;
+    font-family: 'Century Gothic', Arial, sans-serif;
+    box-sizing: border-box;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .editar-datos-perfil-comprador input[type="checkbox"] {
+    visibility: hidden;
+    position: absolute;
+  }
+  
+  .editar-datos-perfil-comprador .checkbox-custom {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #d1d1d1;
+    border-radius: 4px;
+    position: relative;
+    cursor: pointer;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .editar-datos-perfil-comprador input[type="checkbox"]:checked + .checkbox-custom::before {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 1px;
+    width: 5px;
+    height: 10px;
+    border-style: solid;
+    border-color: #873286;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+  }
+  
+  .acciones-formulario {
+    text-align: right;
+  }
+  
+  .acciones-formulario button {
+    padding: 10px 20px;
+    margin-top: 3%;
+    border: none;
+    border-radius: 4px;
+    background-color: #BF06C6;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 10px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+  }
+  
+  .acciones-formulario button:hover {
+    background-color: #873286;
+    transform: scale(1.05);
+  }
+  
+  .alert {
+    padding: 15px;
+    margin-top: 10px;
+    border-radius: 4px;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .alert.success {
+    background-color: #4CAF50;
+  }
+  
+  .alert.error {
+    background-color: #F44336;
+  }
+  

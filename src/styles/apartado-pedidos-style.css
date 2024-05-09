@@ -1,4 +1,11 @@
 /* Estilos para el contenedor principal y títulos */
+.espacio-entre-divs{
+
+    margin-top: 30px;
+    margin-bottom: 30px;
+
+}
+
 .pedidos-contenedor {
     padding: 3%;
 }
@@ -6,7 +13,7 @@
 #titulo-pedidos {
     text-align: center;
     font-size: 1.8rem;
-    color: #333;
+    color: #873286;
     margin-bottom: 2rem;
 }
 

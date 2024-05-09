@@ -1,0 +1,81 @@
+/* Estilos para el contenedor principal y títulos */
+.espacio-margen {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.contenedor-ventas {
+    padding-top: 5vh;
+    padding: 2%;
+    padding-bottom: 5vh;
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra los contenedores de ventas verticalmente */
+}
+
+#titulo-ventas {
+    text-align: center;
+    font-size: 2rem;
+    color: #873286;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Estilos para los contenedores de ventas y detalles */
+.datos-venta-contenedor {
+    background-color: #fff;
+    padding: 20px;
+    width: 80%; /* Ajusta el ancho para una mejor presentación tipo ticket */
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center; /* Alineación central de los contenidos internos */
+}
+
+.informacion-general {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    background-color: #fafafa;
+    width: 100%;
+}
+
+.informacion-general:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #873286;
+}
+
+/* Estilos para secciones específicas */
+.titulos-seccion {
+    color: #873286;
+    text-align: center; /* Centra los títulos de cada sección */
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+/* Estilos para la visualización de detalles */
+.detalles-venta ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.detalles-venta li {
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
+    text-align: center; /* Centra los textos de los detalles */
+}
+
+.detalles-venta li:last-child {
+    border-bottom: none;
+}
+
+.detalles-venta strong, .detalles-venta span {
+    color: #333;
+}
