@@ -47,17 +47,18 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const userData = localStorage.getItem('user');
         if (userData) {
-            setUser(JSON.parse(userData));
-            localStorage.setItem('userId', JSON.parse(userData).id);
-            localStorage.setItem('userRol', JSON.parse(userData).rol);
-            localStorage.setItem('userName', JSON.parse(userData).nombre_user);
-
-
-
-            //console log para verificar que se guardó
-            console.log('User ID: ', JSON.parse(userData).id);
-            console.log('User Rol: ', JSON.parse(userData).rol);
-
+            const parsedData = JSON.parse(userData);
+            setUser(parsedData);
+            // Guardar en localStorage solo si es necesario
+            if (localStorage.getItem('userId') !== parsedData.id) {
+                localStorage.setItem('userId', parsedData.id);
+            }
+            if (localStorage.getItem('userRol') !== parsedData.rol) {
+                localStorage.setItem('userRol', parsedData.rol);
+            }
+            if (localStorage.getItem('userName') !== parsedData.nombre_user) {
+                localStorage.setItem('userName', parsedData.nombre_user);
+            }
         }
         setIsLoading(false);
     }, []);
