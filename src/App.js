@@ -16,6 +16,7 @@ import ComponenteReporte from './components/ComponenteReporte';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
 
+
 // Importaciones adicionales.....
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
              <Route path="ventas" element={<ComponenteVenta />} /> // Ruta para el perfil del representante
              <Route path="paqueteria" element={<ComponentePaqueteria />} /> // Ruta para el perfil del representante
              <Route path="reporte" element={<ComponenteReporte />} /> // Ruta para el perfil del representante
+        
 
                {/* Aquí puedes añadir más subrutas específicas del representante */}
               </Route>

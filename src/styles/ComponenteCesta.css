@@ -1,0 +1,239 @@
+.contenedor{
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.cuadro1{
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.componente-cesta {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .cesta-compra {
+    flex: 1;
+  }
+  
+  .resumen-pedido {
+    padding: 10px;
+    padding-right: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0.2, 0.2, 0.2); /* Sombreado */
+  }
+  
+  .botones {
+    width: 100px;
+    height: 42px;
+    margin-right: 10px;
+    gap: 0px;
+    border-radius: 10px 10px 10px 10px;
+    background-color: rgba(191, 6, 198, 1);
+    color: rgba(255, 255, 255, 1);
+    font-family: Century Gothic, sans-serif;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0.1, 0.1); /* Sombreado */
+  }
+
+  .botones:hover {
+    background-color: rgba(40, 13, 56, 1);
+}
+  
+  .productos {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .producto {
+    display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  }
+  
+  .producto img {
+    width: 100px; /* Ajusta el tamaño de la imagen según sea necesario */
+    margin-right: 10px;
+  }
+  
+  /* Estilos para los botones */
+  .botones button {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+  }
+  .ejempro{
+    padding: 10px;
+    padding-right: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0.2, 0.2, 0.2); /* Sombreado */
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  .contenedor-sombreado {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+   
+  }
+  
+  .contenedor-cesta {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  .productos-cesta, .resumen-cesta {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0.1, 0.1, 0.1, 0.2);
+  }
+  
+  .producto-cesta {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+  }
+  
+  .producto-cesta:last-child {
+    border-bottom: none;
+  }
+  
+  .detalles-producto {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .detalles-producto p {
+    margin: 5px 0;
+  }
+  
+  .eliminar-producto {
+    margin-top: 10px;
+    background-color: rgba(191, 6, 198, 1);
+    color: #fff;
+    border: none;
+    font-family: Century Gothic, sans-serif;
+    font-size: 15px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .eliminar-producto:hover {
+    background-color: rgba(40, 13, 56, 1);
+    transform: scale(1.05);
+  }
+  
+  .resumen-cesta h2 {
+    margin-bottom: 20px;
+  }
+  
+  .resumen-cesta p {
+    margin: 10px 0;
+  }
+  
+ 
+  
+  .cancelar {
+    width: 100px;
+    height: 42px;
+    margin-right: 10px;
+    gap: 0px;
+    border-radius: 10px 10px 10px 10px;
+    background-color: rgba(191, 6, 198, 1);
+    color: rgba(255, 255, 255, 1);
+    font-family: Century Gothic, sans-serif;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0.1, 0.1); /* Sombreado */
+  }
+  
+  .cancelar:hover {
+    background-color: #873287;
+    transform: scale(1.05);
+  }
+  
+  .pagar {
+    background-color: #e60000cb;
+    width: 100px;
+    height: 42px;
+    margin-right: 10px;
+    gap: 0px;
+    border-radius: 10px 10px 10px 10px;
+    color: rgba(255, 255, 255, 1);
+    font-family: Century Gothic, sans-serif;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0.1, 0.1); /* Sombreado */
+  }
+  
+  .pagar:hover {
+    background-color:  #d02a2a;
+    transform: scale(1.05);
+  }
+
+  .codigo{
+    width: 100%;
+   padding: 10px;
+   border-radius: 4px;
+   border: none;
+   background-color: #F6F6F6;
+   font-family: 'Century Gothic', Arial, sans-serif; /* Arial y sans-serif son alternativas */
+   box-sizing: border-box; /* para incluir el padding en el ancho total */
+   box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); /* sombra interior */
+}
+
+.aplicar{
+    padding: 10px 20px;
+    margin-top: 5%;
+    border: none;
+    border-radius: 4px;
+    background-color: rgba(191, 6, 198, 1);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+}
+.aplicar:hover{
+    background-color: #873287;
+    transform: scale(1.05);
+}
+  
+ 
+  
+ 
+  
+  

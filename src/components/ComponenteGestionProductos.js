@@ -296,7 +296,7 @@ const handleSort = (field) => {
                     </select>
                 </div>
                 <button className="botones" onClick={modoEdicion ? editarProducto : agregarProducto}>
-                    {modoEdicion ? "Guardar Cambios ✎" : "Agregar ✎"}
+                    {modoEdicion ? "✎ Guardar Cambios" : "✎ Agregar"}
                 </button>
             </div><br/>
 
@@ -348,8 +348,8 @@ const handleSort = (field) => {
           )}
         </td>
         <td>
-          <button className="botones" onClick={() => seleccionarParaEditar(producto)}>Editar</button>
-          <button className="botones" onClick={() => borrarProducto(producto.id)}>Borrar</button>
+          <button className="botones" onClick={() => seleccionarParaEditar(producto)}>✎ Editar</button>
+          <button className="botones" onClick={() => borrarProducto(producto.id)}>🗑 Borrar</button>
         </td>
       </tr>
     ))}
