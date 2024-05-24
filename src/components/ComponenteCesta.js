@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import "../../src/styles/ComponenteCesta.css";
-// import Header from './ComponenteHeader';
-// import Footer from './Footer';
+ import Header from './ComponenteHeader';
+ import Footer from './Footer';
 // import ProductosImagen from '../assets/imagenes/artesanos.jpg';
 
 const ComponenteCesta = () => {
@@ -35,7 +35,7 @@ const ComponenteCesta = () => {
 
   return (
     <div className="contenedor-sombreado">
-      {/* <Header /> */}
+      <Header /> 
       <div className="contenedor-cesta">
         <div className="productos-cesta">
           <h2>Cesta de Compra</h2>
@@ -74,7 +74,7 @@ const ComponenteCesta = () => {
       </div>
       {/* Botón para mostrar ejemplos */}
       <button className="mostrar-ejemplo" onClick={mostrarEjemplo}>Mostrar Ejemplo</button>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 };

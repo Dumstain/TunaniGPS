@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import "../../src/styles/ComponentePagoTarjeta.css";
-/*import Header from './ComponenteHeader';
-import Footer from './Footer';*/
+import Header from './ComponenteHeader';
+import Footer from './Footer';
 import Tarjetas from '../assets/imagenes/toppng.com-visa-mastercard-american-express-logos-american-express-1530x261.png';
 
 const ComponentePagoTarjeta = () => {
@@ -90,7 +90,7 @@ const ComponentePagoTarjeta = () => {
     
    
     <div>
-      {/*<Header />*/}
+      <Header />
     <div className="contenedor-cuadros" style={{ display: 'flex', alignItems: 'flex-start' }}>
       {/* Columna izquierda */}
       <div style={{ flex: 2 }}>
@@ -195,7 +195,7 @@ const ComponentePagoTarjeta = () => {
 
     {/* Botón para mostrar ejemplos */}
     <button onClick={mostrarEjemplo}>Mostrar Ejemplo</button>
-    {/*<Footer />*/}
+    <Footer />
   </div>
  
 );
