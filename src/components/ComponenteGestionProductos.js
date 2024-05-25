@@ -180,15 +180,52 @@ const PerfilProducto = ({ initialProductoId }) => {
     return <div>No se ha encontrado la información del producto.</div>;
   }
 
-  return (
-    <div className="perfil-producto-container">
-      <h1 id="titulo-perfil-producto">Datos del Perfil del Producto</h1>
+    return (
+        <div>
+            <div className="cuadro">
+                <h2>{modoEdicion ? "Editar Producto" : "Agregar Producto"}</h2><br/>
+                <h4>Nombre *</h4>
+                <input className="cajas" name="nombre" value={productoActual.nombre} onChange={manejarCambio} placeholder="Nombre" /><br/>
+                {nombreError && <p style={{ color: 'red' }}>{nombreError}</p>}
+                <h4>Precio *</h4>
+                <input className="cajas" type="text" name="precio" value={productoActual.precio} onChange={manejarCambio} placeholder="Precio" /><br/>
+                {precioError && <p style={{ color: 'red' }}>{precioError}</p>}
+                <h4>Descripción</h4>
+                <input className="cajas" name="descripcion" value={productoActual.descripcion} onChange={manejarCambio} placeholder="Descripción" /><br/>
+                {descripcionError && <p style={{ color: 'red' }}>{descripcionError}</p>}
+                <h4>Material *</h4>
+                <input className="cajas" name="material" value={productoActual.material} onChange={manejarCambio} placeholder="Material" /><br/>
+                {materialError && <p style={{ color: 'red' }}>{materialError}</p>}
+                <h4>Stock *</h4>
+                <input className="cajas" type="number" name="stock" value={productoActual.stock} onChange={manejarCambio} placeholder="Stock" /><br/>
+                {stockError && <p style={{ color: 'red' }}>{stockError}</p>}
+                <h4>Categoria *</h4>
+                <input className="cajas" name="categoria" value={productoActual.categoria} onChange={manejarCambio} placeholder="Categoría" /><br/>
+                {categoriaError && <p style={{ color: 'red' }}>{categoriaError}</p>}
+                <input type="file" name="imagen" onChange={manejarCambio} />
+                <div>
+                    <h4>Estado *</h4>
+                    <select className="seleccion" name="estado" value={productoActual.estado} onChange={manejarCambio}><br/>
+                        <option value="publicado">Publicado</option>
+                        <option value="no_publicado">No Publicado</option>
+                    </select>
+                    {estadoError && <p style={{ color: 'red' }}>{estadoError}</p>}
+                </div>
+                <div>
+                    <h4>Artesano *</h4>
+                    <select className="seleccion" name="artesano" value={productoActual.artesano} onChange={manejarCambio}>
+                        {artesanos.map(artesano => (
+                            <option key={artesano.id} value={artesano.id}>
+                                {artesano.nombre}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <button className="botones" onClick={modoEdicion ? editarProducto : agregarProducto}>
+                    {modoEdicion ? "✎ Guardar Cambios" : "✎ Agregar"}
+                </button>
+            </div><br/>
 
-      {alertMessage && (
-        <div className={`alert ${alertMessage.type}`}>
-          <p>{alertMessage.message}</p>
-        </div>
-      )}
 
 <div id="productos-lista">
   <h2>Productos de la Cooperativa</h2>
@@ -215,67 +252,50 @@ const PerfilProducto = ({ initialProductoId }) => {
     <p>No hay productos disponibles.</p>
   )}
 </div>
-<div className="agregar-producto-container">
-  <h2>Agregar Nuevo Producto</h2>
-  <form onSubmit={handleNewProductSubmit}>
-    <label>
-      Nombre<span title="Este campo es obligatorio"> *</span>
-    </label>
-    <input
-      type="text"
-      name="nombre"
-      value={newProduct.nombre || ""}
-      onChange={handleNewProductChange}
-    />
-    <label>
-      Precio<span title="Este campo es obligatorio"> *</span>
-    </label>
-    <input
-      type="number"
-      name="precio"
-      value={newProduct.precio || ""}
-      onChange={handleNewProductChange}
-    />
-    <label>
-      Material<span title="Este campo es obligatorio"> *</span>
-    </label>
-    <input
-      type="text"
-      name="material"
-      value={newProduct.material || ""}
-      onChange={handleNewProductChange}
-    />
-    <label>
-      Stock<span title="Este campo es obligatorio"> *</span>
-    </label>
-    <input
-      type="number"
-      name="stock"
-      value={newProduct.stock || ""}
-      onChange={handleNewProductChange}
-    />
-    <label>
-      Descripción<span title="Este campo es obligatorio"> *</span>
-    </label>
-    <textarea
-      name="descripcion"
-      value={newProduct.descripcion || ""}
-      onChange={handleNewProductChange}
-    />
-    <div className="botones-acciones-formulario">
-      <button type="submit">➕ Agregar Producto</button>
-    </div>
-  </form>
-</div>
+<table border="1">
+  <thead>
+    <tr>
+      <th onClick={() => handleSort("nombre")}>Nombre</th>
+      <th onClick={() => handleSort("precio")}>Precio</th>
+      <th onClick={() => handleSort("descripcion")}>Descripción</th>
+      <th onClick={() => handleSort("material")}>Material</th>
+      <th onClick={() => handleSort("stock")}>Stock</th>
+      <th onClick={() => handleSort("estado")}>Estado</th>
+      <th onClick={() => handleSort("categoria")}>Categoría</th>
+      <th>Imagen</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {filteredAndSortedProductos.map((producto) => (
+      <tr key={producto.id}>
+        <td>{producto.nombre}</td>
+        <td>{producto.precio}</td>
+        <td>{producto.descripcion}</td>
+        <td>{producto.material}</td>
+        <td>{producto.stock}</td>
+        <td>{producto.estado}</td>
+        <td>{producto.categoria}</td>
+        <td>
+          {producto.imagenes && producto.imagenes.length > 0 ? (
+            producto.imagenes.map((url, index) => (
+              <img
+                key={index}
+                src={url}
+                alt={`Imagen de ${producto.nombre}`}
+                style={{ width: "100px", marginRight: "5px" }}
+              />
+            ))
+          ) : (
+            "Sin imagen"
+          )}
+        </td>
+        <td>
+          <button className="botones" onClick={() => seleccionarParaEditar(producto)}>✎ Editar</button>
+          <button className="botones" onClick={() => borrarProducto(producto.id)}>🗑 Borrar</button>
+        </td>
+      </tr>
 
-<div id="fotos-producto">
-  {producto.imagenes &&
-    producto.imagenes.map((imagen) => (
-      <img
-        key={imagen.id}
-        src={`${window.location.origin}${imagen.imagen_url}`}
-        alt="Imagen del producto"
-      />
     ))}
 </div>
 

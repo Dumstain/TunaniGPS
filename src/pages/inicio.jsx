@@ -3,7 +3,7 @@ import React from 'react';
 import '../styles/inicio.css';
 import BarraBusqueda from '../components/BarraBusqueda';
 import Header from '../components/ComponenteHeader';
-import Footer from '../components/footer';
+import Footer from '../components/Footer';
 import Sociedades from '../assets/imagenes/sociedades.jpg';
 import nodes from '../assets/imagenes/nodes.jpg';
 import artesanos from '../assets/imagenes/artesanos.jpg';
