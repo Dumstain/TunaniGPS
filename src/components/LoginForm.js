@@ -78,9 +78,7 @@ const LoginForm = ({ toggleForm }) => {
                             className="input-field"
                             required
                         />
-                        <button type="button" onClick={togglePasswordVisibility} className="toggle-password">
-                            {showPassword ? 'Ocultar' : 'Mostrar'}
-                        </button>
+                   
                     </div>
                     <button type="submit" className="submit-button">Iniciar Sesión</button>
                     <div className="signup-link">¿No tienes cuenta? <span onClick={toggleForm} className="signup-link-anchor">Registrarse</span></div>
