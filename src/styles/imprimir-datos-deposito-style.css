@@ -1,0 +1,147 @@
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #area-para-imprimir, #area-para-imprimir * {
+    visibility: visible;
+  }
+  #area-para-imprimir {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    padding: 20px;
+    box-shadow: none;
+    overflow: visible;
+    width: 100%;
+   
+  }
+}
+
+  
+  
+
+.componente-contenedor {
+  display: flex;
+  justify-content: center; /* Centrado horizontal */
+  align-items: center; /* Centrado vertical */
+  height: 100vh; /* Altura total de la ventana */
+}
+
+.informacion-deposito-contenedor {
+  min-height: 500px; /* Establece un mínimo de altura */
+  max-height: 80vh; /* Máximo de altura relativo a la ventana del viewport */
+  overflow-y: auto; /* Habilita el desplazamiento vertical si es necesario */
+  width: 65%; /* Ajusta el ancho según lo necesites */
+
+  display: flex; /* Utiliza Flexbox */
+  gap: 20px; /* Espacio entre elementos */
+  flex-direction: column;
+  background-color: white;
+  border-radius: 10px;
+  padding: 2%;
+  border-radius: 8px; /* esquinas redondeadas */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* sombra suave para dar profundidad */
+}
+
+.logo-nombre-subcontenedor {
+  display: flex; /* Utiliza Flexbox */
+  align-items: center; /* Centra los elementos verticalmente */
+  gap: 10px; /* Espacio entre elementos */
+}
+
+#linea-vertical {
+    border: 0.5px solid rgba(0, 0, 0, 0.151);
+    height: 30px; /* Altura de la línea */
+}
+
+.logo-nombre-subcontenedor img {
+  height: 40px; /* Altura del logo de Oxxo */
+}
+
+.logo-nombre-subcontenedor span {
+  font-size: 24px; /* Tamaño del texto */
+  font-weight: bold; /* Negrita para el texto */
+}
+
+.parrafo-subcontenedor {
+  font-size: medium;
+  padding: 0px 2% 0px 2%;
+  text-align: center;
+}
+
+.monto-subcontenedor {
+  text-align: center;
+}
+
+.monto-subcontenedor h4,
+.monto-subcontenedor h3 {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  font-weight: normal;
+}
+
+.monto-subcontenedor h4 {
+  color: #873287;
+}
+
+.botones-contenedor {
+  padding: 4%;
+  text-align: center;
+}
+
+.botones-contenedor button {
+  padding: 10px 40px;
+  border: none;
+  font-size: medium;
+  border-radius: 4px;
+  background-color: #bf06c6;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 15px; /* Espaciado entre botones */
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3); /* Desplazamiento a la derecha, desplazamiento hacia abajo, desenfoque, color */
+}
+
+.botones-contenedor button:hover {
+  background-color: #873286;
+  transform: scale(1.05); /* Aumenta ligeramente el tamaño de la imagen */
+}
+
+#boton-volver {
+  background-color: #280d38;
+}
+
+.referencia-contenedor,
+.fecha-expiracion-contenedor {
+  display: flex;
+  justify-content: space-between;
+  font-size: medium;
+  padding: 0px 2% 0px 2%;
+}
+
+.titulo,
+.valor {
+  text-decoration: none;
+  font-family: Arial, sans-serif;
+  font-size: medium;
+  color: black;
+}
+
+.linea-horizontal {
+  display: flex;
+  width: 100%; /* Asegura que el contenedor tome el ancho completo del padre */
+  border: 0.5px solid rgba(0, 0, 0, 0.151);
+}
+
+.intrucciones-contenedor{
+    padding: 0px 5% 0px 5%;
+    font-size: small;
+}
+
+
+
+
+
