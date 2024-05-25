@@ -1,363 +1,406 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import '../styles/ComponenteGestionProductos.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "../styles/ComponenteGestionProductos.css";
+import useCooperativaId from '../hooks/useCooperativaId'; // Importar el hook personalizado
 
-const ComponenteGestionProductos = () => {
-    const [productos, setProductos] = useState([]);
-    const [productoActual, setProductoActual] = useState({
-        id: '',
-        nombre: '',
-        precio: '',
-        descripcion: '',
-        material: '',
-        stock: '',
-        estado: 'no_publicado',
-        artesano: '',
-        categoria: '',  
-        imagen: null
-    });
-    const [artesanos, setArtesanos] = useState([]);
-    const [modoEdicion, setModoEdicion] = useState(false);
-    const [nombreError, setNombreError] = useState('');
-    const [precioError, setPrecioError] = useState('');
-    const [descripcionError, setDescripcionError] = useState('');
-    const [materialError, setMaterialError] = useState('');
-    const [stockError, setStockError] = useState('');
-    const [categoriaError, setCategoriaError] = useState('');
-    const [estadoError, setEstadoError] = useState('');
+const PerfilProducto = ({ initialProductoId }) => {
+  const { cooperativaId, error: cooperativaError } = useCooperativaId();
+  const [productos, setProductos] = useState([]);
+  const [producto, setProducto] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [files, setFiles] = useState([]);
+  const [isEditing, setIsEditing] = useState(false);
+  const [isImageEditing, setIsImageEditing] = useState(false);
+  const [alertMessage, setAlertMessage] = useState(null);
+  const [newProduct, setNewProduct] = useState({
+    nombre: "",
+    precio: "",
+    material: "",
+    stock: "",
+    descripcion: "",
+  });
 
-    // Estado para ordenamiento y búsqueda
-const [sortField, setSortField] = useState("");
-const [sortDirection, setSortDirection] = useState("asc");
-const [searchTerm, setSearchTerm] = useState("");
-
-
-    useEffect(() => {
-        obtenerProductos();
-        cargarArtesanos();
-    }, []);
-
-    const cargarArtesanos = async () => {
-        const resultado = await axios.get('http://127.0.0.1:8000/api/artesanos/');
-        setArtesanos(resultado.data);
-    };
-
-
-    const obtenerImagenesProducto = async (productoId) => {
+  useEffect(() => {
+    const fetchData = async () => {
+      if (cooperativaId) {
         try {
-            const response = await axios.get(`http://127.0.0.1:8000/api/producto/${productoId}/imagenes/`);
-            return response.data.images;
-        } catch (error) {
-            console.error('Error al obtener imágenes:', error.response.data);
-            return [];
+          const response = await axios.get(
+            `http://localhost:8000/api/cooperativas/${cooperativaId}/productos/`
+          );
+          const productosData = response.data;
+          setProductos(productosData);
+
+          // Seleccionar el primer producto si no se proporciona `initialProductoId`
+          const selectedProducto = initialProductoId
+            ? productosData.find(p => p.id === initialProductoId)
+            : productosData[0];
+
+          if (selectedProducto) {
+            setProducto(selectedProducto);
+          } else {
+            setError("No se encontró ningún producto para esta cooperativa.");
+          }
+          setLoading(false);
+        } catch (err) {
+          setError("Error al cargar la información: " + err.message);
+          setLoading(false);
         }
-    };
-    
-    const obtenerProductos = async () => {
-        try {
-            const resultado = await axios.get('http://127.0.0.1:8000/api/productos/');
-            const productosConImagenes = await Promise.all(resultado.data.map(async producto => {
-                const imagenes = await obtenerImagenesProducto(producto.id);
-                return { ...producto, imagenes };
-            }));
-            setProductos(productosConImagenes);
-        } catch (error) {
-            console.error('Error al obtener productos:', error.response.data);
-        }
+      }
     };
 
-    const manejarCambio = (e) => {
-        const { name, files, value } = e.target;
-        switch (name) {
-            case 'nombre':
-                if (/^[a-zA-Z\s]{0,60}$/.test(value)) {
-                    setNombreError('');
-                    setProductoActual(prevState => ({ ...prevState, [name]: value }));
-                } else {
-                    setNombreError('El nombre solo debe contener caracteres del abecedario.');
-                }
-                if (value.trim() !== ''){
-                    setNombreError('');
-                } else{
-                    setNombreError('El nombre es obligatorio.');
-                }
-                break;
-            case 'precio':
-                if (/^\d{0,6}$/.test(value)) {
-                    setPrecioError('');
-                    setProductoActual(prevState => ({ ...prevState, [name]: value }));
-                } else {
-                    setPrecioError('El precio solo puede contener hasta 6 números.');
-                }
-                if (value.trim() !== ''){
-                    setPrecioError('');
-                } else{
-                    setPrecioError('El precio es obligatorio.');
-                }
-                break;
-            case 'descripcion':
-                if (value.length <= 250) {
-                    setDescripcionError('');
-                    setProductoActual(prevState => ({ ...prevState, [name]: value }));
-                } else {
-                    setDescripcionError('La descripción debe tener como máximo 250 caracteres.');
-                }
-                break;
-            case 'material':
-                if (/^[a-zA-Z\s]{0,50}$/.test(value)) {
-                    setMaterialError('');
-                    setProductoActual(prevState => ({ ...prevState, [name]: value }));
-                } else {
-                    setMaterialError('El material solo debe contener letras y como máximo 50 caracteres.');
-                }
-                if (value.trim() !== ''){
-                    setMaterialError('');
-                } else{
-                    setMaterialError('El material es obligatorio.');
-                }
-                break;
-            case 'stock':
-                if (/^\d{0,6}$/.test(value)) {
-                    setStockError('');
-                    setProductoActual(prevState => ({ ...prevState, [name]: value }));
-                } else {
-                    setStockError('El stock solo debe contener números y tener como máximo 6 caracteres.');
-                }
-                if (value.trim() !== ''){
-                    setStockError('');
-                } else{
-                    setStockError('La cantidad de producto obligatoria.');
-                }
-                break;
-                case 'categoria':
-                    setProductoActual(prevState => ({ ...prevState, [name]: value }));
-                    if (value.trim() === '') {
-                        setCategoriaError('La categoría es obligatoria.');
-                    } else {
-                        setCategoriaError('');
-                    }
-                    break;
-                
-            case 'estado':
-                if (value.trim() !== '') {
-                    setEstadoError('');
-                    setProductoActual(prevState => ({ ...prevState, [name]: value }));
-                } else {
-                    setEstadoError('El estado es obligatorio.');
-                }
-                break;
-            case 'imagen':
-                setProductoActual(prevState => ({
-                    ...prevState,
-                    [name]: files[0]
-                }));
-                break;
-            default:
-                setProductoActual(prevState => ({
-                    ...prevState,
-                    [name]: value
-                }));
-        }
-    };
+    fetchData();
+  }, [cooperativaId, initialProductoId]);
 
-// Función para ordenar la tabla
-const handleSort = (field) => {
-    const newSortDirection =
-      sortField === field && sortDirection === "asc" ? "desc" : "asc";
-    setSortField(field);
-    setSortDirection(newSortDirection);
+  const mostrarMensaje = (type, message) => {
+    setAlertMessage({ type, message });
+    setTimeout(() => {
+      setAlertMessage(null);
+    }, 3000);
   };
+
+  const handleImageChange = (event) => {
+    setFiles(Array.from(event.target.files));
+  };
+
+  const handleDataChange = (event) => {
+    const { name, value } = event.target;
+    setProducto((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleImageSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
   
-  // Función para filtrar y ordenar los productos
-  const filteredAndSortedProductos = productos
-    .filter((producto) =>
-      Object.values(producto)
-        .join(" ")
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase())
-    )
-    .sort((a, b) => {
-      if (a[sortField] < b[sortField]) {
-        return sortDirection === "asc" ? -1 : 1;
-      }
-      if (a[sortField] > b[sortField]) {
-        return sortDirection === "asc" ? 1 : -1;
-      }
-      return 0;
-    });
+    if (files.length > 0) {
+      const imageFormData = new FormData();
+      files.forEach((file) => imageFormData.append("imagen", file));
   
-
-    const agregarProducto = async () => {
-        if (!productoActual.nombre || !productoActual.precio || !productoActual.material || !productoActual.stock || !productoActual.categoria || !productoActual.estado) {
-            alert('Por favor, complete todos los campos obligatorios (*) antes de agregar el producto.');
-            return;
-        }
-        const formData = new FormData();
-        Object.keys(productoActual).forEach(key => {
-            if (key !== 'imagen') {
-                formData.append(key, productoActual[key]);
-            }
-        });
-    
-        try {
-            const response = await axios.post('http://127.0.0.1:8000/api/productos/crear/', formData);
-            obtenerProductos();  
-            if (productoActual.imagen) {
-                subirImagen(response.data.id);
-            }
-        } catch (error) {
-            console.error('Error al crear producto:', error.response.data);
-        }
-    };
-    
-    const subirImagen = async (productoId) => {
-        const formData = new FormData();
-        formData.append('imagen', productoActual.imagen, productoActual.imagen.name);
-        formData.append('producto', productoId);
-    
-        try {
-            await axios.post('http://127.0.0.1:8000/api/subir-foto/', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
-        } catch (error) {
-            console.error('Error al subir imagen:', error.response.data);
-        }
-    };
-
-    const editarProducto = async () => {
-        if (!productoActual.nombre || !productoActual.precio || !productoActual.material || !productoActual.stock || !productoActual.categoria || !productoActual.estado) {
-            alert('Por favor, complete todos los campos obligatorios (*) antes de editar el producto.');
-            return;
-        }
-        const formData = new FormData();
-        Object.entries(productoActual).forEach(([key, value]) => {
-            formData.append(key, value);
-        });
-
-        await axios.put(`http://127.0.0.1:8000/api/productos/modificar/${productoActual.id}/`, formData, {
+      try {
+        const response = await axios.post(
+          `http://localhost:8000/api/productos/${producto.id}/agregar-fotos/`,
+          imageFormData,
+          {
             headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        });
-        obtenerProductos();
-    };
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        setProducto((prev) => ({
+          ...prev,
+          imagenes: response.data.imagenes.map(imagen => ({
+            ...imagen,
+            imagen_url: `${window.location.origin}${imagen.imagen_url}`
+          }))
+        }));
+        mostrarMensaje("success", "Imágenes subidas correctamente.");
+      } catch (err) {
+        mostrarMensaje("error", "Error al subir las imágenes: " + err.message);
+      }
+    }
+  
+    setIsImageEditing(false);
+    setLoading(false);
+  };
 
-    const seleccionarParaEditar = (producto) => {
-        setProductoActual(producto);
-        setModoEdicion(true);
-    };
+  const handleDataSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
 
-    const borrarProducto = async (id) => {
-        await axios.delete(`http://127.0.0.1:8000/api/productos/borrar/${id}/`);
-        obtenerProductos();
-    };
+    const updateFormData = new FormData();
+    Object.keys(producto).forEach((key) => {
+      if (key !== "imagenes") {
+        updateFormData.append(key, producto[key]);
+      }
+    });
 
-    return (
-        <div>
-            <div className="cuadro">
-                <h2>{modoEdicion ? "Editar Producto" : "Agregar Producto"}</h2><br/>
-                <h4>Nombre *</h4>
-                <input className="cajas" name="nombre" value={productoActual.nombre} onChange={manejarCambio} placeholder="Nombre" /><br/>
-                {nombreError && <p style={{ color: 'red' }}>{nombreError}</p>}
-                <h4>Precio *</h4>
-                <input className="cajas" type="text" name="precio" value={productoActual.precio} onChange={manejarCambio} placeholder="Precio" /><br/>
-                {precioError && <p style={{ color: 'red' }}>{precioError}</p>}
-                <h4>Descripción</h4>
-                <input className="cajas" name="descripcion" value={productoActual.descripcion} onChange={manejarCambio} placeholder="Descripción" /><br/>
-                {descripcionError && <p style={{ color: 'red' }}>{descripcionError}</p>}
-                <h4>Material *</h4>
-                <input className="cajas" name="material" value={productoActual.material} onChange={manejarCambio} placeholder="Material" /><br/>
-                {materialError && <p style={{ color: 'red' }}>{materialError}</p>}
-                <h4>Stock *</h4>
-                <input className="cajas" type="number" name="stock" value={productoActual.stock} onChange={manejarCambio} placeholder="Stock" /><br/>
-                {stockError && <p style={{ color: 'red' }}>{stockError}</p>}
-                <h4>Categoria *</h4>
-                <input className="cajas" name="categoria" value={productoActual.categoria} onChange={manejarCambio} placeholder="Categoría" /><br/>
-                {categoriaError && <p style={{ color: 'red' }}>{categoriaError}</p>}
-                <input type="file" name="imagen" onChange={manejarCambio} />
-                <div>
-                    <h4>Estado *</h4>
-                    <select className="seleccion" name="estado" value={productoActual.estado} onChange={manejarCambio}><br/>
-                        <option value="publicado">Publicado</option>
-                        <option value="no_publicado">No Publicado</option>
-                    </select>
-                    {estadoError && <p style={{ color: 'red' }}>{estadoError}</p>}
-                </div>
-                <div>
-                    <h4>Artesano *</h4>
-                    <select className="seleccion" name="artesano" value={productoActual.artesano} onChange={manejarCambio}>
-                        {artesanos.map(artesano => (
-                            <option key={artesano.id} value={artesano.id}>
-                                {artesano.nombre}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-                <button className="botones" onClick={modoEdicion ? editarProducto : agregarProducto}>
-                    {modoEdicion ? "Guardar Cambios ✎" : "Agregar ✎"}
-                </button>
-            </div><br/>
+    try {
+      const response = await axios.patch(
+        `http://localhost:8000/api/productos/modificar/${producto.id}/`,
+        updateFormData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      setProducto(response.data);
+      mostrarMensaje("success", "Datos actualizados correctamente.");
+    } catch (err) {
+      mostrarMensaje("error", "Error al actualizar los datos: " + err.message);
+    }
 
-            <h3>Lista de Productos</h3><br/>
-            <div className="search-container">
-  <input
-    type="text"
-    placeholder="Buscar..."
-    value={searchTerm}
-    onChange={(e) => setSearchTerm(e.target.value)}
-  />
-</div>
-<table border="1">
-  <thead>
-    <tr>
-      <th onClick={() => handleSort("nombre")}>Nombre</th>
-      <th onClick={() => handleSort("precio")}>Precio</th>
-      <th onClick={() => handleSort("descripcion")}>Descripción</th>
-      <th onClick={() => handleSort("material")}>Material</th>
-      <th onClick={() => handleSort("stock")}>Stock</th>
-      <th onClick={() => handleSort("estado")}>Estado</th>
-      <th onClick={() => handleSort("categoria")}>Categoría</th>
-      <th>Imagen</th>
-      <th>Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    {filteredAndSortedProductos.map((producto) => (
-      <tr key={producto.id}>
-        <td>{producto.nombre}</td>
-        <td>{producto.precio}</td>
-        <td>{producto.descripcion}</td>
-        <td>{producto.material}</td>
-        <td>{producto.stock}</td>
-        <td>{producto.estado}</td>
-        <td>{producto.categoria}</td>
-        <td>
-          {producto.imagenes && producto.imagenes.length > 0 ? (
-            producto.imagenes.map((url, index) => (
-              <img
-                key={index}
-                src={url}
-                alt={`Imagen de ${producto.nombre}`}
-                style={{ width: "100px", marginRight: "5px" }}
-              />
-            ))
-          ) : (
-            "Sin imagen"
-          )}
-        </td>
-        <td>
-          <button className="botones" onClick={() => seleccionarParaEditar(producto)}>Editar</button>
-          <button className="botones" onClick={() => borrarProducto(producto.id)}>Borrar</button>
-        </td>
-      </tr>
-    ))}
-  </tbody>
-</table>
+    setIsEditing(false);
+    setLoading(false);
+  };
 
+  const handleNewProductChange = (event) => {
+    const { name, value } = event.target;
+    setNewProduct((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleNewProductSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const response = await axios.post(
+        `http://localhost:8000/api/productos/crear/`,
+        {
+          ...newProduct,
+          cooperativa: cooperativaId,  // Asegúrate de incluir el ID de la cooperativa
+        }
+      );
+      setProductos((prev) => [...prev, response.data]);
+      mostrarMensaje("success", "Producto agregado correctamente.");
+      setNewProduct({
+        nombre: "",
+        precio: "",
+        material: "",
+        stock: "",
+        descripcion: "",
+      });
+    } catch (err) {
+      mostrarMensaje("error", "Error al agregar el producto: " + err.message);
+    }
+
+    setLoading(false);
+  };
+
+  if (loading) return <div id="cargando"></div>;
+  if (error || cooperativaError) return <p>Error al cargar: {error || cooperativaError}</p>;
+
+  if (!producto) {
+    return <div>No se ha encontrado la información del producto.</div>;
+  }
+
+  return (
+    <div className="perfil-producto-container">
+      <h1 id="titulo-perfil-producto">Datos del Perfil del Producto</h1>
+
+      {alertMessage && (
+        <div className={`alert ${alertMessage.type}`}>
+          <p>{alertMessage.message}</p>
         </div>
-    );
+      )}
+
+<div id="productos-lista">
+  <h2>Productos de la Cooperativa</h2>
+  {productos.length > 0 ? (
+    productos.map((prod) => (
+      <div key={prod.id} className="producto-item">
+        <h3>{prod.nombre}</h3>
+        <p><strong>Precio:</strong> {prod.precio}</p>
+        <p><strong>Material:</strong> {prod.material}</p>
+        <p><strong>Stock:</strong> {prod.stock}</p>
+        <p><strong>Descripción:</strong> {prod.descripcion}</p>
+        <div className="producto-imagenes">
+          {prod.imagenes && prod.imagenes.map((imagen) => (
+            <img
+              key={imagen.id}
+              src={imagen.imagen_url || "URL_DE_IMAGEN_POR_DEFECTO"}
+              alt={`Imagen de ${prod.nombre}`}
+            />
+          ))}
+        </div>
+      </div>
+    ))
+  ) : (
+    <p>No hay productos disponibles.</p>
+  )}
+</div>
+<div className="agregar-producto-container">
+  <h2>Agregar Nuevo Producto</h2>
+  <form onSubmit={handleNewProductSubmit}>
+    <label>
+      Nombre<span title="Este campo es obligatorio"> *</span>
+    </label>
+    <input
+      type="text"
+      name="nombre"
+      value={newProduct.nombre || ""}
+      onChange={handleNewProductChange}
+    />
+    <label>
+      Precio<span title="Este campo es obligatorio"> *</span>
+    </label>
+    <input
+      type="number"
+      name="precio"
+      value={newProduct.precio || ""}
+      onChange={handleNewProductChange}
+    />
+    <label>
+      Material<span title="Este campo es obligatorio"> *</span>
+    </label>
+    <input
+      type="text"
+      name="material"
+      value={newProduct.material || ""}
+      onChange={handleNewProductChange}
+    />
+    <label>
+      Stock<span title="Este campo es obligatorio"> *</span>
+    </label>
+    <input
+      type="number"
+      name="stock"
+      value={newProduct.stock || ""}
+      onChange={handleNewProductChange}
+    />
+    <label>
+      Descripción<span title="Este campo es obligatorio"> *</span>
+    </label>
+    <textarea
+      name="descripcion"
+      value={newProduct.descripcion || ""}
+      onChange={handleNewProductChange}
+    />
+    <div className="botones-acciones-formulario">
+      <button type="submit">➕ Agregar Producto</button>
+    </div>
+  </form>
+</div>
+
+<div id="fotos-producto">
+  {producto.imagenes &&
+    producto.imagenes.map((imagen) => (
+      <img
+        key={imagen.id}
+        src={`${window.location.origin}${imagen.imagen_url}`}
+        alt="Imagen del producto"
+      />
+    ))}
+</div>
+
+<div className="contenedor-boton-cambiar-imagen">
+  <button onClick={() => setIsImageEditing(true)}>
+    ✎ Cambiar Imágenes
+  </button>
+</div>
+      <h1 >Producto {producto.nombre}</h1>
+
+      {isImageEditing && (
+        <form onSubmit={handleImageSubmit}>
+          <div className="contenedor-cambiar-imagen">
+            <div id="titulo-actualizar-fotos">
+              <h3>Actualizar Imágenes del Producto</h3>
+              <p>Seleccione hasta 4 imágenes</p>
+            </div>
+            
+            <div className="contenedor-subir-imagen">
+              <input type="file" multiple onChange={handleImageChange} />
+            </div>
+
+            <div className="botones-acciones-formulario">
+              <button type="submit">🖫 Guardar Imágenes</button>
+              <button type="button" onClick={() => setIsImageEditing(false)}>
+                ✖ Cancelar
+              </button>
+            </div>
+          </div>
+        </form>
+      )}
+
+      {!isEditing ? (
+        <div className="perfil-producto-datos-container">
+          <div className="informacion-producto">
+            <p>
+              <strong>Nombre:</strong> {producto.nombre}
+            </p>
+            <p>
+              <strong>Precio:</strong> {producto.precio}
+            </p>
+            <p>
+              <strong>Material:</strong> {producto.material}
+            </p>
+            <p>
+              <strong>Stock:</strong> {producto.stock}
+            </p>
+            <p>
+              <strong>Descripción:</strong> "{producto.descripcion}"
+            </p>
+          </div>
+          <div className="botones-acciones-formulario">
+            <button onClick={() => setIsEditing(true)}>✎ Editar Datos</button>
+          </div>
+        </div>
+      ) : (
+        <div>
+          <form onSubmit={handleDataSubmit}>
+            <div className="editar-datos-container-perfil-producto">
+              <div id="titulo-actualizar-datos">
+                <h3>Editar Información del Producto</h3>
+              </div>
+              <label>
+                Nombre<span title="Este campo es obligatorio"> *</span>
+              </label>
+              <input
+                type="text"
+                name="nombre"
+                value={producto.nombre || ""}
+                onChange={handleDataChange}
+              />
+              <label>
+                Precio<span title="Este campo es obligatorio"> *</span>
+              </label>
+              <input
+                type="number"
+                name="precio"
+                value={producto.precio || ""}
+                onChange={handleDataChange}
+              />
+              <label>
+                Material<span title="Este campo es obligatorio"> *</span>
+              </label>
+              <input
+                type="text"
+                name="material"
+                value={producto.material || ""}
+                onChange={handleDataChange}
+              />
+              <label>
+                Stock<span title="Este campo es obligatorio"> *</span>
+              </label>
+              <input
+                type="number"
+                name="stock"
+                value={producto.stock || ""}
+                onChange={handleDataChange}
+              />
+              <label>
+                Descripción<span title="Este campo es obligatorio"> *</span>
+              </label>
+              <textarea
+                name="descripcion"
+                value={producto.descripcion || ""}
+                onChange={handleDataChange}
+              />
+
+              <div className="botones-acciones-formulario">
+                <button type="submit">✔ Confirmar Cambios</button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsEditing(false);
+                    window.location.reload();
+                  }}
+                >
+                  🗙 Cancelar
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      )}
+    </div>
+  );
 };
 
-export default ComponenteGestionProductos;
+export default PerfilProducto;
