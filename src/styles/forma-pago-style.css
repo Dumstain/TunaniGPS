@@ -1,0 +1,312 @@
+
+.forma-pago-container {
+  font-size: 16px;
+  font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+}
+
+.titulo-sin-accion {
+  padding-bottom: 10px;
+  font-size: large;
+}
+
+button{
+  font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+}
+
+
+
+
+  
+  
+  .principal-forma-pago-container {
+    background-color: #fff;
+    padding: 50px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+  }
+
+  .contenedor-1-pago, .contenedor-2-pago{
+    width: 50%;
+  }
+
+ 
+
+ 
+  
+
+
+.forma-pago-direccion, .sub-contenedor-resumen-envio, .resumen-pedido{
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+
+  border-radius: 10px;
+  padding: 30px;
+  background-color: #fff;
+}
+
+.forma-pago-direccion{
+  margin-bottom: 10px;
+}
+
+
+.forma-pago-direccion p, .forma-pago-envio p, .forma-pago-resumen p, .forma-pago-metodo label {
+    margin: 5px 0;
+}
+
+.forma-pago-direccion div{
+  gap:20px
+}
+
+.sub-contenedor-resumen-envio div{
+  gap:30px
+}
+
+.resumen-pedido div  {
+  gap: 20px; /* Ajusta este valor según tus necesidades */
+}
+
+
+
+input[type="radio"] {
+    margin-right: 10px;
+}
+
+
+
+
+.codigo-promocion {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.codigo-promocion input {
+  flex-grow: 1;
+  margin-right: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.boton-aplicar {
+  background-color: #800080;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+.detalles-pedido{
+  
+}
+
+.detalles-pedido p, .subtotal p {
+  margin: 10px 0;
+  line-height: 1.5;
+}
+
+.detalles-pedido span, .subtotal span {
+  float: right;
+}
+
+.linea {
+  border-bottom: 1px solid #ccc;
+  margin: 20px 0;
+}
+
+.acciones {
+  margin-top: 40px;
+    display: flex; /* Asegúrate de usar 'flex' y no 'flexbox' */
+    justify-content:right; /* Esto separará el título y el botón */
+    align-items: center; /* Alinea verticalmente el texto y el botón */
+    
+}
+
+#aviso-tarjeta{
+  font-size: xx-small;
+  color: #333333a1;
+}
+
+.forma-pago-metodo div{
+  margin-bottom: 8px;
+}
+
+.forma-pago-envio p{
+  margin-bottom: 8px;
+}
+
+.forma-pago-resumen {
+  display: flex;
+  overflow-x: auto; /* Permite el desplazamiento horizontal */
+  align-items: center;
+  margin-top: 15px;
+  white-space: nowrap; /* Evita que los elementos se envuelvan a la siguiente línea */
+}
+
+.forma-pago-resumen h3 {
+  font-size: 16px;
+  color: #333; /* Color del texto, ajusta según tu diseño */
+  flex-shrink: 0; /* Evita que el título se reduzca */
+  margin-right: 20px; /* Espacio después del título */
+}
+
+.ficha-producto-compra {
+  margin-right: 10px; /* Espacio entre fichas de productos */
+  overflow: hidden; /* Asegura que la imagen no se desborde */
+  text-align: center;
+  display: inline-block; /* Mantiene las fichas en una sola línea para el scroll horizontal */
+  white-space: normal; /* Permite que el contenido dentro de la ficha se envuelva */
+}
+
+.ficha-producto-compra img {
+  min-width: 100px; /* Ajusta según el tamaño deseado */
+  max-width: 100px; /* Ajusta según el tamaño deseado */
+  height: 100px; /* Mantiene la proporción de la imagen */
+  object-fit: cover; /* Cubre el área del contenedor sin perder proporción */
+  border-radius: 10px;
+}
+
+.Inf-producto {
+  padding: 0;
+  font-size: 15px;
+  text-align: left; /* Alinea el texto a la izquierda para mejor legibilidad */
+}
+
+
+
+
+
+
+#boton-cancelar{
+  padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #4D4078;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3); /* Desplazamiento a la derecha, desplazamiento hacia abajo, desenfoque, color */
+}
+
+#boton-realizar{
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #BF06C6;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3); /* Desplazamiento a la derecha, desplazamiento hacia abajo, desenfoque, color */
+
+}
+
+
+.acciones-direccion {
+  display: flex;
+  justify-content: flex-end; /* Alinea los elementos a la derecha */
+  gap: 10px; /* Espacio de 10px entre los botones */
+  margin-top: 20px; /* Ajusta este valor según sea necesario */
+}
+
+.titulo-resumen-compra{
+  text-align: center;
+}
+
+.titulo-con-selector-contenedor{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.titulo-con-selector-contenedor button{
+  background-color: white;
+  border: none;
+  font-size: 15px;
+  font-weight: bold;
+  color: #333333ab;
+  cursor: pointer;
+  border-bottom: 1px solid #333333ab;
+    display: inline-block;
+
+}
+
+.titulo-con-selector-contenedor button:hover{
+
+  color: #000000;
+  
+  border-bottom: 1px solid black;
+
+}
+
+#boton-cancelar:hover{
+  background-color: #280D38;
+  transform: scale(1.05); /* Aumenta ligeramente el tamaño de la imagen */
+
+}
+
+#boton-realizar:hover{
+  background-color: #e001e7;
+  transform: scale(1.05); /* Aumenta ligeramente el tamaño de la imagen */
+
+
+
+}
+
+.opcion-envio {
+  display: flex;
+  align-items: center;
+}
+
+.icono-paqueteria {
+  width: 45px; /* Ajusta el tamaño según sea necesario */
+  height: 45px; /* Ajusta el tamaño según sea necesario */
+}
+
+.paqueteria-seleccionada-conteiner{
+  display: flex;
+  align-items: center;
+}
+
+
+
+.forma-pago-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Asegurando que esté sobre otros elementos */
+}
+
+.forma-pago-modal-content {
+  background: white;
+  padding: 40px;
+  padding-top: 30px;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  width: 80%;
+  max-width: 500px;
+  max-height: 400px; /* Altura máxima para la modal */
+  overflow-y: auto; /* Activar scroll vertical cuando sea necesario */
+}
+
+.forma-pago-direccion-item {
+  cursor: pointer;
+  margin: 15px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: transform 0.4s ease; /* Suaviza la transición del zoom */
+
+}
+
+.forma-pago-direccion-item:hover {
+  background-color: #EDE0ED;
+  border: 1px solid #873286;
+  transform: scale(1.02);
+
+}

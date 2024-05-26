@@ -15,6 +15,8 @@ import ComponentePerfilUsuario from './components/ComponentePerfilUsuario';
 import ComponenteReporte from './components/ComponenteReporte';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
+import { ComponenteImprimirDatosDeposito } from './components/ComponenteImprimirDatosDeposito';
+import { ComponenteFormaPago } from './components/ComponenteFormaPago';
 
 
 // Importaciones adicionales.....
@@ -27,6 +29,10 @@ function App() {
         
         <Route path="/" element={<Inicio />} />
         <Route path="perfilUsuario" element={<ComponentePerfilUsuario/>} /> // Ruta para el perfil del usuario
+        
+        <Route path="datosDeposito" element={<ComponenteImprimirDatosDeposito />} /> // Ruta para el ticket de los datos de compra para deposito
+        <Route path="datosFormaPago" element={<ComponenteFormaPago />} /> // Ruta para selelcionar el
+
         <Route path="/login" element={<LoginPage />} />
         <Route path="/representante" element={
           <ProtectedRoute>        
@@ -41,7 +47,7 @@ function App() {
              <Route path="ventas" element={<ComponenteVenta />} /> // Ruta para el perfil del representante
              <Route path="paqueteria" element={<ComponentePaqueteria />} /> // Ruta para el perfil del representante
              <Route path="reporte" element={<ComponenteReporte />} /> // Ruta para el perfil del representante
-        
+
 
                {/* Aquí puedes añadir más subrutas específicas del representante */}
               </Route>
