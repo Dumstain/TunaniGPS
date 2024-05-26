@@ -18,7 +18,8 @@ import { AuthProvider } from './context/AuthContext';
 import { ComponenteImprimirDatosDeposito } from './components/ComponenteImprimirDatosDeposito';
 import { ComponenteFormaPago } from './components/ComponenteFormaPago';
 
-// Importaciones adicionales...
+
+// Importaciones adicionales.....
 
 function App() {
   return (
@@ -46,7 +47,7 @@ function App() {
              <Route path="ventas" element={<ComponenteVenta />} /> // Ruta para el perfil del representante
              <Route path="paqueteria" element={<ComponentePaqueteria />} /> // Ruta para el perfil del representante
              <Route path="reporte" element={<ComponenteReporte />} /> // Ruta para el perfil del representante
-            
+
 
                {/* Aquí puedes añadir más subrutas específicas del representante */}
               </Route>

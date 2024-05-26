@@ -1,0 +1,136 @@
+.contenedor-cuadros{
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.imagen-tarjeta {
+    width: 184px;
+    height: 44px;
+  }
+  
+.cuadro1{
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cuadro2{
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    
+}
+
+.cuadro3{
+    margin-top: -600px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    
+}
+
+.pagar{
+    padding: 10px 20px;
+    margin-top: 1%;
+    border: none;
+    border-radius: 4px;
+    background-color: #e60000cb;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+}
+.pagar:hover{
+    background-color: #d02a2a;
+    transform: scale(1.05);
+}
+
+.cancelar{
+    padding: 10px 20px;
+    margin-top: 1%;
+    margin-right: 10px;
+    margin-left: 75px;
+    border: none;
+    border-radius: 4px;
+    background-color: rgba(191, 6, 198, 1);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+   /* margin-left: 540px;*/
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+}
+.cancelar:hover{
+    background-color: #873287;
+    transform: scale(1.05);
+}
+
+.codigo{
+    width: 100%;
+   padding: 10px;
+   border-radius: 4px;
+   border: none;
+   background-color: #F6F6F6;
+   font-family: 'Century Gothic', Arial, sans-serif; /* Arial y sans-serif son alternativas */
+   box-sizing: border-box; /* para incluir el padding en el ancho total */
+   box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); /* sombra interior */
+}
+
+.aplicar{
+    padding: 10px 20px;
+    margin-top: 1%;
+    border: none;
+    border-radius: 4px;
+    background-color: rgba(191, 6, 198, 1);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+}
+.aplicar:hover{
+    background-color: #873287;
+    transform: scale(1.05);
+}
+
+.tarjeta{
+    width: 100%;
+   padding: 10px;
+   border-radius: 4px;
+   border: none;
+   background-color: #F6F6F6;
+   font-family: 'Century Gothic', Arial, sans-serif; /* Arial y sans-serif son alternativas */
+   box-sizing: border-box; /* para incluir el padding en el ancho total */
+   box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); /* sombra interior */
+}
+
+.botonSelect{
+    width: 150px;
+    margin-right: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: rgba(191, 6, 198, 1);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+}
+.botonSelect:hover{
+    background-color: #873287;
+    transform: scale(1.05);
+}
+
+.botonEdit{
+    width: 150px;
+    
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: rgba(191, 6, 198, 1);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+}
+.botonEdit:hover{
+    background-color: #873287;
+    transform: scale(1.05);
+}
