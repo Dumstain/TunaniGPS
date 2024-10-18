@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // Importar useNavigat
 import '../styles/inicio-content-styles.css';
 import Sociedades from '../assets/imagenes/sociedades.jpg';
 import nodes from '../assets/imagenes/nodes.jpg';
@@ -8,6 +9,8 @@ import artesanos from '../assets/imagenes/artesanos.jpg';
 const InicioContent = () => {
   const [productos, setProductos] = useState([]);
   const [favoritos, setFavoritos] = useState({});
+  const navigate = useNavigate(); // Declarar useNavigate
+
 
   useEffect(() => {
     const fetchProductos = async () => {
@@ -26,6 +29,11 @@ const InicioContent = () => {
       ...prev,
       [id]: !prev[id],
     }));
+  };
+
+  const handleProductoClick = (producto) => {
+    sessionStorage.setItem('productoSeleccionado', JSON.stringify(producto));
+    navigate(`/producto/${producto.id}`);
   };
 
   return (
@@ -49,7 +57,8 @@ const InicioContent = () => {
       </div>
       <div className="inicio-content-productos-container">
         {productos.map((producto) => (
-          <div key={producto.id} className="inicio-content-producto">
+          <div key={producto.id} className="inicio-content-producto" onClick={() => handleProductoClick(producto)} // Añadir onClick para redirigir
+>
             <div className="inicio-content-producto-imagen-container">
               {producto.fotos && producto.fotos.length > 0 ? (
                 <img

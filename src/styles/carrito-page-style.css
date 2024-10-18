@@ -1,0 +1,187 @@
+/* Estilos generales para que la página ocupe toda la pantalla */
+.inicio-layout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Header fijado en la parte superior */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px; /* Ajusta el tamaño del header según tus necesidades */
+    background-color: #f8f8f8; 
+    box-shadow: 0px 4px 2px -2px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Asegura que el header esté por encima del contenido */
+}
+
+/* Ajuste del main para que tenga en cuenta el espacio del header y footer */
+main {
+    flex: 1;
+    margin-top: 60px; /* Altura del header */
+    margin-bottom: 40px; /* Altura del footer */
+    overflow-y: auto; /* Permitir desplazamiento vertical */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Footer fijado en la parte inferior */
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40px; /* Ajusta el tamaño del footer según tus necesidades */
+    background-color: #f8f8f8; 
+    text-align: center;
+    padding: 10px 0;
+    box-shadow: 0px -4px 2px -2px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Asegura que el footer esté por encima del contenido */
+}
+
+/* Estilos específicos para la página del carrito */
+.carrito-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100%;
+    background-color: #f9f9f9;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+h2 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.carrito-detalle {
+    width: 100%;
+    max-width: 800px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+.carrito-producto {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 10px 0;
+}
+
+.carrito-imagen {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+
+.carrito-info {
+    flex: 1;
+}
+
+.carrito-info h3 {
+    font-size: 20px;
+    color: #333;
+    margin: 0;
+}
+
+.carrito-info p {
+    font-size: 16px;
+    color: #666;
+    margin: 5px 0;
+}
+
+.carrito-info button {
+    background-color: #ff4d4d;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.carrito-info button:hover {
+    background-color: #e60000;
+}
+
+.carrito-resumen {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+    text-align: right;
+}
+
+.carrito-resumen p {
+    font-size: 18px;
+    color: #333;
+    margin: 5px 0;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button:focus {
+    outline: none;
+}
+
+@media (max-width: 600px) {
+    .carrito-detalle {
+        padding: 15px;
+    }
+
+    .carrito-producto {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .carrito-imagen {
+        margin-bottom: 10px;
+    }
+
+    .carrito-info h3 {
+        font-size: 18px;
+    }
+
+    .carrito-info p {
+        font-size: 14px;
+    }
+
+    .carrito-info button {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+
+    .carrito-resumen p {
+        font-size: 16px;
+    }
+
+    button {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}

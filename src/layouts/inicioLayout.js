@@ -10,7 +10,7 @@ const InicioLayout = () => {
   const location = useLocation();
 
   useEffect(() => {
-    if (location.pathname.startsWith('/producto')) {
+    if (location.pathname.startsWith('/producto') || location.pathname.startsWith('/carrito')) {
       setShowMainContent(false);
     } else {
       setShowMainContent(true);
@@ -23,8 +23,7 @@ const InicioLayout = () => {
         <ComponenteHeader />
       </header>
       <main>
-        <InicioContent></InicioContent>
-        <Outlet />
+        {showMainContent ? <InicioContent /> : <Outlet />}
       </main>
       <footer>
         <Footer />

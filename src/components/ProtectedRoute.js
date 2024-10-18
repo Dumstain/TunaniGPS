@@ -29,7 +29,7 @@ const ProtectedRoute = ({ children }) => {
 
   const rol = localStorage.getItem('userRol');
 
-  if (rol !== 'Representante') {
+  if (rol !== 'representante') {
     return <Navigate to="/" />;
   }
 

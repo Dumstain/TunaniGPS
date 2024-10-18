@@ -18,6 +18,12 @@ import { AuthProvider } from './context/AuthContext';
 import { ComponenteImprimirDatosDeposito } from './components/ComponenteImprimirDatosDeposito';
 import { ComponenteFormaPago } from './components/ComponenteFormaPago';
 import ComponentePagoTarjeta from './components/ComponentePagoTarjeta';
+import ProductoPage from './components/productoPage';
+import CarritoPage from './components/CarritoPage';
+import ComponenteCesta from './components/ComponenteCesta';
+
+
+
 
 import InicioLayout from './layouts/inicioLayout';
 
@@ -30,16 +36,26 @@ function App() {
       <AuthProvider>
       <Routes>
         
-        <Route path="/" element={<InicioLayout />} />
+        <Route path="/" element={<InicioLayout />}>
+            <Route index element={<Inicio />} />
+            <Route path="producto/:id" element={<ProductoPage />} />
+            <Route path="carrito" element={<CarritoPage />} />
+            <Route path="cesta" element={<ComponenteCesta />} />
+
+            
+
+        </Route>
         <Route path="perfilUsuario" element={<ComponentePerfilUsuario/>} /> // Ruta para el perfil del usuario
-        
         <Route path="datosDeposito" element={<ComponenteImprimirDatosDeposito />} /> // Ruta para el ticket de los datos de compra para deposito
         <Route path="datosFormaPago" element={<ComponenteFormaPago />} /> // Ruta para selelcionar el
         <Route path="datosTarjeta" element={<ComponentePagoTarjeta />} /> // Ruta para el ticket de los datos de compra para deposito
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/representante" element={
-          <RepresentanteLayout />
-        }>
+          {/* Rutas protegidas para el representante */}
+          <Route path="/representante/*" element={
+            <ProtectedRoute>
+              <RepresentanteLayout />
+            </ProtectedRoute>
+          }>
              <Route path="artesanos" element={<Artesanos />} />
              <Route path="artesanias" element={<ComponenteGestionProductos/>} />
              <Route path="perfilCooperativa" element={<ComponenteCooperativa />} />

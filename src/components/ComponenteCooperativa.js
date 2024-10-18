@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../../src/styles/perfil-cooperativa-style.css";
 
-const PerfilCooperativa = () => {
+const ComponenteCooperativa = () => {
   const [cooperativa, setCooperativa] = useState(null);
   const [artesanos, setArtesanos] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -49,10 +49,12 @@ const PerfilCooperativa = () => {
     }, 3000); // El mensaje desaparecerá después de 3 segundos
   };
 
+  // Manejador para cambiar la imagen
   const handleImageChange = (event) => {
     setFile(event.target.files[0]); // Guarda el archivo seleccionado
   };
 
+  // Manejador para cambiar los datos de la cooperativa
   const handleDataChange = (event) => {
     const { name, value } = event.target;
     setCooperativa((prev) => ({
@@ -61,6 +63,7 @@ const PerfilCooperativa = () => {
     }));
   };
 
+  // Enviar imagen al servidor
   const handleImageSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -68,32 +71,31 @@ const PerfilCooperativa = () => {
     if (file) {
       const imageFormData = new FormData();
       imageFormData.append("imagen", file);
-      await axios
-        .post(
-          `https://tunaniback-0bd56842295c.herokuapp.com/api/subir-foto-cooperativa/${cooperativa.id}/`,
+      try {
+        const response = await axios.post(
+          `https://tunaniback-0bd56842295c.herokuapp.com/api/imagenes-cooperativa/actualizar/${cooperativa.id}/`,
           imageFormData,
           {
             headers: {
               "Content-Type": "multipart/form-data",
             },
           }
-        )
-        .then((response) => {
-          setCooperativa((prev) => ({
-            ...prev,
-            imagen_url: response.data.imagen_url,
-          }));
-          mostrarMensaje("success", "Imagen subida correctamente.");
-        })
-        .catch((err) => {
-          mostrarMensaje("error", "Error al subir la imagen: " + err.message);
-        });
+        );
+        setCooperativa((prev) => ({
+          ...prev,
+          imagen_url: response.data.imagen_url,
+        }));
+        mostrarMensaje("success", "Imagen actualizada correctamente.");
+      } catch (err) {
+        mostrarMensaje("error", "Error al actualizar la imagen: " + err.message);
+      }
     }
 
     setIsImageEditing(false);
     setLoading(false);
   };
 
+  // Enviar datos actualizados al servidor
   const handleDataSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -103,35 +105,17 @@ const PerfilCooperativa = () => {
       return; // Detiene la función si la validación falla
     }
 
-    const updateFormData = new FormData();
-    Object.keys(cooperativa).forEach((key) => {
-      if (key !== "imagen_url") {
-        // No incluir la URL de la imagen en el formulario
-        updateFormData.append(key, cooperativa[key]);
-      }
-    });
-
     const usuarioId = localStorage.getItem("userId");
-    await axios
-      .patch(
+    try {
+      const response = await axios.patch(
         `https://tunaniback-0bd56842295c.herokuapp.com/api/cooperativa/${usuarioId}/`,
-        updateFormData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      )
-      .then((response) => {
-        setCooperativa(response.data);
-        mostrarMensaje("success", "Datos actualizados correctamente.");
-      })
-      .catch((err) => {
-        mostrarMensaje(
-          "error",
-          "Error al actualizar los datos: " + err.message
-        );
-      });
+        cooperativa
+      );
+      setCooperativa(response.data);
+      mostrarMensaje("success", "Datos actualizados correctamente.");
+    } catch (err) {
+      mostrarMensaje("error", "Error al actualizar los datos: " + err.message);
+    }
 
     setIsEditing(false);
     setLoading(false);
@@ -144,8 +128,8 @@ const PerfilCooperativa = () => {
     return <div>No se ha encontrado la información de la cooperativa.</div>;
   }
 
+  // Validar los datos de la cooperativa antes de enviarlos
   const validarDatos = () => {
-    // Verifica si alguno de los campos requeridos está vacío
     if (
       !cooperativa.nombre ||
       !cooperativa.cuenta_bancaria ||
@@ -163,12 +147,6 @@ const PerfilCooperativa = () => {
       );
       return false;
     }
-
-    // Validar cuenta bacncaria (solo números y longitud de 20 dígitos)
-    //if (!/^\d{20}$/.test(cooperativa.cuenta_bancaria)) {
-    //  mostrarMensaje("error", "El número de tarjeta debe tener 16 dígitos.");
-    //  return false;
-    //}
     return true;
   };
 
@@ -176,7 +154,7 @@ const PerfilCooperativa = () => {
     <div className="perfil-cooperativa-container">
       <h1 id="titulo-perfil-cooperativa">Datos del Perfil de la Cooperativa</h1>
 
-      {/* Agregado para mostrar mensajes */}
+      {/* Mostrar mensajes de alerta */}
       {alertMessage && (
         <div className={`alert ${alertMessage.type}`}>
           <p>{alertMessage.message}</p>
@@ -193,21 +171,16 @@ const PerfilCooperativa = () => {
         />
       </div>
       <div className="contenedor-boton-cambiar-imagen">
-        <button onClick={() => setIsImageEditing(true)}>
-          ✎ Cambiar Imagen
-        </button>
+        <button onClick={() => setIsImageEditing(true)}>✎ Cambiar Imagen</button>
       </div>
-      <h1 id="titulo-nombre-cooperativa">
-        🙚 Cooperativa {cooperativa.nombre} 🙙
-      </h1>
+      <h1 id="titulo-nombre-cooperativa">🙚 Cooperativa {cooperativa.nombre} 🙙</h1>
 
-      
-
+      {/* Formulario para actualizar la imagen */}
       {isImageEditing && (
         <form onSubmit={handleImageSubmit}>
           <div className="contenedor-cambiar-imagen">
             <div id="titulo-actualizar-foto">
-              <h3>Actualizar foto de la Coperativa</h3>
+              <h3>Actualizar foto de la Cooperativa</h3>
               <p>Arrastre una foto al recuadro punteado o haga clic en él</p>
             </div>
             <div className="contenedor-subir-imagen">
@@ -216,113 +189,83 @@ const PerfilCooperativa = () => {
 
             <div className="botones-acciones-formulario">
               <button type="submit">🖫 Guardar Imagen</button>
-              <button type="button" onClick={() => setIsImageEditing(false)}>
-                ✖ Cancelar
-              </button>
+              <button type="button" onClick={() => setIsImageEditing(false)}>✖ Cancelar</button>
             </div>
           </div>
         </form>
       )}
 
+      {/* Formulario para editar los datos de la cooperativa */}
       {!isEditing ? (
         <div className="perfil-cooperativa-datos-container">
           <div className="informacion-cooperativa">
-            <p>
-              <strong>Nombre:</strong> {cooperativa.nombre}
-            </p>
-            <p>
-              <strong>Cuenta Bancaria:</strong> {cooperativa.cuenta_bancaria}
-            </p>
-            <p>
-              <strong>RFC:</strong> {cooperativa.rfc}
-            </p>
-            <p>
-              <strong>Descripción:</strong>
-            </p>
-            <p id="parrafo-informacion-cooperativa">
-              "{cooperativa.descripcion}"
-            </p>
+            <p><strong>Nombre:</strong> {cooperativa.nombre}</p>
+            <p><strong>Cuenta Bancaria:</strong> {cooperativa.cuenta_bancaria}</p>
+            <p><strong>RFC:</strong> {cooperativa.rfc}</p>
+            <p><strong>Descripción:</strong></p>
+            <p id="parrafo-informacion-cooperativa">"{cooperativa.descripcion}"</p>
           </div>
           <div className="botones-acciones-formulario">
             <button onClick={() => setIsEditing(true)}>✎ Editar Datos</button>
           </div>
         </div>
       ) : (
-        <div>
-          <form onSubmit={handleDataSubmit}>
-            <div className="editar-datos-container-perfil-cooperativa">
+        <form onSubmit={handleDataSubmit}>
+          <div className="editar-datos-container-perfil-cooperativa">
             <div id="titulo-actualizar-datos">
               <h3>Editar Información de la Cooperativa</h3>
             </div>
-              <label>
-                Nombre<span title="Este campo es obligatorio"> *</span>
-              </label>
-              <input
-                type="text"
-                name="nombre"
-                onInput={(e) => {
-                  // Permitir letras (incluyendo acentuadas y ñ), y espacios
-                  e.target.value = e.target.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ ]/g, "");
-                }} 
-                value={cooperativa.nombre || ""}
-                onChange={handleDataChange}
-              />
-              <label>
-                Cuenta Bancaria<span title="Este campo es obligatorio"> *</span>
-              </label>
-              <input
-                type="text"
-                name="cuenta_bancaria"
-                value={cooperativa.cuenta_bancaria || ""}
-                maxLength={20} // Limit to 10 characters
-                onInput={(e) => {
-                  e.target.value = e.target.value.replace(/[^0-9]/g, ""); // Eliminar caracteres no numéricos
+            <label>Nombre<span title="Este campo es obligatorio"> *</span></label>
+            <input
+              type="text"
+              name="nombre"
+              value={cooperativa.nombre || ""}
+              onChange={handleDataChange}
+              required
+            />
+            <label>Cuenta Bancaria<span title="Este campo es obligatorio"> *</span></label>
+            <input
+              type="text"
+              name="cuenta_bancaria"
+              value={cooperativa.cuenta_bancaria || ""}
+              maxLength={20}
+              onChange={handleDataChange}
+              required
+            />
+            <label>RFC<span title="Este campo es obligatorio"> *</span></label>
+            <input
+              type="text"
+              name="rfc"
+              value={cooperativa.rfc || ""}
+              maxLength={13}
+              onChange={handleDataChange}
+              required
+            />
+            <label>Descripción<span title="Este campo es obligatorio"> *</span></label>
+            <textarea
+              name="descripcion"
+              value={cooperativa.descripcion || ""}
+              onChange={handleDataChange}
+              required
+            />
+            <div className="botones-acciones-formulario">
+              <button type="submit">✔ Confirmar Cambios</button>
+              <button
+                type="button"
+                onClick={() => {
+                  setIsEditing(false); // Desactiva el modo de edición
                 }}
-                onChange={handleDataChange}
-              />
-              <label>
-                RFC<span title="Este campo es obligatorio"> *</span>
-              </label>
-              <input
-                type="text"
-                name="rfc"
-                value={cooperativa.rfc || ""}
-                maxLength={13} // Limit to 10 characters
-                onInput={(e) => {
-                  e.target.value = e.target.value.replace(/[^a-zA-Z0-9]/g, "");
-                }}
-                onChange={handleDataChange}
-              />
-              <label>
-                Descripción<span title="Este campo es obligatorio"> *</span>
-              </label>
-              <textarea
-                name="descripcion"
-                value={cooperativa.descripcion || ""}
-                onChange={handleDataChange}
-              />
-
-              <div className="botones-acciones-formulario">
-                <button type="submit">✔ Confirmar Cambios</button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setIsEditing(false); // Desactiva el modo de edición
-
-                    window.location.reload(); // Recarga la página
-                  }}
-                >
-                  🗙 Cancelar
-                </button>
-              </div>
+              >
+                🗙 Cancelar
+              </button>
             </div>
-          </form>
-        </div>
+          </div>
+        </form>
       )}
 
+      {/* Miembros de la cooperativa */}
       <div className="perfil-cooperativa-datos-container">
         <div id="titulo-miembros-cooperativa">
-          {" "}
           <h3>Miembros de la Cooperativa</h3>
         </div>
         <div className="miembros-container">
@@ -344,4 +287,4 @@ const PerfilCooperativa = () => {
   );
 };
 
-export default PerfilCooperativa;
+export default ComponenteCooperativa;

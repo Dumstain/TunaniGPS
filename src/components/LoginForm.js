@@ -32,7 +32,7 @@ const LoginForm = ({ toggleForm }) => {
                 case 'Admin':
                     navigate('/admin');
                     break;
-                case 'Representante':
+                case 'representante':
                     console.log("Usuario en local storage:", localStorage.getItem('user'));
                     navigate('/representante');
                     break;

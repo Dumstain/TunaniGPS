@@ -60,8 +60,8 @@ const ComponenteHeader = () => {
                     </a>
                 </div>
                 <div className="logo-bolsa">
-                    <a href="">
-                        <img src={logoBolsa} alt="Logo" />
+                <a href="#" onClick={(e) => { e.preventDefault(); navigate('/carrito'); }}>
+                 <img src={logoBolsa} alt="Logo" />
                     </a>
                 </div>
                 <div className="logo-bolsa">
