@@ -35,9 +35,9 @@ function App() {
 
         <Route path="/login" element={<LoginPage />} />
         <Route path="/representante" element={
-          <ProtectedRoute>        
+         // <ProtectedRoute>        
           <RepresentanteLayout />
-          </ProtectedRoute>
+          //</ProtectedRoute>
         }>
              <Route path="artesanos" element={<Artesanos />} />
              <Route path="artesanias" element={<ComponenteGestionProductos/>} />
