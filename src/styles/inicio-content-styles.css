@@ -1,0 +1,151 @@
+.inicio-content-main-content-wrapper {
+  display: flex;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.inicio-content-main-content {
+  margin-top: 30px;
+  flex-grow: 1;
+  overflow-y: auto;
+  padding-top: 150px;
+}
+
+.inicio-content-imagenes-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  max-width: 100%;
+}
+
+.contenedor-superior {
+  position: relative;
+  width: 1440px;
+  height: 100px;
+  background-color: #F6F4FF;
+}
+
+.inicio-content-imagen-enlace {
+  position: relative;
+  width: 400px; /* Ajusta el ancho según tu preferencia */
+  height: 280px;
+  max-width: 100%; /* Evita que el contenedor supere el ancho del contenedor principal */
+  margin-right: 20px; /* Ajusta el espacio entre las imágenes según tu preferencia */
+  flex-shrink: 0; /* Evita que las imágenes se reduzcan más allá de su ancho original */
+}
+
+.inicio-content-imagen-opaca {
+  width: 100%;
+  height: auto; /* Ajusta la altura automáticamente para mantener la proporción original */
+  max-width: 100%; /* Evita que las imágenes se expandan más allá de su tamaño original */
+  opacity: 0.6; /* Ajusta la opacidad según tu preferencia */
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.inicio-content-imagen-enlace:hover .inicio-content-imagen-opaca {
+  opacity: 1; /* Hace que la imagen sea completamente opaca al pasar el mouse */
+  transform: scale(1.05); /* Aumenta ligeramente el tamaño de la imagen al pasar el mouse */
+}
+
+.inicio-content-imagen-enlace:hover .inicio-content-texto-imagen {
+  color: white; /* Cambia el color del texto al pasar el mouse */
+}
+
+.inicio-content-texto-imagen {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-family: 'Roboto Slab', serif;
+  font-size: 32px;
+  font-weight: medium;
+  color: black; /* Color del texto normal */
+}
+
+.inicio-content-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100vw; /* 100% del ancho de la ventana */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  z-index: 1000; /* Asegura que el footer se muestre sobre otros elementos */
+}
+
+
+.inicio-content-banner-publicidad {
+  width: 100%;
+  height: 100px; /* Altura del banner */
+  background-color: #f1f1f1; /* Color de fondo del banner */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Sombra para dar efecto de elevación */
+}
+
+.inicio-content-banner-texto {
+  font-family: 'Roboto Slab', serif;
+  font-size: 24px;
+  color: #333; /* Color del texto del banner */
+}
+
+.inicio-content-productos-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.inicio-content-producto {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  text-align: center;
+  width: 200px; /* Ajusta el ancho según tu preferencia */
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra para dar efecto de elevación */
+  transition: transform 0.3s ease;
+}
+
+.inicio-content-producto:hover {
+  transform: scale(1.05); /* Aumenta ligeramente el tamaño del producto al pasar el mouse */
+}
+
+.inicio-content-producto-imagen-container {
+  width: 100%;
+  height: 150px; /* Altura fija para el contenedor de la imagen */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.inicio-content-producto-imagen {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* Ajusta la imagen sin distorsionarse */
+}
+
+.inicio-content-producto-nombre {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.inicio-content-producto-precio {
+  font-size: 14px;
+  color: #888;
+  margin: 5px 0;
+}
+
+.inicio-content-producto-favorito {
+  font-size: 20px;
+  color: #888;
+  cursor: pointer;
+  text-align: right;
+}
+
+.favorito-activo {
+  color: #873286; /* Color morado */
+}

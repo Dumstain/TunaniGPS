@@ -77,12 +77,12 @@ const ComponenteHeader = () => {
                             onMouseLeave={handleUserLeave}
                         >
                             <span>
-                            <h3>{user ? user.usuario : "Nombre Apellido"}</h3>
-                                                        </span>
+                                <h3>{user ? user.usuario : "Nombre Apellido"}</h3>
+                            </span>
                             {showDropdown && (
                                 <div className="dropdown-content">
-                                    <a href="/perfilUsuario">View Profile</a>
-                                    <a href="/" onClick={cerrarSesion}>Log Out</a>
+                                    <a href="/perfilUsuario">Ver Perfil</a>
+                                    <a href="/" onClick={cerrarSesion}>Cerrar Sesión</a>
                                 </div>
                             )}
                         </div>
@@ -94,14 +94,7 @@ const ComponenteHeader = () => {
                 </div>
             </div>
             <div className="grid-layout-categorias">
-                <div>
-                    <select className="combo-box-categorias" name="Categorias">
-                        <option value="">Categorias</option>
-                        <option value="opcion1">opcion1</option>
-                        <option value="opcion2">opcion2</option>
-                        <option value="opcion2">opcion3</option>
-                    </select>
-                </div>
+
                 <div className="cat1">
                     <a href="">Accesorios</a>
                 </div>

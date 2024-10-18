@@ -1,4 +1,16 @@
+.inicio-main-content-wrapper {
+  display: flex;
+  flex-grow: 1;
+  overflow: hidden;
+  padding-top: 100px;
 
+}
+
+.inicio-main-content {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 20px;
+}
 .contenedor-superior {
     position: relative;
     width: 1440px;

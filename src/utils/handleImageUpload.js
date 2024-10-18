@@ -7,7 +7,7 @@ const handleImageUpload = async (event) => {
         formData.append('imagen', file);
     }
     try {
-        const response = await axios.post(`http://localhost:8000/api/subir-foto-cooperativa/${cooperativaId}/`, formData, {
+        const response = await axios.post(`https://tunaniback-0bd56842295c.herokuapp.com/api/subir-foto-cooperativa/${cooperativaId}/`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }

@@ -26,7 +26,7 @@ const PerfilProducto = ({ initialProductoId }) => {
       if (cooperativaId) {
         try {
           const response = await axios.get(
-            `http://localhost:8000/api/cooperativas/${cooperativaId}/productos/`
+            `https://tunaniback-0bd56842295c.herokuapp.com/api/cooperativas/${cooperativaId}/productos/`
           );
           const productosData = response.data;
           setProductos(productosData);
@@ -81,7 +81,7 @@ const PerfilProducto = ({ initialProductoId }) => {
   
       try {
         const response = await axios.post(
-          `http://localhost:8000/api/productos/${producto.id}/agregar-fotos/`,
+          `https://tunaniback-0bd56842295c.herokuapp.com/api/productos/${producto.id}/agregar-fotos/`,
           imageFormData,
           {
             headers: {
@@ -91,9 +91,9 @@ const PerfilProducto = ({ initialProductoId }) => {
         );
         setProducto((prev) => ({
           ...prev,
-          imagenes: response.data.imagenes.map(imagen => ({
+          imagenes: response.data.map(imagen => ({
             ...imagen,
-            imagen_url: `${window.location.origin}${imagen.imagen_url}`
+            imagen_url: `${window.location.origin}${imagen.ubicacion}`
           }))
         }));
         mostrarMensaje("success", "Imágenes subidas correctamente.");
@@ -119,7 +119,7 @@ const PerfilProducto = ({ initialProductoId }) => {
 
     try {
       const response = await axios.patch(
-        `http://localhost:8000/api/productos/modificar/${producto.id}/`,
+        `https://tunaniback-0bd56842295c.herokuapp.com/api/productos/modificar/${producto.id}/`,
         updateFormData,
         {
           headers: {
@@ -151,7 +151,7 @@ const PerfilProducto = ({ initialProductoId }) => {
 
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/productos/crear/`,
+        `https://tunaniback-0bd56842295c.herokuapp.com/api/productos/crear/`,
         {
           ...newProduct,
           cooperativa: cooperativaId,  // Asegúrate de incluir el ID de la cooperativa
@@ -173,6 +173,25 @@ const PerfilProducto = ({ initialProductoId }) => {
     setLoading(false);
   };
 
+  const handleSort = (key) => {
+    const sortedProductos = [...productos].sort((a, b) => {
+      if (a[key] < b[key]) return -1;
+      if (a[key] > b[key]) return 1;
+      return 0;
+    });
+    setProductos(sortedProductos);
+  };
+
+  const borrarProducto = async (productoId) => {
+    try {
+      await axios.delete(`https://tunaniback-0bd56842295c.herokuapp.com/api/productos/${productoId}/`);
+      setProductos(productos.filter((prod) => prod.id !== productoId));
+      mostrarMensaje("success", "Producto borrado correctamente.");
+    } catch (err) {
+      mostrarMensaje("error", "Error al borrar el producto: " + err.message);
+    }
+  };
+
   if (loading) return <div id="cargando"></div>;
   if (error || cooperativaError) return <p>Error al cargar: {error || cooperativaError}</p>;
 
@@ -183,49 +202,31 @@ const PerfilProducto = ({ initialProductoId }) => {
     return (
         <div>
             <div className="cuadro">
-                <h2>{modoEdicion ? "Editar Producto" : "Agregar Producto"}</h2><br/>
+                <h2>{isEditing ? "Editar Producto" : "Agregar Producto"}</h2><br/>
                 <h4>Nombre *</h4>
-                <input className="cajas" name="nombre" value={productoActual.nombre} onChange={manejarCambio} placeholder="Nombre" /><br/>
-                {nombreError && <p style={{ color: 'red' }}>{nombreError}</p>}
+                <input className="cajas" name="nombre" value={producto.nombre} onChange={handleDataChange} placeholder="Nombre" /><br/>
                 <h4>Precio *</h4>
-                <input className="cajas" type="text" name="precio" value={productoActual.precio} onChange={manejarCambio} placeholder="Precio" /><br/>
-                {precioError && <p style={{ color: 'red' }}>{precioError}</p>}
+                <input className="cajas" type="text" name="precio" value={producto.precio} onChange={handleDataChange} placeholder="Precio" /><br/>
                 <h4>Descripción</h4>
-                <input className="cajas" name="descripcion" value={productoActual.descripcion} onChange={manejarCambio} placeholder="Descripción" /><br/>
-                {descripcionError && <p style={{ color: 'red' }}>{descripcionError}</p>}
+                <input className="cajas" name="descripcion" value={producto.descripcion} onChange={handleDataChange} placeholder="Descripción" /><br/>
                 <h4>Material *</h4>
-                <input className="cajas" name="material" value={productoActual.material} onChange={manejarCambio} placeholder="Material" /><br/>
-                {materialError && <p style={{ color: 'red' }}>{materialError}</p>}
+                <input className="cajas" name="material" value={producto.material} onChange={handleDataChange} placeholder="Material" /><br/>
                 <h4>Stock *</h4>
-                <input className="cajas" type="number" name="stock" value={productoActual.stock} onChange={manejarCambio} placeholder="Stock" /><br/>
-                {stockError && <p style={{ color: 'red' }}>{stockError}</p>}
-                <h4>Categoria *</h4>
-                <input className="cajas" name="categoria" value={productoActual.categoria} onChange={manejarCambio} placeholder="Categoría" /><br/>
-                {categoriaError && <p style={{ color: 'red' }}>{categoriaError}</p>}
-                <input type="file" name="imagen" onChange={manejarCambio} />
+                <input className="cajas" type="number" name="stock" value={producto.stock} onChange={handleDataChange} placeholder="Stock" /><br/>
+                <h4>Categoría *</h4>
+                <input className="cajas" name="categoria" value={producto.categoria || ""} onChange={handleDataChange} placeholder="Categoría" /><br/>
+                <input type="file" name="imagen" onChange={handleImageChange} />
                 <div>
                     <h4>Estado *</h4>
-                    <select className="seleccion" name="estado" value={productoActual.estado} onChange={manejarCambio}><br/>
+                    <select className="seleccion" name="estado" value={producto.estado} onChange={handleDataChange}>
                         <option value="publicado">Publicado</option>
                         <option value="no_publicado">No Publicado</option>
                     </select>
-                    {estadoError && <p style={{ color: 'red' }}>{estadoError}</p>}
                 </div>
-                <div>
-                    <h4>Artesano *</h4>
-                    <select className="seleccion" name="artesano" value={productoActual.artesano} onChange={manejarCambio}>
-                        {artesanos.map(artesano => (
-                            <option key={artesano.id} value={artesano.id}>
-                                {artesano.nombre}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-                <button className="botones" onClick={modoEdicion ? editarProducto : agregarProducto}>
-                    {modoEdicion ? "✎ Guardar Cambios" : "✎ Agregar"}
+                <button className="botones" onClick={isEditing ? handleDataSubmit : handleNewProductSubmit}>
+                    {isEditing ? "✎ Guardar Cambios" : "✎ Agregar"}
                 </button>
             </div><br/>
-
 
 <div id="productos-lista">
   <h2>Productos de la Cooperativa</h2>
@@ -238,10 +239,10 @@ const PerfilProducto = ({ initialProductoId }) => {
         <p><strong>Stock:</strong> {prod.stock}</p>
         <p><strong>Descripción:</strong> {prod.descripcion}</p>
         <div className="producto-imagenes">
-          {prod.imagenes && prod.imagenes.map((imagen) => (
+          {prod.fotos && prod.fotos.map((foto) => (
             <img
-              key={imagen.id}
-              src={imagen.imagen_url || "URL_DE_IMAGEN_POR_DEFECTO"}
+              key={foto.id}
+              src={foto.ubicacion || "URL_DE_IMAGEN_POR_DEFECTO"}
               alt={`Imagen de ${prod.nombre}`}
             />
           ))}
@@ -267,7 +268,7 @@ const PerfilProducto = ({ initialProductoId }) => {
     </tr>
   </thead>
   <tbody>
-    {filteredAndSortedProductos.map((producto) => (
+    {productos.map((producto) => (
       <tr key={producto.id}>
         <td>{producto.nombre}</td>
         <td>{producto.precio}</td>
@@ -277,11 +278,11 @@ const PerfilProducto = ({ initialProductoId }) => {
         <td>{producto.estado}</td>
         <td>{producto.categoria}</td>
         <td>
-          {producto.imagenes && producto.imagenes.length > 0 ? (
-            producto.imagenes.map((url, index) => (
+          {producto.fotos && producto.fotos.length > 0 ? (
+            producto.fotos.map((foto, index) => (
               <img
                 key={index}
-                src={url}
+                src={foto.ubicacion}
                 alt={`Imagen de ${producto.nombre}`}
                 style={{ width: "100px", marginRight: "5px" }}
               />
@@ -291,13 +292,13 @@ const PerfilProducto = ({ initialProductoId }) => {
           )}
         </td>
         <td>
-          <button className="botones" onClick={() => seleccionarParaEditar(producto)}>✎ Editar</button>
+          <button className="botones" onClick={() => setIsEditing(true)}>✎ Editar</button>
           <button className="botones" onClick={() => borrarProducto(producto.id)}>🗑 Borrar</button>
         </td>
       </tr>
-
     ))}
-</div>
+  </tbody>
+</table>
 
 <div className="contenedor-boton-cambiar-imagen">
   <button onClick={() => setIsImageEditing(true)}>

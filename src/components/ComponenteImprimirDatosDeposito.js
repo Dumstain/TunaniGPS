@@ -57,7 +57,7 @@ export const ComponenteImprimirDatosDeposito = () => {
             <b>Datos de la compra</b>
           </h4>
           <h3>
-            Total: <b>${1230.89} MXN</b>
+            Total: <b>${1020.8} MXN</b>
           </h3>
         </div>
 

@@ -20,12 +20,12 @@ const ComponentePedido = () => {
 
         try {
             const responseCooperativa = await axios.get(
-                `http://127.0.0.1:8000/api/cooperativa/${usuarioId}/`
+                `https://tunaniback-0bd56842295c.herokuapp.com/api/cooperativa/${usuarioId}/`
             );
             if (responseCooperativa.data.id) {
                 setCooperativaId(responseCooperativa.data.id);
                 const responseVentas = await axios.get(
-                    `http://127.0.0.1:8000/api/cooperativas/${responseCooperativa.data.id}/ventas/?excluir_estado=entregado`
+                    `https://tunaniback-0bd56842295c.herokuapp.com/api/cooperativas/${responseCooperativa.data.id}/ventas/?excluir_estado=entregado`
                 );
                 setVentas(responseVentas.data);
             } else {
@@ -48,7 +48,7 @@ const ComponentePedido = () => {
 
     const handleCheckboxChange = async (ventaId, nuevoEstado) => {
         try {
-            await axios.patch(`http://127.0.0.1:8000/api/ventas/${ventaId}/update/`, {
+            await axios.patch(`https://tunaniback-0bd56842295c.herokuapp.com/api/ventas/${ventaId}/update/`, {
                 estado_pedido: nuevoEstado,
             });
             // Actualizar la lista de ventas con el nuevo estado
@@ -78,7 +78,7 @@ const ComponentePedido = () => {
 
     const actualizarEstadoVenta = async (ventaId, nuevoEstado) => {
         try {
-            await axios.patch(`http://127.0.0.1:8000/api/ventas/${ventaId}/`, {
+            await axios.patch(`https://tunaniback-0bd56842295c.herokuapp.com/api/ventas/${ventaId}/`, {
                 estado: nuevoEstado,
             });
             // Actualizar la lista de ventas con el nuevo estado
@@ -97,7 +97,7 @@ const ComponentePedido = () => {
 
     const cancelarVenta = async (ventaId) => {
         try {
-            await axios.delete(`http://127.0.0.1:8000/api/ventas/${ventaId}/cancelar`);
+            await axios.delete(`https://tunaniback-0bd56842295c.herokuapp.com/api/ventas/${ventaId}/cancelar`);
             setVentas(ventas.filter((venta) => venta.id !== ventaId));
         } catch (error) {
             console.error("Error al cancelar la venta:", error);

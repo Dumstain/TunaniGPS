@@ -20,11 +20,11 @@ const ComponenteReporte = () => {
     }
 
     try {
-      const responseCooperativa = await axios.get(`http://127.0.0.1:8000/api/cooperativa/${usuarioId}/`);
+      const responseCooperativa = await axios.get(`https://tunaniback-0bd56842295c.herokuapp.com/api/cooperativa/${usuarioId}/`);
       if (responseCooperativa.data.id) {
         const startDate = `${year}-${month}-01`;
         const endDate = `${year}-${month}-${new Date(year, month, 0).getDate()}`;
-        let url = `http://127.0.0.1:8000/api/cooperativas/${responseCooperativa.data.id}/ventas/?estado=entregado&fecha_inicio=${startDate}&fecha_fin=${endDate}`;
+        let url = `https://tunaniback-0bd56842295c.herokuapp.com/api/cooperativas/${responseCooperativa.data.id}/ventas/?estado=entregado&fecha_inicio=${startDate}&fecha_fin=${endDate}`;
 
         const responseVentas = await axios.get(url);
         setVentas(responseVentas.data);

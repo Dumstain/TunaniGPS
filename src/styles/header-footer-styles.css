@@ -1,7 +1,81 @@
+/* Header and Footer Styles */
+header, footer {
+    position: fixed;
+    width: 100vw; /* 100% del ancho de la ventana */
+    z-index: 1000; /* Asegura que se muestre sobre otros elementos */
+}
+
+header {
+    padding-top: 0;
+    height: 50px; /* Ajuste del header a 50px de altura */
+    background-color: #E6D5FF; /* Asegura que el header tenga un color de fondo */
+}
+
+footer {
+    bottom: 0;
+    height: 40px; /* Ajuste de la altura del footer */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: rgb(0, 0, 0); /* Asegura que el footer tenga un color de fondo */
+}
+
+body, .contenido-principal {
+    padding-top: 50px; /* Ajusta este valor según la altura del header */
+    padding-bottom: 40px; /* Ajusta este valor según la altura del footer */
+}
+
+.grid-layout-header {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    font-family: 'Century Gothic', sans-serif;
+    display: grid;
+    grid-template-rows: 50px auto; /* Ajuste del header a 50px */
+    text-align: center;
+    overflow: hidden; /* Impide el scroll en el grid-layout */
+    background-color: aqua;    z-index: 1000; /* Asegura que se muestre sobre otros elementos */
+
+}
+
+.grid-layout-footer {
+    display: grid;
+    text-align: left;
+    height: 40px; 
+    padding-top: 12px;
+    padding-left: 10px;
+    background-color: rgb(0, 0, 0);   
+}
+
+.grid-layout-categorias, .grid-layout-cabecera {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+
+}
+
+.grid-layout-categorias {
+    background-color: #873287;
+    grid-template-columns: repeat(8, auto);
+    color: white;
+
+}
+
+.grid-layout-cabecera {
+    background-color: #E6D5FF;
+    grid-template-columns: 7% 24% 40% auto auto auto auto auto;
+    color: white;
+
+}
+
+/* Dropdown Menu */
 .user-dropdown {
     position: relative;
     display: inline-block;
     cursor: pointer;
+    z-index: 1000; /* Asegura que se muestre sobre otros elementos */
+
 }
 
 .user-dropdown .dropdown-content {
@@ -9,12 +83,17 @@
     position: absolute;
     background-color: #f9f9f9;
     min-width: 160px;
+    min-height: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 10;
+    z-index: 1000; /* Asegura que se muestre sobre otros elementos */
+    margin-bottom: auto;
 }
 
 .user-dropdown:hover .dropdown-content {
     display: block;
+    z-index: 1000; /* Asegura que se muestre sobre otros elementos */
+    padding-bottom: 50px	;
+
 }
 
 .user-dropdown .dropdown-content a {
@@ -22,10 +101,14 @@
     padding: 12px 16px;
     text-decoration: none;
     display: block;
+    z-index: 1000; /* Asegura que se muestre sobre otros elementos */
+
 }
 
 .user-dropdown .dropdown-content a:hover {
     background-color: #f1f1f1;
+    z-index: 1000; /* Asegura que se muestre sobre otros elementos */
+
 }
 
 /* Responsive styles */
@@ -35,45 +118,18 @@
     }
 }
 
-
-.grid-layout-header {
-    margin: 0;
-    padding: 0;
-    height: auto;
-    width: 100%;
-    font-family: 'Century Gothic', sans-serif;
-}
-
-header {
-    position: fixed;
-    top: 0;
-    width: 100vw; /* 100% del ancho de la ventana */
-    z-index: 1000; /* Asegura que el header se muestre sobre otros elementos */
-  }
-  
-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100vw; /* 100% del ancho de la ventana */
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    z-index: 1000; /* Asegura que el footer se muestre sobre otros elementos */
-  }
-
-.grid-layout-categorias a{
+/* Links */
+.grid-layout-categorias a, .grid-layout-footer a, .titulo2 a {
     color: white;
     text-decoration: none;
 }
 
-.grid-layout-footer a{
-    color: white;
-    text-decoration: none;
-}
-.titulo2 a{
+.titulo2 a {
     color: black;
-    text-decoration: none;
+    margin-right: 300px;
 }
+
+/* Button Styles */
 .inicio-sesion {
     font-family: 'Century Gothic', sans-serif;
     font-size: 16px;
@@ -83,16 +139,12 @@ footer {
     border: none;
     box-shadow: none;
     outline: none;
-    cursor: pointer; /* Cambia el cursor a mano para indicar que es clickeable */
-    transition: color 0.3s ease; /* Agrega transición para el color */
+    cursor: pointer;
+    transition: color 0.3s ease;
 }
 
-.inicio-sesion:hover {
-    color: #da70d6; /* Cambia el color al pasar el mouse */
-}
-
-.inicio-sesion:focus {
-    color: #da70d6; /* Cambia el color al enfocar el botón, para accesibilidad */
+.inicio-sesion:hover, .inicio-sesion:focus {
+    color: #da70d6;
     outline: none; /* Asegura que no hay un contorno al enfocar */
 }
 
@@ -100,49 +152,105 @@ footer {
     color: #ba55d3; /* Cambia el color al hacer clic en el botón */
 }
 
+/* Category Styles */
 .cat1 {
-    background-color: #873287; /* Change the background color */
-    padding: 10px; /* Add some padding */
-    margin: 5px; /* Add some margin */
-    border-radius: 5px; /* Round the corners */
-    text-align: center; /* Center the text */
+    background-color: #873287; 
+    padding: 10px; 
+    margin-top: 5px; 
+    margin-bottom: 35px; 
+    border-radius: 5px; 
+    text-align: center; 
 }
 
 .cat1:hover {
     background-color: #280D38;
     width: 100%;
     height: 100%;
-    padding-top: 3px;
+    padding-top: 1px;
 }
 
-.grid-layout-header{
+/* Title Styles */
+.titulo2 {
+    font-family: 'Roboto Slab';
+    color: black;
+    font-size: 64px;
+}
+
+.logo {
+    width: 100px;
+    height: 100px;
+}
+
+.logo-idioma, .logo-soporte, .logo-bolsa {
+    justify-self: start;
+    width: 35px;
+    height: 35px;
+    align-self: center;
+}
+
+/* Search Box */
+#cajaBuscador {
+    width: 80%; /* Por defecto */
+    height: 30px;
+    padding: 10px;
+    border: none;
+    background-color: #E6D5FF;
+    outline: none;
+    font-family: 'Century Gothic', sans-serif;
+    font-size: 16px;
+    box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.2);
+    margin-right: 300px;
+}
+
+/* Content */
+.grid-layout-contenido {
     display: grid;
-    grid-template-columns: auto; /* 2 columnas */
-    /* 1fr para la fila que debe expandirse y llenar el espacio restante */
-    grid-template-rows: 100px 50px;
+    grid-template-columns: 60% 40%; /* 2 columnas */
+    grid-template-rows: 100px auto;
     width: 100vw; /* 100% del ancho de la ventana */
     justify-content: stretch;
-    margin: 0 auto;
     text-align: center;
-    overflow: hidden; /*Impide el scroll en el grid-layout */
-    background-color: aqua;
+    margin-top: 150px; /* Ajusta este valor según la altura real de tu header */
+    margin-bottom: 60px; /* Agrega un margen inferior si es necesario, dependiendo de la altura de tu footer */
 }
 
-.grid-layout-categorias{
-    display: grid;
-    grid-column: 1/ span 2; /* cuantas columnas quiero que ocupe ese contenedor */  
-    background-color: #873287;
-    grid-template-columns: auto auto auto auto auto auto auto auto ;
-    width: 100%;
-    height: 100%;
+.caja-titulo-cooperativa {
+    grid-column: 1 / span 2; 
+    font-size: 32px;
+    font-weight: bold;
+    padding: 30px;
+}
+
+/* Content and Image */
+.texto-cooperativa {
+    margin-left: 100px;
+    margin-right: 5%;
+    font-size: 20px;
+    text-align: left;
     align-items: center;
-    color: white;
-    
 }
 
+.caja3 {
+    margin-right: 100px;
+}
+
+.caja3 img {
+    width: 100%;
+    height: 90%;
+    margin: 4%;
+}
+
+/* General image adjustments to ensure responsiveness */
+img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* Combo Box */
 .combo-box-categorias {
     width: 100%;
-    height: 100%;
+    height: 50%;
     outline: none;
     background-color: #873287;
     border: none;
@@ -153,119 +261,9 @@ footer {
     border-radius: 10px;
 }
 
-.combo-box-categorias option{
+.combo-box-categorias option {
     background-color: white;
     color: #873287;
     width: 100px;
     height: 100px;
-}
-
-
-.grid-layout-cabecera{
-    display: grid;
-    grid-column: 1/ span 2; /* cuantas columnas quiero que ocupe ese contenedor */  
-    background-color: #E6D5FF;
-    grid-template-columns: 7% 24% 40% auto auto auto auto auto;
-    width: 100%;
-    height: 100%;
-    align-items: center;
-    color: white;
-}
-
-.grid-layout-footer {
-    display: grid;
-    text-align: left;
-    height: 40px; 
-    width: 100vw; /* 100% del ancho de la ventana */
-    width: 100%; /* 100% del ancho de la ventana */
-    padding-top: 12px;
-    padding-left: 10px;
-    background-color: rgb(0, 0, 0);   
-}
-
-
-
-.titulo2{
-    font-family: 'Roboto Slab';
-    color:black;
-    font-size: 64px;
-}
-
-.logo{
-    width: 100px;
-    height: 100px;
-
-}
-
-.logo-idioma, .logo-soporte, .logo-bolsa {
-    justify-self: start; /* Alinea el div al inicio de la celda horizontalmente */
-    width: 35px;
-    height: 35px;
-    align-self: center; /* Alinea el div al inicio de la celda verticalmente */
-
-}
-
-
-
-
-#cajaBuscador{
-    width: 80%; /* Por defecto */
-    height: 30px;
-    padding: 10px;
-    border: none;
-    background-color: #E6D5FF;
-    outline: none;
-    font-family: 'Century Gothic', sans-serif;
-    font-size: 16px;
-    /* Sombra interna estilo 3D */
-    box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.2);
-}
-
-/* Contenido */
-
-.grid-layout-contenido{
-    display: grid;
-    grid-template-columns: 60% 40%; /* 2 columnas */
-    grid-template-rows: 100px auto;
-    width: 100vw; /* 100% del ancho de la ventana */
-    justify-content: stretch;
-    margin: 0 auto;
-    text-align: center;
-     /* Ajusta este valor según la altura real de tu header */
-    margin-top: 150px;
-    /* Agrega un margen inferior si es necesario, dependiendo de la altura de tu footer */
-    margin-bottom: 60px;
-}
-
-.caja-titulo-cooperativa{
-    grid-column: 1/ span 2; /* cuantas columnas quiero que ocupe ese contenedor */  
-    font-size: 32px;
-    font-weight: bold;
-    padding: 30px;
-}
-/* contenido e imagen */
-
-.texto-cooperativa{
-    margin-left: 100px;
-    margin-right: 5%;
-    font-size: 20px;
-    text-align: left;
-    align-items: center;
-}
-
-.caja3 img{
-    width: 100%;
-    height: 90%;
-    margin: 4%;
-}
-
-.caja3 {
-    margin-right: 100px;
-}
-
-/* Ajustes generales para todas las imágenes para asegurar la responsividad */
-img {
-    max-width: 100%;
-    height: auto;
-    object-fit: contain;
 }

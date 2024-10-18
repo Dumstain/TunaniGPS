@@ -32,7 +32,7 @@ const [searchTerm, setSearchTerm] = useState("");
   const fetchCooperativas = async () => {
     try {
       const response = await axios.get(
-        "http://127.0.0.1:8000/api/cooperativas/"
+        "https://tunaniback-0bd56842295c.herokuapp.com/api/cooperativas/"
       );
       setCooperativas(response.data);
     } catch (error) {
@@ -42,7 +42,7 @@ const [searchTerm, setSearchTerm] = useState("");
 
   const fetchArtesanos = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:8000/api/artesanos/");
+      const response = await axios.get("https://tunaniback-0bd56842295c.herokuapp.com/api/artesanos/");
       setArtesanos(response.data);
     } catch (error) {
       mostrarMensaje("error", "Error al obtener los artesanos.");
@@ -113,7 +113,7 @@ const [searchTerm, setSearchTerm] = useState("");
     if (estaEditando) {
       try {
         await axios.put(
-          `http://127.0.0.1:8000/api/artesanos/actualizar/${idArtesanoEditando}/`,
+          `https://tunaniback-0bd56842295c.herokuapp.com/api/artesanos/actualizar/${idArtesanoEditando}/`,
           nuevoArtesano
         );
         mostrarMensaje("success", "Artesano editado exitosamente.");
@@ -124,7 +124,7 @@ const [searchTerm, setSearchTerm] = useState("");
     } else {
       try {
         await axios.post(
-          "http://127.0.0.1:8000/api/artesanos/agregar/",
+          "https://tunaniback-0bd56842295c.herokuapp.com/api/artesanos/agregar/",
           nuevoArtesano
         );
         mostrarMensaje("success", "Artesano agregado exitosamente.");
@@ -142,7 +142,7 @@ const [searchTerm, setSearchTerm] = useState("");
 
   const eliminarArtesano = async (id) => {
     try {
-      await axios.delete(`http://127.0.0.1:8000/api/artesanos/eliminar/${id}/`);
+      await axios.delete(`https://tunaniback-0bd56842295c.herokuapp.com/api/artesanos/eliminar/${id}/`);
       mostrarMensaje("success", "Artesano eliminado exitosamente.");
       fetchArtesanos(); // Recargar la lista después de eliminar
     } catch (error) {

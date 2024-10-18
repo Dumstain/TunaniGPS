@@ -17,6 +17,9 @@ import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
 import { ComponenteImprimirDatosDeposito } from './components/ComponenteImprimirDatosDeposito';
 import { ComponenteFormaPago } from './components/ComponenteFormaPago';
+import ComponentePagoTarjeta from './components/ComponentePagoTarjeta';
+
+import InicioLayout from './layouts/inicioLayout';
 
 
 // Importaciones adicionales.....
@@ -27,17 +30,15 @@ function App() {
       <AuthProvider>
       <Routes>
         
-        <Route path="/" element={<Inicio />} />
+        <Route path="/" element={<InicioLayout />} />
         <Route path="perfilUsuario" element={<ComponentePerfilUsuario/>} /> // Ruta para el perfil del usuario
         
         <Route path="datosDeposito" element={<ComponenteImprimirDatosDeposito />} /> // Ruta para el ticket de los datos de compra para deposito
         <Route path="datosFormaPago" element={<ComponenteFormaPago />} /> // Ruta para selelcionar el
-
+        <Route path="datosTarjeta" element={<ComponentePagoTarjeta />} /> // Ruta para el ticket de los datos de compra para deposito
         <Route path="/login" element={<LoginPage />} />
         <Route path="/representante" element={
-          <ProtectedRoute>        
           <RepresentanteLayout />
-          </ProtectedRoute>
         }>
              <Route path="artesanos" element={<Artesanos />} />
              <Route path="artesanias" element={<ComponenteGestionProductos/>} />

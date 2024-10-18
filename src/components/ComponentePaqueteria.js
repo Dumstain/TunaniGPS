@@ -34,9 +34,9 @@ const ComponentePaqueteria = () => {
             }
 
             try {
-                const responseCooperativa = await axios.get(`http://127.0.0.1:8000/api/cooperativa/${usuarioId}/`);
+                const responseCooperativa = await axios.get(`https://tunaniback-0bd56842295c.herokuapp.com/api/cooperativa/${usuarioId}/`);
                 const cooperativaId = responseCooperativa.data.id;
-                const responsePaqueterias = await axios.get(`http://127.0.0.1:8000/api/cooperativas/${cooperativaId}/paqueteria/`);
+                const responsePaqueterias = await axios.get(`https://tunaniback-0bd56842295c.herokuapp.com/api/cooperativas/${cooperativaId}/paqueteria/`);
                 setPaqueterias(responsePaqueterias.data);
                 setLoading(false);
             } catch (error) {
@@ -86,11 +86,11 @@ const ComponentePaqueteria = () => {
         const usuarioId = userObj.id;
         
         try {
-            const responseCooperativa = await axios.get(`http://127.0.0.1:8000/api/cooperativa/${usuarioId}/`);
+            const responseCooperativa = await axios.get(`https://tunaniback-0bd56842295c.herokuapp.com/api/cooperativa/${usuarioId}/`);
             const cooperativaId = responseCooperativa.data.id;
 
             const method = paqueteria.id ? 'patch' : 'post';
-            const url = `http://127.0.0.1:8000/api/cooperativas/${cooperativaId}/paqueteria/${paqueteria.id ? `${paqueteria.id}/` : ''}`;
+            const url = `https://tunaniback-0bd56842295c.herokuapp.com/api/cooperativas/${cooperativaId}/paqueteria/${paqueteria.id ? `${paqueteria.id}/` : ''}`;
             const response = await axios[method](url, { ...paqueteria, cooperativa: cooperativaId });
 
             setIsEditing(false);
@@ -109,9 +109,9 @@ const ComponentePaqueteria = () => {
             
             const fetchPaqueterias = async () => {
                 try {
-                    const responseCooperativa = await axios.get(`http://127.0.0.1:8000/api/cooperativa/${usuarioId}/`);
+                    const responseCooperativa = await axios.get(`https://tunaniback-0bd56842295c.herokuapp.com/api/cooperativa/${usuarioId}/`);
                     const cooperativaId = responseCooperativa.data.id;
-                    const responsePaqueterias = await axios.get(`http://127.0.0.1:8000/api/cooperativas/${cooperativaId}/paqueteria/`);
+                    const responsePaqueterias = await axios.get(`https://tunaniback-0bd56842295c.herokuapp.com/api/cooperativas/${cooperativaId}/paqueteria/`);
                     setPaqueterias(responsePaqueterias.data);
                     setLoading(false);
                 } catch (error) {

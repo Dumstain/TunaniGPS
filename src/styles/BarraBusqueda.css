@@ -5,12 +5,12 @@
     width: 956px;
     margin: 30px auto; /* Centra la barra de búsqueda */
     height: 77px;
-    background-color: rgba(246, 244, 255, 1);
+    background-color: rgb(255, 255, 255);
     display: flex;
     align-items: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Agrega un ligero sombreado */
     border-radius: 10px;
-    padding: 15px;
+    padding-left: 15px;
   }
   
   .barra-busqueda {

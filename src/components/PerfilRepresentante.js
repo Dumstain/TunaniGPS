@@ -29,7 +29,7 @@ const PerfilRepresentante = () => {
 
     axios
       .get(
-        `http://localhost:8000/api/usuario/representante/${representanteId}/`
+        `https://tunaniback-0bd56842295c.herokuapp.com/api/usuario/representante/${representanteId}/`
       )
       .then((response) => {
         const data = response.data;
@@ -127,7 +127,7 @@ const PerfilRepresentante = () => {
 
     axios
       .patch(
-        `http://localhost:8000/api/usuario/representante/${representanteId}/`,
+        `https://tunaniback-0bd56842295c.herokuapp.com/api/usuario/representante/${representanteId}/`,
         updateData
       )
       .then(() => {

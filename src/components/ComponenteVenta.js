@@ -22,11 +22,11 @@ const ComponenteVenta = () => {
 
         try {
             const responseCooperativa = await axios.get(
-                `http://127.0.0.1:8000/api/cooperativa/${usuarioId}/`
+                `https://tunaniback-0bd56842295c.herokuapp.com/api/cooperativa/${usuarioId}/`
             );
             if (responseCooperativa.data.id) {
                 setCooperativaId(responseCooperativa.data.id);
-                let url = `http://127.0.0.1:8000/api/cooperativas/${responseCooperativa.data.id}/ventas/?estado=entregado`;
+                let url = `https://tunaniback-0bd56842295c.herokuapp.com/api/cooperativas/${responseCooperativa.data.id}/ventas/?estado=entregado`;
 
                 if (fechaInicio && fechaFin) {
                     url += `&fecha_inicio=${fechaInicio}&fecha_fin=${fechaFin}`;

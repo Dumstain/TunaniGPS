@@ -23,12 +23,12 @@ const PerfilCooperativa = () => {
     const fetchData = async () => {
       try {
         const responseCooperativa = await axios.get(
-          `http://localhost:8000/api/cooperativa/${usuarioId}/`
+          `https://tunaniback-0bd56842295c.herokuapp.com/api/cooperativa/${usuarioId}/`
         );
         setCooperativa(responseCooperativa.data);
 
         const responseArtesanos = await axios.get(
-          `http://localhost:8000/api/artesanos/`
+          `https://tunaniback-0bd56842295c.herokuapp.com/api/artesanos/`
         );
         setArtesanos(responseArtesanos.data);
 
@@ -70,7 +70,7 @@ const PerfilCooperativa = () => {
       imageFormData.append("imagen", file);
       await axios
         .post(
-          `http://localhost:8000/api/subir-foto-cooperativa/${cooperativa.id}/`,
+          `https://tunaniback-0bd56842295c.herokuapp.com/api/subir-foto-cooperativa/${cooperativa.id}/`,
           imageFormData,
           {
             headers: {
@@ -114,7 +114,7 @@ const PerfilCooperativa = () => {
     const usuarioId = localStorage.getItem("userId");
     await axios
       .patch(
-        `http://localhost:8000/api/cooperativa/${usuarioId}/`,
+        `https://tunaniback-0bd56842295c.herokuapp.com/api/cooperativa/${usuarioId}/`,
         updateFormData,
         {
           headers: {

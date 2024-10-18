@@ -19,11 +19,11 @@ export const ComponenteSidebar = ({ onSectionChange }) => {
 
       try {
         const responseCooperativa = await axios.get(
-          `http://127.0.0.1:8000/api/cooperativa/${usuarioId}/`
+          `https://tunaniback-0bd56842295c.herokuapp.com/api/cooperativa/${usuarioId}/`
         );
         if (responseCooperativa.data.id) {
           const responsePedidos = await axios.get(
-            `http://127.0.0.1:8000/api/cooperativas/${responseCooperativa.data.id}/ventas/?excluir_estado=entregado`
+            `https://tunaniback-0bd56842295c.herokuapp.com/api/cooperativas/${responseCooperativa.data.id}/ventas/?excluir_estado=entregado`
           );
           setNumNotiPedido(responsePedidos.data.length); // Actualizar la cantidad de pedidos no entregados
         } else {

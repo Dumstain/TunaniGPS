@@ -14,7 +14,7 @@ const useCooperativaId = () => {
 
     const fetchCooperativaId = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/cooperativa/${usuarioId}/`);
+        const response = await axios.get(`https://tunaniback-0bd56842295c.herokuapp.com/api/cooperativa/${usuarioId}/`);
         const cooperativaId = response.data.id;
         localStorage.setItem('cooperativaId', cooperativaId);
         setCooperativaId(cooperativaId);

@@ -54,7 +54,7 @@ const RegisterForm = ({ toggleForm }) => {
         const nombreUser = `${nombre.split(' ')[0]} ${paterno}`;
 
         try {
-            const response = await fetch('http://127.0.0.1:8000/api/registro/', {
+            const response = await fetch('https://tunaniback-0bd56842295c.herokuapp.com/api/registro/', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

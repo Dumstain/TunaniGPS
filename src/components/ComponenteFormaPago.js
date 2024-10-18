@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';  // Importa useNavigate desde react-router-dom
 import "../../src/styles/forma-pago-style.css";
 import dhlLogo from '../assets/logos_paqueterias/dhl.png';
 import fedexLogo from '../assets/logos_paqueterias/FedEX.jpg';
@@ -6,36 +7,24 @@ import upsLogo from '../assets/logos_paqueterias/UPS-logo.png';
 import estafetaLogo from '../assets/logos_paqueterias/estafeta.png';
 import correosMexicoLogo from '../assets/logos_paqueterias/correosmexico.png';
 import ComponenteHeader from '../components/ComponenteHeader';
+import diablitoocumicho from '../assets/imagenes/diablitoocumicho.png';
+import calaveraartesania from '../assets/imagenes/calaveraartesania.jpg';
+
 
 export const ComponenteFormaPago = () => {
+  const navigate = useNavigate(); // Crea una instancia del hook useNavigate
   const [envio, setEnvio] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedDireccion, setSelectedDireccion] = useState(null);
 
   useEffect(() => {
     const opcionesEnvio = [
-      { 
-        nombre: "DHL - $150.00 MXN", 
-        img: dhlLogo 
-      },
-      { 
-        nombre: "FedEx - $130.00 MXN", 
-        img: fedexLogo 
-      },
-      { 
-        nombre: "UPS - $140.00 MXN", 
-        img: upsLogo 
-      },
-      { 
-        nombre: "Estafeta - $120.00 MXN", 
-        img: estafetaLogo 
-      },
-      { 
-        nombre: "Correos de México - $100.00 MXN", 
-        img: correosMexicoLogo 
-      }
+      { nombre: "DHL - $150.00 MXN", img: dhlLogo },
+      { nombre: "FedEx - $130.00 MXN", img: fedexLogo },
+      { nombre: "UPS - $140.00 MXN", img: upsLogo },
+      { nombre: "Estafeta - $120.00 MXN", img: estafetaLogo },
+      { nombre: "Correos de México - $100.00 MXN", img: correosMexicoLogo },
     ];
-
     const indiceAleatorio = Math.floor(Math.random() * opcionesEnvio.length);
     setEnvio(opcionesEnvio[indiceAleatorio]);
   }, []);
@@ -53,20 +42,13 @@ export const ComponenteFormaPago = () => {
   const renderModal = () => {
     if (!modalOpen) return null;
 
-    
-
     return (
-      
       <div className="forma-pago-modal-overlay">
-       
-      
         <div className="forma-pago-modal-content">
-          
           <div className='titulo-con-selector-contenedor'>
-              <h3 className="titulo-sin-accion">Seleccionar dirección de envío</h3>
-              <button onClick={() => setModalOpen(false)}>✖</button>
-            </div>
-
+            <h3 className="titulo-sin-accion">Seleccionar dirección de envío</h3>
+            <button onClick={() => setModalOpen(false)}>✖</button>
+          </div>
           {direcciones.map((direccion) => (
             <div key={direccion.id} className="forma-pago-direccion-item" onClick={() => handleSelectDireccion(direccion)}>
               <p>{direccion.usuario}</p>
@@ -80,10 +62,12 @@ export const ComponenteFormaPago = () => {
     );
   };
 
+  const handleRealizarPedido = () => {
+    navigate('/datosDeposito');  // Navega a la ruta deseada
+  };
+
   return (
-    
     <div className="forma-pago-container">
-      
       {renderModal()}
       <div className="principal-forma-pago-container">
         <div className="contenedor-1-pago">
@@ -105,35 +89,29 @@ export const ComponenteFormaPago = () => {
               )}
             </div>
           </div>
-
           <div className="sub-contenedor-resumen-envio">
             <div className="titulo-resumen-compra">
               <h3 className='titulo-sin-accion'>Resumen de compra</h3>
             </div>
-
             <div className="forma-pago-resumen">
               <div className="ficha-producto-compra">
-                <img src="https://olins.com.sv/storage/posts/April2023/Trx1yPuzSpKw4TzMzuXq.webp" alt="Souvenir Torre Eiffel" /> 
-                <div className='Inf-producto'> 
-                  <p><b>{'Nombre Artesania'}</b></p>
-                  <p>{'1'} pzs</p>
-                  <p>${'10000'} MXN</p>
+                <img src={diablitoocumicho} alt="Diablito Ocumicho" />
+                <div className='Inf-producto'>
+                  <p><b>Diablito Ocumicho</b></p>
+                  <p>1 pzs</p>
+                  <p>$400.00 MXN</p>
                 </div>
               </div>
-
               <div className="ficha-producto-compra">
-                <img src="https://olins.com.sv/storage/posts/April2023/Trx1yPuzSpKw4TzMzuXq.webp" alt="Souvenir Torre Eiffel" /> 
-                <div className='Inf-producto'> 
-                  <p><b>{'Nombre Artesania'}</b></p>
-                  <p>{'1'} pzs</p>
-                  <p>${'10000'} MXN</p>
+                <img src={calaveraartesania} alt="Calavera de colores" />
+                <div className='Inf-producto'>
+                  <p><b>Calavera de Colores</b></p>
+                  <p>1 pzs</p>
+                  <p>$350.00 MXN</p>
                 </div>
               </div>
-              
             </div>
-
             <div className="linea"></div>
-
             {envio && (
               <div className="forma-pago-envio">
                 <h3 className="titulo-sin-accion">Tipo de envío</h3>
@@ -143,9 +121,7 @@ export const ComponenteFormaPago = () => {
                 </div>
               </div>
             )}
-
             <div className="linea"></div>
-
             <div className="forma-pago-metodo">
               <h3 className="titulo-sin-accion">Forma de pago</h3>
               <div>
@@ -170,18 +146,17 @@ export const ComponenteFormaPago = () => {
               <h3 className="titulo-sin-accion">Resumen del pedido</h3>
             </div>
             <div className="detalles-pedido">
-              <p>Precio de venta <span>$0.00 MXN</span></p>
-              <p>Gasto de envío <span>$0.00 MXN</span></p>
-              <p>Total <span>$0.00 MXN</span></p>
+              <p>Precio de venta <span>$750.00 MXN</span></p>
+              <p>Gasto de envío <span>$130.00 MXN</span></p>
+              <p>Subtotal <span>$880.00 MXN</span></p>
             </div>
             <div className="linea"></div>
             <div className="subtotal">
-              <p>Subtotal <span>$0.00 MXN</span></p>
+              <p> Total <span>$1020.8 MXN</span></p>
             </div>
             <div className="acciones">
               <button id="boton-cancelar">✖ Cancelar</button>
-              <button id="boton-realizar">✔ Realizar pedido</button>
-            </div>
+              <button id="boton-realizar" onClick={handleRealizarPedido}>✔ Realizar pedido</button>            </div>
           </div>
         </div>
       </div>

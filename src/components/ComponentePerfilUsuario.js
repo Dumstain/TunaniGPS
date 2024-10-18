@@ -28,7 +28,7 @@ const PerfilComprador = () => {
     }
 
     axios
-      .get(`http://localhost:8000/api/usuario/comprador/${compradorId}/`)
+      .get(`https://tunaniback-0bd56842295c.herokuapp.com/api/usuario/comprador/${compradorId}/`)
       .then((response) => {
         const data = response.data;
         setFormData({
@@ -107,7 +107,7 @@ const PerfilComprador = () => {
     };
 
     axios
-      .patch(`http://localhost:8000/api/usuario/comprador/${compradorId}/`, updateData)
+      .patch(`https://tunaniback-0bd56842295c.herokuapp.com/api/usuario/comprador/${compradorId}/`, updateData)
       .then(() => {
         mostrarMensaje("success", "Información de comprador actualizada con éxito.");
         setIsEditing(false);
